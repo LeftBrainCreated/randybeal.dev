@@ -1,0 +1,90 @@
+div.preview {
+    position: absolute;
+    position-area: center;
+    top: 20%;
+    width: 80%;
+    height: 80%;
+    background-color: #9c9ca7;
+  
+    border-radius: 40px;
+  
+    display: flex;
+    flex-direction: row;
+    z-index: 1;
+  }
+  
+  // div.preview > div {
+  //   flex: 1;
+  // }
+  
+  div.inner {
+    display: flex;
+    flex-direction: column;
+    gap:40px;
+  
+    align-items: center;
+  }
+  
+  div.inner.left {
+    flex:1;
+    margin-top: 80px;
+  }
+  
+  div.inner.mid {
+    flex:1;
+    margin-top: 80px;
+    font-size: 1.5rem;
+    text-align: center;
+  
+    border-left-color: black;
+    border-right-color: black;
+    border-style: groove;
+    border-radius: 40px;
+  }
+
+  .inner.mid span {
+    display: inline-block;
+    opacity: 0;  /* Initially hidden */
+    transform: translateY(10px);  /* Start position */
+    animation: fadeInUp 0.5s ease-out forwards;
+  }
+  
+  div.inner.right {
+    flex:3;
+  }
+  
+  div.inner.right > p {
+    margin: 60px;
+    font-size: 1.3rem;
+  }
+  
+  .button {
+    padding: 10px 15px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+  }
+  
+  .button:hover {
+    background: lightgray;
+    transform: scale(1.1);
+  }
+  
+  .button.active {
+    background: #b94528;
+    color: white;
+    transform: scale(1.1);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

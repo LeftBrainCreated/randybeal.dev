@@ -1,0 +1,48 @@
+mat-form-field.drop-down {
+    width: 100%;
+    max-width: 100%;
+    min-width: 200px;
+    box-sizing: border-box;
+  }
+
+div.tech-stack {
+    flex: 2;
+    display: grid;
+    // width: 80%;
+    grid-template-columns: repeat(2, 1fr);
+    // row-gap: 20px;
+    column-gap: 20px;
+    justify-items: center;
+    align-items: start;
+    height: 100%;
+    margin-bottom: 10px;
+}
+
+div.tech-stack > span {
+    transform: translateY(10px); 
+    animation: fadeInUp 0.5s ease-out forwards;
+    font-size: 1.2rem;
+    word-wrap: break-word;
+    max-width: 100%;
+}
+
+div.content {
+    flex: 4;
+    width: 90%;
+}
+
+app-mobile-image-stack {
+    overflow: hidden;
+    flex: 3
+}
+
+@keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }

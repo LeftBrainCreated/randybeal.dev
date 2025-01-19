@@ -1,0 +1,32 @@
+<!-- <div class="preview"> -->
+    <div class="inner left">
+        <div 
+        *ngFor="let button of section?.buttons"
+        class="button"
+        [class.active]="button === activeButton"
+        (click)="setActiveButton(button)">
+        {{ button.name }}
+      </div>
+    </div>
+
+    <div class="inner mid">
+        <h3>Tech Stack:</h3>
+        <span 
+          *ngFor="let tech of activeButton?.techStack; let i = index" 
+          [style.animationDelay]="(i * 0.1) + 's'"
+          class="fade-in">
+          {{ tech }}
+        </span>
+      </div>
+    
+    <div class="inner right">
+        <p [innerHTML]="activeButton?.description || 'No description available.'">
+        </p>
+        <div class="image-slideshow">
+          <app-image-stack [images]="activeButton?.images!"></app-image-stack>
+        </div>
+        <div class="links">
+            <span *ngFor="let link of activeButton?.link">{{link}}</span>
+        </div>
+      </div>
+  <!-- </div> -->

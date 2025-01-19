@@ -1,0 +1,28 @@
+
+div.page-content {
+    display: flex;
+    flex-direction: column;
+}
+
+div.page-content > div {
+    display: flex;
+    flex-direction: column;
+}
+
+div.page-content > div > span {
+    left: 10px;
+    // position: absolute;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+div.page-content > div > span:nth-of-type(2) {
+    font-size: .8rem;
+}
+
+div.page-content > div > p {
+    font-size: 1.2rem;
+    line-height: 1.25;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}

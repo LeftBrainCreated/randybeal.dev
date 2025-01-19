@@ -1,0 +1,336 @@
+body {
+    background: linear-gradient(to bottom, #8d8988, #c0bfbf);
+    transition: background 0.2s;
+    background-position: calc(var(--scroll, 0) * 1%);
+}
+
+.header {
+    position:sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.perma-bar {
+    position: absolute;
+    width: 100%;
+    background-color: #8d8988;
+    top: 0;
+}
+
+div.perma-bar > h2 {
+  margin-left: 40px;
+}
+  
+div#img-1 {
+    /* Scroll range: 0% to 10% */
+    --start-scroll: 1;
+    --end-scroll: 30;
+    --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
+    
+    width: 30%;
+    align-content: center;
+    position: absolute;
+    right: calc(10vw + var(--progress) * 50vw); /* Moves smoothly to the right */
+    opacity: clamp(1 - var(--progress), 0, 1); /* Fades out at the end of the animation */
+    transition: right 0.2s ease-out, opacity 0.3s ease-out; /* Smooth movement and fade */
+
+    height: 90vh;
+    overflow: hidden;
+  }
+
+img.img-1 {
+    width: 85%;
+}
+ 
+section.top-section.full-screen-section > div.left-intro > p#intro {
+    top: 200px;
+    position: relative;
+    font-size: 2rem;
+}
+
+.full-screen-section {
+    height: 110vh;
+    text-align: center;
+    // padding: 1rem;
+    position: relative;
+  }
+
+//   .full-screen-section.first-main-section {
+//     padding: 0;
+//   }
+  
+  .full-screen-section h1 {
+    position: sticky;
+    top: 15%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for centering */
+    margin: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    opacity: 1; /* Ensure visibility by default */
+  }
+  
+  .full-screen-section h1.inactive {
+    opacity: 0;
+    transform: translateY(-150%); /* Move out of view */
+  }
+
+section.full-screen-section {
+    display: flex;
+    flex-direction: row;
+    // z-index: -1;
+}
+
+section.section-back {
+  z-index: -1;
+}
+
+// .top-section 
+.left,
+// .top-section 
+.right {
+  flex-basis: 0;
+  flex-grow: 1;
+  padding: 1rem;
+  padding-left: 3rem;
+  z-index: -1;
+}
+
+// div.left > span {
+//   position: sticky;
+//   top:365px;
+//   font-size: 4rem;
+//   line-height: 1.6;
+// }
+
+div.left > p > span {
+  font-weight: bold;
+  left: 20px;
+  position: absolute;
+  margin-left: -2vw;
+}
+
+div.left > p#intro {
+  position: sticky;
+  top:230px;
+  font-size: 2.0rem;
+  line-height: 1.5;
+  margin: 0 4vw 0 4vw;
+}
+
+div.left > p:not(#intro) {
+  position: sticky;
+  top:250px;
+  font-size: 2.2rem;
+  line-height: 1.5;
+  margin: 0 4vw 0 4vw;
+  
+  opacity: 1;
+  transition: opacity 0.2s ease-out;
+}
+
+div.left p.fade-out {
+  opacity: 0;
+}
+
+.right > h1 {
+    text-align: left;
+}
+
+.top-section {
+  text-align: start;
+//   padding: 20px;
+  position: fixed;
+  top:0;
+  left: 10vw;
+}
+
+.top-section .left {
+//   background-color: rgb(248, 250, 249, var(--background-opacity));
+background: linear-gradient(
+    210.65deg,
+    rgb(152, 157, 157, .35) 0%,
+    rgb(189, 194, 194, .35) 100%
+  );
+}
+
+p#intro {
+  /* Scroll range: 20% to 25% */
+  --start-scroll: 20;
+  --end-scroll: 24;
+  --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
+
+  opacity: clamp(1 - var(--progress), 0, 1); /* Gradually fades out from 1 to 0 */
+  transition: opacity 0.2s ease-out; /* Smooth fade effect */
+}
+
+#dev-preview {
+  /* Scroll ranges */
+  --start-scroll: 26; /* Start sliding */
+  --end-scroll: 31;   /* End sliding */
+  --fade-start: 38;   /* Start fading */
+  --fade-end: 40;     /* End fading */
+
+  /* Progress calculations */
+  --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
+  --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
+
+  /* Sliding effect using transform */
+  transform: translateY(calc(80vh - (clamp(0, var(--progress), 1) * 75vh))); /* Moves from 80vh to 5vh */
+
+  /* Opacity fades out between 38 and 40 scroll */
+  opacity: calc(1 - clamp(0, var(--fade-progress), 1));
+
+  /* Smooth transitions */
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+#eng-preview {
+  /* Scroll ranges */
+  --start-scroll: 41; /* Start sliding */
+  --end-scroll: 46;   /* End sliding */
+  --fade-start: 53;   /* Start fading */
+  --fade-end: 55;     /* End fading */
+
+  /* Progress calculations */
+  --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
+  --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
+
+  /* Sliding effect using transform */
+  transform: translateY(calc(80vh - (clamp(0, var(--progress), 1) * 75vh))); /* Moves from 80vh to 5vh */
+
+  /* Opacity fades out between 38 and 40 scroll */
+  opacity: calc(1 - clamp(0, var(--fade-progress), 1));
+
+  /* Smooth transitions */
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+#arc-preview {
+  /* Scroll ranges */
+  --start-scroll: 56; /* Start sliding */
+  --end-scroll: 61;   /* End sliding */
+  --fade-start: 68;   /* Start fading */
+  --fade-end: 70;     /* End fading */
+
+  /* Progress calculations */
+  --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
+  --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
+
+  /* Sliding effect using transform */
+  transform: translateY(calc(80vh - (clamp(0, var(--progress), 1) * 75vh))); /* Moves from 80vh to 5vh */
+
+  /* Opacity fades out between 38 and 40 scroll */
+  opacity: calc(1 - clamp(0, var(--fade-progress), 1));
+
+  /* Smooth transitions */
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+div#dad-preview {
+  /* Scroll ranges */
+  --start-scroll: 71; /* Start sliding */
+  --end-scroll: 76;   /* End sliding */
+  --fade-start: 83;   /* Start fading */
+  --fade-end: 85;     /* End fading */
+
+  /* Progress calculations */
+  --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
+  --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
+
+  /* Sliding effect using transform */
+  transform: translateY(calc(80vh - (clamp(0, var(--progress), 1) * 75vh))); /* Moves from 80vh to 5vh */
+
+  /* Opacity fades out between 38 and 40 scroll */
+  opacity: calc(1 - clamp(0, var(--fade-progress), 1));
+
+  /* Smooth transitions */
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+div#quirk-preview {
+  /* Scroll ranges */
+  --start-scroll: 86; /* Start sliding */
+  --end-scroll: 91;   /* End sliding */
+  --fade-start: 98;   /* Start fading */
+  --fade-end: 100;     /* End fading */
+
+  /* Progress calculations */
+  --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
+  --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
+
+  /* Sliding effect using transform */
+  transform: translateY(calc(80vh - (clamp(0, var(--progress), 1) * 75vh))); /* Moves from 80vh to 5vh */
+
+  /* Opacity fades out between 38 and 40 scroll */
+  opacity: calc(1 - clamp(0, var(--fade-progress), 1));
+
+  /* Smooth transitions */
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+div.preview,
+app-preview-section.preview {
+  position: absolute;
+  position-area: center;
+  top: 5%;
+  width: 90%;
+  height: 70%;
+  background-color: #9c9ca7;
+
+  border-radius: 40px;
+
+  display: flex;
+  flex-direction: row;
+  z-index: 1;
+}
+
+// div.preview > div {
+//   flex: 1;
+// }
+
+div.inner {
+  display: flex;
+  flex-direction: column;
+  gap:40px;
+
+  align-items: center;
+}
+
+div.inner.left {
+  flex:1;
+  margin-top: 80px;
+}
+
+div.inner.mid {
+  flex:1;
+  margin-top: 80px;
+  font-size: 1.5rem;
+  text-align: center;
+
+  border-left-color: black;
+  border-right-color: black;
+  border-style: groove;
+  border-radius: 40px;
+}
+
+div.inner.right {
+  flex:3;
+}
+
+div.inner.right > p {
+  margin: 60px;
+  font-size: 1.6rem;
+}
+
+:root {
+  --scroll: 0;
+}
+
+.top-section {
+  position: sticky;
+  top: 0;
+  --background-opacity: calc(100% - 1% * var(--scroll) * 100 / 150);
+}
+
+.first-main-section {
+  padding-top: 10vh;
+}

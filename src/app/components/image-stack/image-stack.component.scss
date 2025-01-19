@@ -1,0 +1,27 @@
+.image-stack {
+  position: relative;
+  width: 500px; /* Adjust width to match image size */
+  height: 250px;
+
+  top: 75px
+}
+
+.image-stack img,
+.image-stack video {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  transition: transform 0.3s ease, left 0.3s ease, z-index 0.3s ease;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  border-style: solid;
+  border-width: thin;
+}
+
+/* Scale up the hovered image and bring it to the front */
+.image-stack img.active,
+.image-stack video.active {
+  transform: scale(1.2);
+  z-index: 100 !important;
+}

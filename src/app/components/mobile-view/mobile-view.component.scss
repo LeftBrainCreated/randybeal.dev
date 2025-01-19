@@ -1,0 +1,248 @@
+
+
+body {
+    background-color: gray;
+    // overflow-y: hidden;
+
+    font-family: monospace;
+}
+
+p {
+    margin: 30px;
+}
+
+div.header {
+    position:fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+}
+
+.perma-bar {
+    // position: absolute;
+    
+    background-color: #8d8988;
+    top: 0;
+}
+
+div.perma-bar > h2 {
+  margin-left: 40px;
+}
+
+div.main {
+    text-align: center;
+    max-width: 100vw;
+    background-color: gray;
+    // margin-top: 60px;
+    // display: flex;
+    // flex-direction: column;
+    // // gap: 40px;
+    // justify-content: space-evenly;
+    // height: 100%;
+    // overflow: visible;
+}
+
+div#img-1.image-container {
+    position: relative;
+    height: 50vh; /* Limit height to 30% of viewport height */
+    overflow: hidden; /* Hide parts of the image that exceed the height */
+    display: flex;
+    justify-content: center; /* Center the image horizontally */
+    align-items: center; /* Center the image vertically */
+}
+
+div#img-1 > img {
+    width: 100%; /* Ensure the image covers the full width */
+    height: auto; /* Maintain the aspect ratio */
+    object-fit: cover; /* Scale and crop the image to fit the container */
+    // object-position: center top;
+    margin-top: auto;
+}
+
+// div.full-screen {
+//     // min-height: 80vh;
+//     height: 100vh;
+// }
+
+div.full-screen > h2 {
+    text-align: center;
+    border-bottom-style: groove;
+    width: 90%;
+}
+
+div.full-screen {
+    height: 120vh;
+}
+
+div.full-screen:not(.first-section)  {
+    top: 100px;
+    position: sticky;
+}
+
+div.full-screen.first-section {
+    top: 0;
+    position: sticky;
+
+    opacity: calc(1 - var(--scroll) / 10);
+    // transform: scale(calc(1 - var(--scroll) / 20));
+    transition: opacity 0.2s ease-out;
+}
+
+div.page-content {
+    display: flex;
+    flex-direction: column;
+}
+
+div.page-content > div > span {
+    left: 10px;
+    position: absolute;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+div.page-content > div > p {
+    font-size: 1.2rem;
+    line-height: 1.25;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+
+#dev-preview {
+    --start-scroll: 18; 
+    --end-scroll: 23;
+    --fade-start: 30;
+    --fade-end: 32;
+  
+    --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
+    --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
+  
+    transform: translateY(calc(85vh - (clamp(0, var(--progress), 1) * 85vh))); /* Moves from 80vh to 5vh */
+    opacity: calc(1 - clamp(0, var(--fade-progress), 1));
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  }
+
+div.full-screen.dev-text {
+    --fade-start: 30;
+    --fade-end: 32;
+
+    --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
+
+    opacity: calc(1 - clamp(0, var(--fade-progress), 1));
+}
+  
+#eng-preview {
+    --start-scroll: 37; 
+    --end-scroll: 43;
+    --fade-start: 50;
+    --fade-end: 52;
+  
+    --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
+    --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
+  
+    transform: translateY(calc(85vh - (clamp(0, var(--progress), 1) * 85vh))); /* Moves from 80vh to 5vh */
+    opacity: calc(1 - clamp(0, var(--fade-progress), 1));
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  }
+
+div.full-screen.eng-text {
+    --fade-start: 50;
+    --fade-end: 52;
+
+    --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
+
+    opacity: calc(1 - clamp(0, var(--fade-progress), 1));
+}
+  
+#arc-preview {
+    --start-scroll: 56; 
+    --end-scroll: 61;
+    --fade-start: 68;
+    --fade-end: 70;
+  
+    --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
+    --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
+  
+    transform: translateY(calc(85vh - (clamp(0, var(--progress), 1) * 85vh))); /* Moves from 80vh to 5vh */
+    opacity: calc(1 - clamp(0, var(--fade-progress), 1));
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  }
+
+div.full-screen.arc-text {
+    --fade-start: 68;
+    --fade-end: 70;
+
+    --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
+
+    opacity: calc(1 - clamp(0, var(--fade-progress), 1));
+}
+  
+#dad-preview {
+    --start-scroll: 75; 
+    --end-scroll: 80;
+    --fade-start: 87;
+    --fade-end: 89;
+  
+    --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
+    --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
+  
+    transform: translateY(calc(85vh - (clamp(0, var(--progress), 1) * 85vh))); /* Moves from 80vh to 5vh */
+    opacity: calc(1 - clamp(0, var(--fade-progress), 1));
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  }
+
+div.full-screen.dad-text {
+    --fade-start: 87;
+    --fade-end: 89;
+
+    --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
+
+    opacity: calc(1 - clamp(0, var(--fade-progress), 1));
+}
+  
+#quirk-preview {
+    --start-scroll: 94; 
+    --end-scroll: 97;
+    --fade-start: 98;
+    --fade-end: 100;
+  
+    --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
+    --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
+  
+    transform: translateY(calc(85vh - (clamp(0, var(--progress), 1) * 85vh))); /* Moves from 80vh to 5vh */
+    opacity: calc(1 - clamp(0, var(--fade-progress), 1));
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  }
+
+div.full-screen.quirk-text {
+    --fade-start: 94;
+    --fade-end: 97;
+
+    --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
+
+    opacity: calc(1 - clamp(0, var(--fade-progress), 1));
+}
+  
+
+
+app-mobile-preview.preview-section {
+    position: fixed;
+    position-area: center;
+    align-items: center;
+    top: 15%;
+
+    display: block;
+    width: 90%;
+
+    border-radius: 40px;
+    background-color: #9c9ca7;
+    min-width: 90%;
+    max-width: 90%;
+    height: 75%;
+
+    display: flex;
+    flex-direction: column;
+    // gap:30px;
+    // justify-content: space-around;
+  }
+

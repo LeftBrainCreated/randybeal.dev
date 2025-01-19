@@ -1,0 +1,32 @@
+<div class="image-stack" [style.transform]="'translateX(-' + (maxOffset / 2) + 'px)'">
+  <ng-container *ngFor="let media of images; let i = index">
+    <!-- If it's an image -->
+    <img
+      *ngIf="!isVideo(media)"
+      [src]="media"
+      [alt]="'Image ' + (i + 1)"
+      [style.left]="getOffset(i)"
+      [style.top]="getYOffset(i)"
+      [style.zIndex]="getZIndex(i)"
+      [class.active]="activeIndex === i"
+      (mouseenter)="bringToFront(i)"
+      (mouseleave)="resetZIndex()"
+    />
+
+    <!-- If it's a video -->
+    <video
+      *ngIf="isVideo(media)"
+      [src]="media"
+      autoplay
+      muted
+      controls 
+      playsinline
+      [style.left]="getOffset(i)"
+      [style.top]="getYOffset(i)"
+      [style.zIndex]="getZIndex(i)"
+      [class.active]="activeIndex === i"
+      (mouseenter)="bringToFront(i)"
+      (mouseleave)="resetZIndex()">
+    </video>
+  </ng-container>
+</div>

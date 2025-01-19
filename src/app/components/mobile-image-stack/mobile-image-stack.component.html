@@ -1,0 +1,38 @@
+<div class="gallery-container">
+    <div
+      class="gallery-track"
+      [style.transform]="'translateX(' + translateX * 100 + 'vw)'"
+      (mousedown)="onSwipeStart($event)"
+      (touchstart)="onSwipeStart($event)"
+      (mousemove)="onSwipeMove($event)"
+      (touchmove)="onSwipeMove($event)"
+      (mouseup)="onSwipeEnd()"
+      (touchend)="onSwipeEnd()"
+    >
+      <ng-container *ngFor="let media of parsedMediaList">
+        <img
+          *ngIf="media.type === 'image'"
+          [src]="media.src"
+          class="gallery-item"
+          alt="Gallery Image"
+        />
+        <video
+          *ngIf="media.type === 'video'"
+          [src]="media.src"
+          class="gallery-item"
+          [controls]="'controls'"
+          autoplay
+        ></video>
+      </ng-container>
+    </div>
+  
+    <!-- Indicators -->
+    <div class="gallery-indicators">
+      <span
+        *ngFor="let media of parsedMediaList; let i = index"
+        [class.active]="i === currentIndex"
+        (click)="goToSlide(i)"
+      ></span>
+    </div>
+  </div>
+  

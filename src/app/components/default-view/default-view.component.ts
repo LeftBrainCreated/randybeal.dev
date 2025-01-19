@@ -1,0 +1,85 @@
+import { Component, Inject, PLATFORM_ID, OnInit, HostListener, ElementRef, Renderer2, Input } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { ContentService } from '../../services/content.service'
+import { PreviewSectionComponent } from "../preview-section/preview-section.component";
+import { SectionContent } from '../../models/content.model';
+
+enum ScreenSizeEnum {
+  Large,
+  Medium,
+  Small
+}
+
+
+@Component({
+  selector: 'app-default-view',
+  standalone: true,
+  imports: [PreviewSectionComponent],
+  templateUrl: './default-view.component.html',
+  styleUrl: './default-view.component.scss'
+})
+export class DefaultViewComponent {
+  private isBrowser: boolean;
+
+  sections: SectionContent[];
+  devPreviewSection?: SectionContent;
+  engPreviewSection?: SectionContent;
+  arcPreviewSection?: SectionContent;
+
+  opacityValue = 1;
+
+  @Input()
+  screenSize!: ScreenSizeEnum;
+  
+
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private contentService: ContentService,
+    private el: ElementRef, 
+    private renderer: Renderer2
+  ) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+    this.sections = this.contentService.getSections();
+    
+    this.devPreviewSection = this.sections.find(sec => sec.section === 'dev-preview');
+    this.engPreviewSection = this.sections.find(sec => sec.section === 'eng-preview');
+    this.arcPreviewSection = this.sections.find(sec => sec.section === 'arc-preview');
+  }
+  
+  @HostListener('window:scroll', [])
+  onScroll(): void {
+    const paragraphs = this.el.nativeElement.querySelectorAll('.left p:not(#intro)');
+    const startFade = window.innerHeight * 0.2;
+    const endFade = window.innerHeight * 0.1;
+
+    paragraphs.forEach((paragraph: HTMLElement) => {
+      const rect = paragraph.getBoundingClientRect();
+      let opacity = 1;
+
+      if (rect.top <= startFade) {
+        const fadeProgress = (rect.top - endFade) / (startFade - endFade);
+        opacity = Math.max(0, Math.min(1, fadeProgress));
+      }
+
+      this.renderer.setStyle(paragraph, 'opacity', opacity.toString());
+    });
+  }
+
+  ngOnInit(): void {
+  
+    if (this.isBrowser) {
+      window.addEventListener('scroll', this.setScrollVar.bind(this));
+      window.addEventListener('resize', this.setScrollVar.bind(this));
+      this.setScrollVar(); 
+    }
+  }
+
+  setScrollVar(): void {
+      const htmlElement = document.documentElement;
+      const scrollHeight = htmlElement.scrollHeight - htmlElement.clientHeight; // Total scrollable height
+      const percentScrolled = (window.scrollY / scrollHeight) * 100;
+      console.log(percentScrolled);
+      htmlElement.style.setProperty('--scroll', `${percentScrolled}`);
+  }
+
+}

@@ -1,0 +1,16 @@
+<mat-form-field class="drop-down">
+    <mat-label>Project Samples</mat-label>
+    <select matNativeControl [(ngModel)]="selectedButton" (change)="updateContent()">
+      <option *ngFor="let button of section?.buttons" [value]="button.name">{{button.name}}</option>
+    </select>
+  </mat-form-field>
+  
+  <div class="tech-stack">
+    <span *ngFor="let tech of selectedButtonContent?.techStack; let i = index" 
+    [style.animationDelay]="(i * 0.1) + 's'"
+          class="fade-in">{{tech}}</span>
+  </div>
+  
+  <div class="content" [innerHTML]="selectedButtonContent?.description"></div>
+
+<app-mobile-image-stack [mediaList]="selectedButtonContent!.images"></app-mobile-image-stack>
