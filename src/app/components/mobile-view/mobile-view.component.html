@@ -5,10 +5,10 @@
   
   </div>
 
-<div class="main">
+<div class="main" (click)="deactivateContactCard()">
     <div class="full-screen first-section">
         <div id="img-1" class="image-container">
-          <img src="assets/images/img-3.jpg" class="img-1">
+          <img src="assets/images/img-2.jpg" class="img-1">
         </div>
         <p id="intro">
             Hi! My name is Randy Beal, self-taught developer with nearly 
@@ -25,17 +25,18 @@
         <div class="page-content">
             <div>
                 <span>Languages</span>
-                <p>C# | Node.js | Angular | React | PHP | Python | Javascript | JQuery | Solidity | VB | VBA | Bash | Powershell | AutoIt</p>
+                <p>C# | Node.js | Angular | React | Go | PHP | Python | Javascript | JQuery | Solidity | VB | VBA | Bash | Powershell | AutoIt</p>
             </div>
             <div>
-                <span>Utilities</span>
-                <p>AI | NuGet | NPM/Yarn | Composer | HardHat | Express.Js | Web3 | OAuth | XUnit</p>
+                <span>Technologies / Utilities</span>
+                <p>AI | Postman | NuGet | NPM/Yarn | Composer | HardHat | Express.Js | Web3 | OAuth | XUnit | WebSphere MQ</p>
             </div>
             <div>
                 <span>Database</span>
-                <p>T-Sql | NoSql | MySql | SSMS | PhpMyAdmin | Snowflake | SQLite</p>
+                <p>T-Sql | Entity Framework | NoSql | MySql | SSMS | PhpMyAdmin | Snowflake | SQLite</p>
             </div>
         </div>
+        <img src="assets/images/arts/developer.png">
     </div>
     <div class="full-screen eng-text">
         <h2>Engineer</h2>
@@ -50,23 +51,29 @@
             </div>
             <div>
                 <span>Monitoring and Logging</span>
-                <p>Dynatrace | Graylog | Azure</p>
+                <p>Dynatrace | Graylog | App Insights</p>
             </div>
         </div>
+        <img src="assets/images/arts/engineer.png">
     </div>
-
+    
     <div class="full-screen arc-text">
         <h2>Architect</h2>
         <div class="page-content">
             <div>
                 <span>Architectural Patterns</span>
-                <p>Microservice | MVC | P2P | Client/Server | Iterative | Domain/Data Driven</p>
+                <p>Event-Driven Architecture | Microservice | SOA | Serverless Architecture | n-Tier Design | P2P | Client/Server | Iterative | Domain/Data Driven | Balanced Optimization</p>
+            </div>
+            <div>
+                <span>Security Practices</span>
+                <p>OWASP | Secure SDLC | OAuth | SAML | SSL/TLS, PKI</p>
             </div>
             <div>
                 <span>Certifications</span>
                 <p>Whitehat | AWS Certified</p>
             </div>
         </div>
+        <img src="assets/images/arts/architect.png">
     </div>
     <div class="full-screen dad-text">
         <h2>Father</h2>
@@ -78,6 +85,7 @@
                     the inner workings, I'm cool with them just not being tech illiterate.</p>
             </div>
         </div>
+        <app-mixed-image-stack [images]="dadImages"></app-mixed-image-stack>
     </div>
     <div class="full-screen quirk-text">
         <h2>A Little Bit Quirky...</h2>
@@ -89,6 +97,7 @@
                     I take a sincere pride in what I do and in my ability to help so many people adapt into this fast changing world we live in.</p>
             </div>
         </div>
+        <app-mixed-image-stack [images]="quirkyImages"></app-mixed-image-stack>
     </div>
 
      <app-mobile-preview class="preview-section" id="dev-preview" [section]="devPreviewSection"></app-mobile-preview>
@@ -97,4 +106,13 @@
 
 
      <app-work-exp></app-work-exp>
+     <app-contact-card [class]="cardActive ? 'activated' : ''"></app-contact-card>
+
+     <div [class]="cardActive ? 'logo activated' : isLogoActivated ? 'logo activated' : 'logo'" (click)="activateContactCard($event)">
+        <div class="logo-content">
+          <span>R</span>
+          <span>B</span>
+        </div>
+      </div>
+
   </div>

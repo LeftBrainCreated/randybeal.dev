@@ -1,5 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
-:root {
+
+@font-face {
+    font-family: 'SmoochSans';
+    src: url('/assets/fonts/SmoochSans-Regular.ttf') format('truetype');
+    font-weight: 400; /* Normal */
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'SmoochSans';
+    src: url('/assets/fonts/SmoochSans-Bold.ttf') format('truetype');
+    font-weight: 700; /* Bold */
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'RobotoSlab';
+    src: url('/assets/fonts/RobotoSlab-Regular.ttf') format('truetype');
+    font-weight: 400; /* Normal */
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'RobotoSlab';
+    src: url('/assets/fonts/RobotoSlab-Bold.ttf') format('truetype');
+    font-weight: 700; /* Bold */
+    font-style: normal;
+  }
+  
+
+
+  :root {
     --scroll: 0;
 }
 
@@ -8,6 +38,7 @@ body {
     transition: background 0.2s;
     background-position: calc(var(--scroll, 0) * 1%);
     margin: 0;
+    font-family: 'RobotoSlab', serif;
   }
 
   div.button {

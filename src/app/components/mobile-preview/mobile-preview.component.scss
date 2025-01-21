@@ -21,7 +21,7 @@ div.tech-stack {
 div.tech-stack > span {
     transform: translateY(10px); 
     animation: fadeInUp 0.5s ease-out forwards;
-    font-size: 1.2rem;
+    font-size: 1rem;
     word-wrap: break-word;
     max-width: 100%;
 }
@@ -29,11 +29,12 @@ div.tech-stack > span {
 div.content {
     flex: 4;
     width: 90%;
+    font-size: .9rem;
 }
 
 app-mobile-image-stack {
     overflow: hidden;
-    flex: 3
+    flex: 4;
 }
 
 @keyframes fadeInUp {

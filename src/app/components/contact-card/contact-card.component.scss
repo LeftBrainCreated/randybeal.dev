@@ -1,0 +1,227 @@
+$maincolor: #6acd79;
+$secondarycolor: #2a2b39;
+
+::selection {color:#fff;background:$secondarycolor;}
+::-moz-selection {color:#fff;background:$secondarycolor;}
+
+body, html {
+    // font-family: 'Raleway', sans-serif;
+    font: 400 1rem / 1.5rem Roboto, sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+
+  .card {
+    background-color: #2b2c3c; /* Dark blue background */
+    width: 350px;
+    // height: 300px;
+    text-align: center;
+    text-align: -webkit-center;
+    overflow: hidden;
+    box-shadow: 6px -6px 10px 5px rgba(0, 0, 0, 0.45);
+    position: relative;
+    place-self: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    transition: height 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+}
+
+div.triangle {
+    position: absolute;
+    height: 100px;
+    width: 100px;
+    bottom: 0;
+    transform: rotate(45deg);
+    background-color: #2b2c3c;
+    z-index: 1;
+}
+
+// .card::after {
+//     content: "";
+//     border-left: 30px solid transparent;
+//     border-right: 30px solid transparent;
+//     border-top: 30px solid #2b2c3c;
+//     position: absolute;
+//     bottom: 50%; /* Align with the bottom edge of .card-top */
+//     left: 50%; /* Center horizontally */
+//     transform: translate(-50%, 50%); /* Align perfectly at the bottom center */
+//     z-index: 10; /* Ensure it appears above other content */
+//   }
+
+.card-top {
+    display: flex; /* Enable Flexbox */
+    justify-content: center; /* Horizontally center the logo */
+    align-items: center; /* Vertically center the logo */
+    height: 50%; /* Maintain the height of the .card-top */
+    padding: 20px 10px; /* Keep the padding */
+    background-color: #2b2c3c;
+    position: relative;
+    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+}
+
+.card:hover .card-top {
+    padding: 7px 3px;
+}
+
+.card:hover .card-top > .logo{
+    height: 35px;
+    width: 35px;
+    padding: 3px;
+    // position: relative;
+    transform: translateX(-315%); 
+}
+
+.card:hover .logo-content {
+    height: 35px;
+    width: 35px;
+}
+
+.card:hover .logo-content > span {
+    font-size: 1.3rem;
+}
+  
+  .logo {
+    background-color: #fff;
+    padding: 10px;
+    width: 100px;
+    height: 100px;
+    display: flex; /* Use Flexbox inside the logo if needed */
+    justify-content: center;
+    align-items: center;
+    transition: width 0.4s ease-in-out, height 0.4s ease-in-out, transform 0.4s ease-in-out;
+    z-index: 2;
+  }
+
+  .logo-content {
+    background-color: #77c043; /* Green background */
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+    // border-radius: 4px;
+  }
+
+  .logo-content > span {
+    color: white;
+    font-size: 4rem;
+    transition: font-size 0.4s ease-in-out;
+  }
+  
+  .logo-content span:nth-of-type(1) {
+    font-weight: 800;
+  }
+  
+  .logo-content span:nth-of-type(2) {
+    font-weight: 100;
+  }
+  
+  .info {
+    height: 50%;
+    background-color: #ffffff;
+    padding: 20px 10px;
+    position: relative;
+    overflow: hidden;
+    transition: height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+}
+  
+  .card:hover .info {
+    height: 75%; /* Expand the bottom section */
+  }
+
+  .info h1,
+.info p {
+    transition: opacity 0.4s ease-in-out;
+}
+
+.card:hover > .info > h1,
+.card:hover > .info > p {
+  opacity: 0; /* Hide the default info on hover */
+  height: 0;
+//   display: none;
+}
+
+  .info h1 {
+    color: #2a2b39;
+    font-weight: 400;
+    font-size: 3.2em;
+    text-align: center;
+    position: relative;
+    margin-bottom: 0.35em;
+  }
+
+  div.info > h1::after {
+    content: '';
+    position: absolute;
+    top: 1.5em;
+    width: 20%;
+    left: 40%;
+    right: 40%;
+    height: 1px;
+    background: $secondarycolor;    
+  }
+  
+  .info p {
+    text-align: center;
+    color: #2a2b39;
+    font-family: "Old Standard TT", serif;
+    font-style: italic;
+  }
+  
+  .contact {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+    height: 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .card:hover .contact {
+    opacity: 1;
+    transform: translateY(0); /* Slide into view */
+    height: 50%;
+  }
+  
+  .contact p {
+    // margin: 5px 0;
+    font-size: 16px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    margin: 0;
+  }
+  
+  .contact i {
+    margin-left: 20px;
+    margin-right: 10px;
+    font-size: 18px;
+    color: #2b2c3c; 
+  }
+
+  .contact a {
+    color: #2b2c3c; /* Link color matches icon */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Highlight links */
+}
+
+.contact a:hover {
+    text-decoration: underline; /* Add underline on hover */
+}
+
+.contact span {
+    font-style: italic; /* Italicize non-link text */
+  }
+
+  div.tooltip {
+    background-color: #2a2b39;
+    color: white;
+    border-radius: 40px;
+  }

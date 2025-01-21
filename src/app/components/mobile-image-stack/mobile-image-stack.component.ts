@@ -34,6 +34,7 @@ export class MobileImageStackComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.setMediaList();
+    // this.startAutoplay();
   }
 
   getMiddleValueAndParity(num: number): { middle: number; isEven: boolean } {
@@ -83,7 +84,7 @@ export class MobileImageStackComponent implements OnInit, OnDestroy, OnChanges {
 
     this.handleInfiniteScroll();
     this.translateX = this.listStartPos - this.currentIndex;
-    this.startAutoplay();
+    this.stopAutoplay();
   }
 
   private getEventX(event: MouseEvent | TouchEvent): number {
@@ -107,7 +108,7 @@ export class MobileImageStackComponent implements OnInit, OnDestroy, OnChanges {
     this.stopAutoplay();
     this.currentIndex = index;
     this.translateX = this.listStartPos - index;
-    this.startAutoplay();
+    this.stopAutoplay();
   }
 
   private startAutoplay(): void {

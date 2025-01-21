@@ -9,4 +9,8 @@ import { Component } from '@angular/core';
 })
 export class ContactCardComponent {
 
+  protected stopClick(event: MouseEvent): void {
+    event.stopPropagation();
+  }
+
 }

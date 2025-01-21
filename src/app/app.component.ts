@@ -12,6 +12,8 @@ enum ScreenSizeEnum {
   Small
 }
 
+// const window:any = {};
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -38,6 +40,13 @@ export class AppComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    setTimeout(() => {
+      window.scrollBy(0, 1);
+      setTimeout(() => {
+        window.scrollBy(0, -1);
+      }, 50);
+    }, 100);
+
     if (this.isBrowser) {
       window.addEventListener('scroll', this.setScrollVar.bind(this));
       window.addEventListener('resize', this.setScrollVar.bind(this));
