@@ -4,6 +4,16 @@ body {
     background-position: calc(var(--scroll, 0) * 1%);
 }
 
+div.main.mid p {
+    font-size: 1.5rem;
+}
+
+h1 {
+    font-family: "SmoochSans", sans-serif;
+    font-size: 5rem;
+    font-weight: bold;
+}
+
 .header {
     position:sticky;
     top: 0;
@@ -20,11 +30,11 @@ body {
 div.perma-bar > h2 {
   margin-left: 40px;
 }
-  
+
 div#img-1 {
     /* Scroll range: 0% to 10% */
     --start-scroll: 1;
-    --end-scroll: 30;
+    --end-scroll: 8;
     --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
     
     width: 30%;
@@ -38,6 +48,20 @@ div#img-1 {
     overflow: hidden;
   }
 
+section.top-section {
+    --start-scroll: 1;
+    --end-scroll: 8;
+    --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
+
+    opacity: clamp(1 - var(--progress), 0, 1); /* Fades out at the end of the animation */
+}
+
+section > div.right > img {
+    top:30%;
+    position: sticky;
+    z-index: -1;
+}
+
 img.img-1 {
     width: 85%;
 }
@@ -49,7 +73,7 @@ section.top-section.full-screen-section > div.left-intro > p#intro {
 }
 
 .full-screen-section {
-    height: 110vh;
+    height: 100vh;
     text-align: center;
     // padding: 1rem;
     position: relative;
@@ -119,7 +143,7 @@ div.left > p#intro {
 div.left > p:not(#intro) {
   position: sticky;
   top:250px;
-  font-size: 2.2rem;
+  font-size: 1.6rem;
   line-height: 1.5;
   margin: 0 4vw 0 4vw;
   
@@ -152,29 +176,29 @@ background: linear-gradient(
   );
 }
 
-p#intro {
-  /* Scroll range: 20% to 25% */
-  --start-scroll: 20;
-  --end-scroll: 24;
-  --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
+// p#intro {
+//   /* Scroll range: 20% to 25% */
+//   --start-scroll: 1;
+//   --end-scroll: 8;
+//   --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
 
-  opacity: clamp(1 - var(--progress), 0, 1); /* Gradually fades out from 1 to 0 */
-  transition: opacity 0.2s ease-out; /* Smooth fade effect */
-}
+//   opacity: clamp(1 - var(--progress), 0, 1); /* Gradually fades out from 1 to 0 */
+//   transition: opacity 0.2s ease-out; /* Smooth fade effect */
+// }
 
 #dev-preview {
   /* Scroll ranges */
-  --start-scroll: 26; /* Start sliding */
-  --end-scroll: 31;   /* End sliding */
-  --fade-start: 38;   /* Start fading */
-  --fade-end: 40;     /* End fading */
+  --start-scroll: 16; /* Start sliding */
+  --end-scroll: 18;   /* End sliding */
+  --fade-start: 28;   /* Start fading */
+  --fade-end: 30;     /* End fading */
 
   /* Progress calculations */
   --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
   --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
 
   /* Sliding effect using transform */
-  transform: translateY(calc(80vh - (clamp(0, var(--progress), 1) * 75vh))); /* Moves from 80vh to 5vh */
+  transform: translateY(calc(85vh - (clamp(0, var(--progress), 1) * 80vh))); /* Moves from 80vh to 5vh */
 
   /* Opacity fades out between 38 and 40 scroll */
   opacity: calc(1 - clamp(0, var(--fade-progress), 1));
@@ -185,17 +209,17 @@ p#intro {
 
 #eng-preview {
   /* Scroll ranges */
-  --start-scroll: 41; /* Start sliding */
-  --end-scroll: 46;   /* End sliding */
-  --fade-start: 53;   /* Start fading */
-  --fade-end: 55;     /* End fading */
+  --start-scroll: 35; /* Start sliding */
+  --end-scroll: 37;   /* End sliding */
+  --fade-start: 45;   /* Start fading */
+  --fade-end: 47;     /* End fading */
 
   /* Progress calculations */
   --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
   --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
 
   /* Sliding effect using transform */
-  transform: translateY(calc(80vh - (clamp(0, var(--progress), 1) * 75vh))); /* Moves from 80vh to 5vh */
+  transform: translateY(calc(85vh - (clamp(0, var(--progress), 1) * 80vh))); /* Moves from 80vh to 5vh */
 
   /* Opacity fades out between 38 and 40 scroll */
   opacity: calc(1 - clamp(0, var(--fade-progress), 1));
@@ -206,59 +230,17 @@ p#intro {
 
 #arc-preview {
   /* Scroll ranges */
-  --start-scroll: 56; /* Start sliding */
-  --end-scroll: 61;   /* End sliding */
-  --fade-start: 68;   /* Start fading */
-  --fade-end: 70;     /* End fading */
+  --start-scroll: 51; /* Start sliding */
+  --end-scroll: 53;   /* End sliding */
+  --fade-start: 61;   /* Start fading */
+  --fade-end: 63;     /* End fading */
 
   /* Progress calculations */
   --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
   --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
 
   /* Sliding effect using transform */
-  transform: translateY(calc(80vh - (clamp(0, var(--progress), 1) * 75vh))); /* Moves from 80vh to 5vh */
-
-  /* Opacity fades out between 38 and 40 scroll */
-  opacity: calc(1 - clamp(0, var(--fade-progress), 1));
-
-  /* Smooth transitions */
-  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
-}
-
-div#dad-preview {
-  /* Scroll ranges */
-  --start-scroll: 71; /* Start sliding */
-  --end-scroll: 76;   /* End sliding */
-  --fade-start: 83;   /* Start fading */
-  --fade-end: 85;     /* End fading */
-
-  /* Progress calculations */
-  --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
-  --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
-
-  /* Sliding effect using transform */
-  transform: translateY(calc(80vh - (clamp(0, var(--progress), 1) * 75vh))); /* Moves from 80vh to 5vh */
-
-  /* Opacity fades out between 38 and 40 scroll */
-  opacity: calc(1 - clamp(0, var(--fade-progress), 1));
-
-  /* Smooth transitions */
-  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
-}
-
-div#quirk-preview {
-  /* Scroll ranges */
-  --start-scroll: 86; /* Start sliding */
-  --end-scroll: 91;   /* End sliding */
-  --fade-start: 98;   /* Start fading */
-  --fade-end: 100;     /* End fading */
-
-  /* Progress calculations */
-  --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
-  --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
-
-  /* Sliding effect using transform */
-  transform: translateY(calc(80vh - (clamp(0, var(--progress), 1) * 75vh))); /* Moves from 80vh to 5vh */
+  transform: translateY(calc(85vh - (clamp(0, var(--progress), 1) * 80vh))); /* Moves from 80vh to 5vh */
 
   /* Opacity fades out between 38 and 40 scroll */
   opacity: calc(1 - clamp(0, var(--fade-progress), 1));
@@ -269,18 +251,26 @@ div#quirk-preview {
 
 div.preview,
 app-preview-section.preview {
-  position: absolute;
+  position: fixed;
   position-area: center;
   top: 5%;
   width: 90%;
-  height: 70%;
+  height: 80%;
   background-color: #9c9ca7;
 
-  border-radius: 40px;
+  border-radius: 10px;
 
   display: flex;
   flex-direction: row;
   z-index: 1;
+
+  border-style: solid;
+  box-shadow: 6px -6px 10px 5px rgba(0, 0, 0, 0.45);
+}
+
+div.preview.hidden,
+app-preview-section.preview.hidden {
+    z-index: -1;
 }
 
 // div.preview > div {
@@ -334,3 +324,80 @@ div.inner.right > p {
 .first-main-section {
   padding-top: 10vh;
 }
+
+app-work-exp {
+    left: 10vw;
+    position: relative;
+    margin-bottom: 40px;
+}
+
+app-mixed-image-stack {
+    margin-top: 40px;
+    position: sticky;
+    top: 30%;
+}
+
+div.logo.activated {
+    opacity: 0;
+}
+
+.logo {
+    opacity: .4;
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    background-color: #fff;
+    padding: 5px;
+    width: 50px;
+    height: 50px;
+    display: flex; /* Use Flexbox inside the logo if needed */
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+    z-index: 2;
+  }
+
+  .logo-content {
+    opacity: 1;
+    background-color: #77c043; /* Green background */
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  }
+
+  .logo-content > span {
+    color: white;
+    font-size: 2rem;
+    transition: font-size 0.4s ease-in-out;
+  }
+  
+  .logo-content span:nth-of-type(1) {
+    font-weight: 800;
+  }
+  
+  .logo-content span:nth-of-type(2) {
+    font-weight: 100;
+  }
+
+div.logo:hover {
+    opacity: 1;
+    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  }
+
+  app-contact-card {
+    margin-top: 40px;
+    z-index: 101;
+    position: relative;
+    margin-bottom: 40px;
+  }
+
+  app-contact-card.activated {
+    margin-top: 0;
+    position: fixed;
+    top: 40%;
+    right: 5vw;    
+  }

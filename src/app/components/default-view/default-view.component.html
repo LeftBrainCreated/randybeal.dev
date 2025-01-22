@@ -5,43 +5,13 @@
   
   </div>
 
-<div class="main">
+<div [class]="screenSize == 1 ? 'main mid' : 'main'" (click)="deactivateContactCard()">
     <div id="img-1">
-      <img src="assets/images/img-3.jpg" class="img-1">
+      <img src="assets/images/img-2.jpg" class="img-1">
     </div>
   
   </div>
-  <section class="top-section full-screen-section">
-    <app-preview-section id="dev-preview" class="preview" [section]="devPreviewSection"></app-preview-section>
-  
-    <app-preview-section id="eng-preview" class="preview" [section]="engPreviewSection"></app-preview-section>
-  
-    <app-preview-section id="arc-preview" class="preview" [section]="arcPreviewSection"></app-preview-section>
-  
-    <div id="dad-preview" class="preview">
-      <div class="inner left">
-        <div class="button">Billing Console</div>
-        <div class="button">Notification Service</div>
-        <div class="button">Shib CoOp</div>
-        <div class="button">Mission City</div>
-        <div class="button">Flow Frenz</div>
-      </div>
-      <div class="inner mid"></div>
-      <div class="inner right">Some Content Here</div>
-    </div>
-  
-    <div id="quirk-preview" class="preview">
-      <div class="inner left">
-        <div class="button">Billing Console</div>
-        <div class="button">Notification Service</div>
-        <div class="button">Shib CoOp</div>
-        <div class="button">Mission City</div>
-        <div class="button">Flow Frenz</div>
-      </div>
-      <div class="inner mid"></div>
-      <div class="inner right">Some Content Here</div>
-    </div>
-  
+  <section class="top-section full-screen-section" (click)="deactivateContactCard()">
     <div class="left">
       <h1>About Me ...</h1>
       <p id="intro">
@@ -61,55 +31,60 @@
   
     </div>
   </section>
-  <section class="full-screen-section first-main-section">
+  <!-- <section class="full-screen-section first-main-section">
     <div class="left">
     </div>
     <div class="right">
       <h1></h1>
     </div>
-  </section>
-  <section class="full-screen-section section-back">
+  </section> -->
+  <section class="full-screen-section section-back" (click)="deactivateContactCard()">
     <div class="left">
       
       <p [style.opacity]="opacityValue">
         <span>Languages</span><br />
-        C# | Node.js | Angular | React | PHP | Python | Javascript | JQuery | Solidity | VB | VBA | Bash | Powershell | AutoIt
+        C# | Node.js | Angular | React | Go | PHP | Python | Javascript | JQuery | Solidity | VB | VBA | Bash | Powershell | AutoIt
         <br /><br />
-        <span>Utilities</span><br />
-        NuGet | NPM/Yarn | Composer | HardHat | Express.Js | Web3 | OAuth | XUnit
+        <span>Technologies / Utilities</span><br />
+        AI | Postman | NuGet | NPM/Yarn | Composer | HardHat | Express.Js | Web3 | OAuth | XUnit | WebSphere MQ
         <br /><br />
         <span>Database</span><br />
-        T-Sql | NoSql | MySql | SSMS | PhpMyAdmin | Snowflake | SQLite
+        T-Sql | Entity Framework | NoSql | MySql | SSMS | PhpMyAdmin | Snowflake | SQLite
       </p>
     </div>
     <div class="right">
       <h1>A Developer</h1>
+      <img src="assets/images/arts/developer.png">
     </div>
   </section>
-  <section class="full-screen-section section-back">
+  <section class="full-screen-section section-back" (click)="deactivateContactCard()">
     <div class="left">
       <p [style.opacity]="opacityValue">
         <span>CI/CD and Infrastructure</span><br />
         GIT | Docker | Jenkins | Terraform | Ansible | ADO | Atlassian
         <br /><br />
         <span>IaaS</span><br />
-        Azure | AWS | GCP
+        Azure | AWS | GCP | Firebase
         <br /><br />
         <span>Monitoring and Logging</span><br />
-        Dynatrace | Graylog
+        Dynatrace | Graylog | App Insights
         <br /><br />
       </p>
     </div>
     <div class="right">
       <h1>An Engineer</h1>
+      <img src="assets/images/arts/developer.png">
     </div>
     <!-- <div data-img-to-show="#img-1"></div> -->
   </section>
-  <section class="full-screen-section section-back">
+  <section class="full-screen-section section-back" (click)="deactivateContactCard()">
     <div class="left">
       <p [style.opacity]="opacityValue">
         <span>Architectural Patterns</span><br />
-        Microservice | MVC | P2P | Client/Server | Iterative | Domain/Data Driven
+        Event-Driven Architecture | Microservice | SOA | Serverless Architecture | n-Tier Design | P2P | Client/Server | Iterative | Domain/Data Driven | Balanced Optimization
+        <br /><br />
+        <span>Security Practices</span><br />
+        OWASP | Secure SDLC | OAuth | SAML | SSL/TLS, PKI
         <br /><br />
         <span>Certifications</span><br />
         Whitehat | AWS Certified
@@ -118,10 +93,11 @@
     </div>
     <div class="right">
       <h1>An Architect</h1>
+      <img src="assets/images/arts/developer.png">
     </div>
     <!-- <div data-img-to-show="#img-2"></div> -->
   </section>
-  <section class="full-screen-section section-back">
+  <section class="full-screen-section section-back" (click)="deactivateContactCard()">
     <div class="left">
       <p [style.opacity]="opacityValue">
         My kids are the most amazing people I have ever met in my life. A couple have grown to follow my interest in tech, but most just aren't inspired by it in that way. To them, it's just 
@@ -131,6 +107,7 @@
     </div>
     <div class="right">
       <h1>A Father</h1>
+      <app-mixed-image-stack [images]="dadImages"></app-mixed-image-stack>
     </div>
     <!-- <div data-img-to-show="#img-3"></div> -->
   </section>
@@ -139,13 +116,30 @@
       <p [style.opacity]="opacityValue">
         Dork, Nerd, Goober. I was cool before cool was in. I believe I carry a unique perspective to the table, in all of my life approaching the daily pressures with an aloofness that's hard to emulate.
         I'm a computer nerd at heart, so I can be socially awkward at times. My jokes (while I think they're brilliant and hilarious) sometimes require a bit of a leap to follow. But I'm also passionate about my work.
-        I take a sincere pride in what I do and in my ability to help so many people adapt into this fast changing world we live in.
+        I take a sincere pride in what I do and in my ability to help so many people adapt into this ever changing world we live in.
       </p>
     </div>
     <div class="right">
       <h1>A Little Bit Quirky</h1>
+      <app-mixed-image-stack [images]="quirkyImages"></app-mixed-image-stack>
     </div>
     <!-- <div data-img-to-show="#img-3"></div> -->
   </section>
-  <section class="full-screen-section section-back final-section">
-  </section>
+  <!-- <section class="full-screen-section section-back final-section"> -->
+  <!-- </section> -->
+
+  <app-preview-section (click)="deactivateContactCard()" id="dev-preview" class="preview" [section]="devPreviewSection"></app-preview-section>
+  
+  <app-preview-section (click)="deactivateContactCard()" id="eng-preview" class="preview" [section]="engPreviewSection"></app-preview-section>
+
+  <app-preview-section (click)="deactivateContactCard()" id="arc-preview" class="preview" [section]="arcPreviewSection"></app-preview-section>
+
+  <app-work-exp></app-work-exp>
+  <app-contact-card [class]="cardActive ? 'activated' : ''"></app-contact-card>
+
+  <div [class]="cardActive ? 'logo activated' : isLogoActivated ? 'logo activated' : 'logo'" (click)="activateContactCard($event)">
+     <div class="logo-content">
+       <span>R</span>
+       <span>B</span>
+     </div>
+   </div>

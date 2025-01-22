@@ -150,7 +150,7 @@ export const contentData =
                     "link": []
                 },
                 {
-                    name: "Magic Mirror",
+                    name: "Smart Mirror",
                     techStack: [
                         "Raspbian",
                         "GCP",
@@ -245,6 +245,7 @@ export const contentData =
                     techStack: [
                         "Angular/Typescript",
                         "Express/Node JS",
+                        "GPT / AI Comms & Planning",
                         "Figma",
                         "Discord/Twitter/Telegram API Integrations"
                     ],

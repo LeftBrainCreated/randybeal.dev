@@ -14,8 +14,8 @@ export class ImageStackComponent implements OnChanges {
   images?: string[];
 
   activeIndex: number | null = null;
-  spacing = 100;  
-  spreadAmount = 150; // How much surrounding images shift away
+  spacing = 150;  
+  spreadAmount = 200;
 
   constructor(
     private el: ElementRef, 

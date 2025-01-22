@@ -40,18 +40,19 @@ export class AppComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    setTimeout(() => {
-      window.scrollBy(0, 1);
-      setTimeout(() => {
-        window.scrollBy(0, -1);
-      }, 50);
-    }, 100);
-
     if (this.isBrowser) {
+      // Simulate a scroll to trigger rendering adjustments
+      setTimeout(() => {
+        window.scrollBy(0, 1);
+        setTimeout(() => {
+          window.scrollBy(0, -1);
+        }, 50);
+      }, 100);
+
       window.addEventListener('scroll', this.setScrollVar.bind(this));
       window.addEventListener('resize', this.setScrollVar.bind(this));
       this.setScrollVar(); 
-    }
+  }
   
     this.checkScreen();
   }

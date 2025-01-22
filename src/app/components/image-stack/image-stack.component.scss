@@ -9,7 +9,8 @@
 .image-stack img,
 .image-stack video {
   position: absolute;
-  width: 100%;
+  // width: 100%;
+  width: 350px;
   height: auto;
   border-radius: 8px;
   transition: transform 0.3s ease, left 0.3s ease, z-index 0.3s ease;

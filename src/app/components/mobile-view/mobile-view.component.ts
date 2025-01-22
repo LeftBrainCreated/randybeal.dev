@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { SectionContent } from '../../models/content.model';
 import { ContentService } from '../../services/content.service';
 import { MobilePreviewComponent } from "../mobile-preview/mobile-preview.component";
@@ -19,7 +19,7 @@ import { MixedImageStackComponent } from "../mixed-image-stack/mixed-image-stack
   templateUrl: './mobile-view.component.html',
   styleUrl: './mobile-view.component.scss'
 })
-export class MobileViewComponent {
+export class MobileViewComponent implements OnInit {
 
   sections: SectionContent[];
   devPreviewSection?: SectionContent;
@@ -30,13 +30,15 @@ export class MobileViewComponent {
   quirkyImages: string[] = [];
 
   protected cardActive: boolean = false;
-
   isLogoActivated = false;
+  isPulsing = false;
+
+  private pulseInterval: any;
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
-    const scrollY = window.scrollY || document.documentElement.scrollTop;
-    this.isLogoActivated = scrollY > 5900;
+    const scroll = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scroll'));
+    this.isLogoActivated = scroll > 94;
   }
 
   constructor(
@@ -52,6 +54,10 @@ export class MobileViewComponent {
     this.quirkyImages = contentService.returnQuirkImages();
   }
 
+  ngOnInit(): void {
+      // this.startPulsing();
+  }
+
   protected activateContactCard(event: MouseEvent): void {
     this.cardActive = true
     event.stopPropagation();
@@ -60,4 +66,15 @@ export class MobileViewComponent {
   protected deactivateContactCard(): void {
     this.cardActive = false;
   }
+
+  startPulsing(): void {
+    this.pulseInterval = setInterval(() => {
+      this.isPulsing = true; // Add pulse class
+
+      // Remove the pulse class after 1 second (animation duration)
+      setTimeout(() => {
+        this.isPulsing = false;
+      }, 1000);
+    }, 10000); // Every 15 seconds
+  }  
 }

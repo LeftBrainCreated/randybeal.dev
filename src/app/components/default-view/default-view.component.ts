@@ -3,6 +3,9 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { ContentService } from '../../services/content.service'
 import { PreviewSectionComponent } from "../preview-section/preview-section.component";
 import { SectionContent } from '../../models/content.model';
+import { MixedImageStackComponent } from '../mixed-image-stack/mixed-image-stack.component';
+import { WorkExpComponent } from '../work-exp/work-exp.component';
+import { ContactCardComponent } from '../contact-card/contact-card.component';
 
 enum ScreenSizeEnum {
   Large,
@@ -14,7 +17,12 @@ enum ScreenSizeEnum {
 @Component({
   selector: 'app-default-view',
   standalone: true,
-  imports: [PreviewSectionComponent],
+  imports: [
+    PreviewSectionComponent, 
+    MixedImageStackComponent,
+    WorkExpComponent,
+    ContactCardComponent
+  ],
   templateUrl: './default-view.component.html',
   styleUrl: './default-view.component.scss'
 })
@@ -26,7 +34,13 @@ export class DefaultViewComponent {
   engPreviewSection?: SectionContent;
   arcPreviewSection?: SectionContent;
 
+  dadImages: string[] = [];
+  quirkyImages: string[] = [];
+
   opacityValue = 1;
+
+  protected cardActive: boolean = false;
+  isLogoActivated = false;
 
   @Input()
   screenSize!: ScreenSizeEnum;
@@ -44,6 +58,9 @@ export class DefaultViewComponent {
     this.devPreviewSection = this.sections.find(sec => sec.section === 'dev-preview');
     this.engPreviewSection = this.sections.find(sec => sec.section === 'eng-preview');
     this.arcPreviewSection = this.sections.find(sec => sec.section === 'arc-preview');
+
+    this.dadImages = contentService.returnDadImages();
+    this.quirkyImages = contentService.returnQuirkImages();
   }
   
   @HostListener('window:scroll', [])
@@ -51,6 +68,9 @@ export class DefaultViewComponent {
     const paragraphs = this.el.nativeElement.querySelectorAll('.left p:not(#intro)');
     const startFade = window.innerHeight * 0.2;
     const endFade = window.innerHeight * 0.1;
+
+    const scroll = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scroll'));
+    this.isLogoActivated = scroll > 94;
 
     paragraphs.forEach((paragraph: HTMLElement) => {
       const rect = paragraph.getBoundingClientRect();
@@ -63,7 +83,30 @@ export class DefaultViewComponent {
 
       this.renderer.setStyle(paragraph, 'opacity', opacity.toString());
     });
+
+    // this.updateZIndexOnScroll();
   }
+
+  // updateZIndexOnScroll() {
+  //   let elements = [
+  //     {name: "#dev-preview", start: 15, end: 30},
+  //     {name: "#eng-preview", start: 34, end: 45},
+  //     {name: "#arc-preview", start: 52, end: 63}
+  //   ]
+
+  //   elements.forEach((e) => {
+  //     const element = document.querySelector(e.name) as HTMLElement;
+  //     const scroll = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scroll'));
+  //     const startScroll = e.start;
+  //     const fadeEnd = e.end;
+    
+  //     if (scroll < startScroll || scroll > fadeEnd) {
+  //       element.classList.add('hidden');
+  //     } else {
+  //       element.classList.remove('hidden');
+  //     }
+  //   })
+  // }  
 
   ngOnInit(): void {
   
@@ -82,4 +125,12 @@ export class DefaultViewComponent {
       htmlElement.style.setProperty('--scroll', `${percentScrolled}`);
   }
 
+  protected activateContactCard(event: MouseEvent): void {
+    this.cardActive = true
+    event.stopPropagation();
+  }
+
+  protected deactivateContactCard(): void {
+    this.cardActive = false;
+  }
 }

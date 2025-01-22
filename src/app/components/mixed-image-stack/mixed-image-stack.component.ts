@@ -1,5 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { 
+  Component, 
+  ElementRef, 
+  Input, 
+  OnInit, 
+  ViewChild, 
+  AfterViewInit, 
+  ChangeDetectorRef 
+} from '@angular/core';
 
 @Component({
   selector: 'app-mixed-image-stack',
@@ -17,11 +25,14 @@ export class MixedImageStackComponent implements OnInit, AfterViewInit {
 
   positionedImages: { src: string; x: number; y: number, z: number }[] = [];
 
+  constructor(private cdr: ChangeDetectorRef) {}
+  
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.setContainerDimensions();
     this.positionImages();
+    this.cdr.detectChanges();
   }
 
   private setContainerDimensions(): void {

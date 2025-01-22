@@ -85,7 +85,7 @@ div.page-content > div > span {
 }
 
 div.page-content > div > p {
-    font-size: 1.2rem;
+    font-size: 1rem;
     line-height: 1.25;
     margin-top: 50px;
     margin-bottom: 20px;
@@ -228,6 +228,12 @@ div.logo.activated {
     align-items: center;
     transition: transform 0.2s ease-out, opacity 0.2s ease-out;
     z-index: 2;
+
+}
+
+.logo:not(.activated){
+    animation: pulse 20s ease-in-out infinite;
+    // animation-delay: 10s; /* Delay before the pulse repeats */    
   }
 
   .logo-content {
@@ -290,3 +296,22 @@ app-mobile-preview.preview-section {
     top: 40%;
     left: 5vw;    
   }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: .4;
+    }
+    2.5% {
+      transform: scale(1.2);
+      opacity: 0.8;
+    }
+    5% {
+      transform: scale(1);
+      opacity: .4;
+    }
+  }
+  
+//   .logo.pulse {
+//     animation: pulse 1s ease-in-out;
+//   }

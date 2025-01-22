@@ -223,5 +223,8 @@ div.triangle {
   div.tooltip {
     background-color: #2a2b39;
     color: white;
-    border-radius: 40px;
+    border-radius: 5px;
+    width: 350px;
+    place-self: center;
+    text-align: center;
   }
