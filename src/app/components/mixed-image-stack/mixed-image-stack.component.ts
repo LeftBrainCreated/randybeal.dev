@@ -10,11 +10,11 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-mixed-image-stack',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './mixed-image-stack.component.html',
-  styleUrl: './mixed-image-stack.component.scss'
+    selector: 'app-mixed-image-stack',
+    imports: [CommonModule],
+    standalone: true,
+    templateUrl: './mixed-image-stack.component.html',
+    styleUrl: './mixed-image-stack.component.scss'
 })
 export class MixedImageStackComponent implements OnInit, AfterViewInit {
   @Input() images: string[] = []; 
@@ -44,19 +44,17 @@ export class MixedImageStackComponent implements OnInit, AfterViewInit {
   private positionImages(): void {
     this.positionedImages = this.images.map((src) => ({
       src,
-      x: this.getPercentageValue(0, 75), // Random percentage for X
-      y: this.getPercentageValue(0, 60), // Random percentage for Y
-      z: this.getRandomZIndex() // Randomized Z-index
+      x: this.getPercentageValue(0, 75), // random position for X
+      y: this.getPercentageValue(0, 60), // random position for Y
+      z: this.getRandomZIndex() // random z
     }));
   }
   
   private getPercentageValue(min: number, max: number): number {
-    // Returns a random percentage between min and max
     return Math.random() * (max - min) + min;
   }
   
   private getRandomZIndex(): number {
-    // Randomized Z-index between -100 and 100
     return Math.floor(Math.random() * 201 - 100); // Range: -100 to 100
   }
 

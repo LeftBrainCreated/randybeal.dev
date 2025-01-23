@@ -1,3 +1,5 @@
 
-<app-default-view *ngIf="screenSize != 2" [screenSize]="screenSize"></app-default-view>
-<app-mobile-view *ngIf="screenSize == 2"></app-mobile-view>
+<div id="page-overlay"></div>
+
+<app-default-view *ngIf="screenSize != 2" [screenSize]="screenSize" (click)="closeContact()"></app-default-view>
+<app-mobile-view *ngIf="screenSize == 2" (click)="closeContact()"></app-mobile-view>

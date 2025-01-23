@@ -26,7 +26,7 @@
           <app-image-stack [images]="activeButton?.images!"></app-image-stack>
         </div>
         <div class="links">
-            <span *ngFor="let link of activeButton?.link">{{link}}</span>
+            <a *ngFor="let link of activeButton?.link" href="{{link}}"><span>{{link}}</span></a>
         </div>
       </div>
   <!-- </div> -->

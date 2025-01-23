@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SectionContent } from '../models/content.model';
 import { contentData } from '../assets/content';
-import * as fs from 'fs';
-import * as path from 'path';
+import { Subject } from 'rxjs';
 
 const dadImages = [
   "img_1.jpg",
@@ -33,7 +32,6 @@ export class ContentService {
   }
 
   returnDadImages(): string[] {
-    // return this.getFilesInFolder('../assets/images/dad')
     return dadImages.map((file) => `assets/images/dad/${file}`);
   }
 
@@ -41,23 +39,5 @@ export class ContentService {
     return quirkyImages.map((file) => `assets/images/quriky/${file}`);
   }
 
-  // getFilesInFolder(folderPath: string): string[] {
-  //   try {
-  //     if (!fs.existsSync(folderPath)) {
-  //       throw new Error(`Folder not found: ${folderPath}`);
-  //     }
-  
-  //     const items = fs.readdirSync(folderPath);
-  
-  //     const files = items.filter((item) => {
-  //       const fullPath = path.join(folderPath, item);
-  //       return fs.statSync(fullPath).isFile();
-  //     });
-  
-  //     return files;
-  //   } catch (error) {
-  //     console.error('Error reading folder:', error);
-  //     return [];
-  //   }
-  // }
+  public closeContactCard = new Subject<void>();
 }

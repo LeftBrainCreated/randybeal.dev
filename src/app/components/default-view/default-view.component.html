@@ -7,21 +7,22 @@
 
 <div [class]="screenSize == 1 ? 'main mid' : 'main'" (click)="deactivateContactCard()">
     <div id="img-1">
-      <img src="assets/images/img-2.jpg" class="img-1">
+      <img src="assets/images/img-3.jpg" class="img-1">
     </div>
   
   </div>
+  <h1 id="about-header">About Me ...</h1>
   <section class="top-section full-screen-section" (click)="deactivateContactCard()">
     <div class="left">
-      <h1>About Me ...</h1>
-      <p id="intro">
-        Hi! My name is Randy Beal, self-taught developer with nearly 
-        20-years experience. I've been so fortunate to be able to spend
-        my time building a career doing something I truly love to do. I've always
-        wanted to be a developer, from a young age I had a growing interest in technology
-        when I wanted to build video games. And though I've found myself sharpening 
-        my craft in other professional capacities, I'm just truly blessed to have found
-        a path which gives me purpose in the way this does. 
+      <p id="intro" [class]="screenSize == 1 ? 'mid' : ''">
+        Hi, I'm Randy Beal, a self-taught developer with nearly 20 years of 
+        experience. For as long as I can remember, I've had a drive to learn
+        and bend technology to my will, initially as a dream of creating video 
+        games. Over the years, I've honed my craft in various professional 
+        roles, building a fulfilling career doing what I love most. I'm 
+        currently exploring new opportunities to meet and work with others
+        who share my passion.<br /> <br />
+        <small>One thing I won't claim to be, is a UI Designer, so please bear with me as I work out what this page looks like.</small>
       </p>
       <div id="photo-stack">
   
@@ -31,13 +32,6 @@
   
     </div>
   </section>
-  <!-- <section class="full-screen-section first-main-section">
-    <div class="left">
-    </div>
-    <div class="right">
-      <h1></h1>
-    </div>
-  </section> -->
   <section class="full-screen-section section-back" (click)="deactivateContactCard()">
     <div class="left">
       
@@ -46,7 +40,7 @@
         C# | Node.js | Angular | React | Go | PHP | Python | Javascript | JQuery | Solidity | VB | VBA | Bash | Powershell | AutoIt
         <br /><br />
         <span>Technologies / Utilities</span><br />
-        AI | Postman | NuGet | NPM/Yarn | Composer | HardHat | Express.Js | Web3 | OAuth | XUnit | WebSphere MQ
+        Express.Js | REST | SOAP | AI | Pkg Mgrs | HardHat | Web3 | OAuth | XUnit | WebSphere MQ
         <br /><br />
         <span>Database</span><br />
         T-Sql | Entity Framework | NoSql | MySql | SSMS | PhpMyAdmin | Snowflake | SQLite
@@ -75,7 +69,6 @@
       <h1>An Engineer</h1>
       <img src="assets/images/arts/developer.png">
     </div>
-    <!-- <div data-img-to-show="#img-1"></div> -->
   </section>
   <section class="full-screen-section section-back" (click)="deactivateContactCard()">
     <div class="left">
@@ -95,7 +88,6 @@
       <h1>An Architect</h1>
       <img src="assets/images/arts/developer.png">
     </div>
-    <!-- <div data-img-to-show="#img-2"></div> -->
   </section>
   <section class="full-screen-section section-back" (click)="deactivateContactCard()">
     <div class="left">
@@ -109,24 +101,20 @@
       <h1>A Father</h1>
       <app-mixed-image-stack [images]="dadImages"></app-mixed-image-stack>
     </div>
-    <!-- <div data-img-to-show="#img-3"></div> -->
   </section>
   <section class="full-screen-section">
     <div class="left">
       <p [style.opacity]="opacityValue">
-        Dork, Nerd, Goober. I was cool before cool was in. I believe I carry a unique perspective to the table, in all of my life approaching the daily pressures with an aloofness that's hard to emulate.
-        I'm a computer nerd at heart, so I can be socially awkward at times. My jokes (while I think they're brilliant and hilarious) sometimes require a bit of a leap to follow. But I'm also passionate about my work.
-        I take a sincere pride in what I do and in my ability to help so many people adapt into this ever changing world we live in.
+        I've always embraced my inner dork, nerd, geek—whatever you want to call it. Let’s just say I was cool before cool was even a thing. I bring a unique perspective to every challenge, tackling life's daily pressures with a blend of humor and good-natured goofiness that's hard to replicate.
+        At my core, I'm a proud computer nerd, which means I might occasionally land on the socially awkward side. My jokes (which I think are absolute gems) sometimes require a bit of creative interpretation, but delivered with enthusiasm. More importantly, I'm deeply passionate about my work.
+        I take genuine pride in my ability to help others navigate and adapt to our ever-evolving world. It’s incredibly rewarding to contribute to meaningful solutions while bringing a little lightheartedness to the mix.
       </p>
     </div>
     <div class="right">
       <h1>A Little Bit Quirky</h1>
       <app-mixed-image-stack [images]="quirkyImages"></app-mixed-image-stack>
     </div>
-    <!-- <div data-img-to-show="#img-3"></div> -->
   </section>
-  <!-- <section class="full-screen-section section-back final-section"> -->
-  <!-- </section> -->
 
   <app-preview-section (click)="deactivateContactCard()" id="dev-preview" class="preview" [section]="devPreviewSection"></app-preview-section>
   
@@ -134,7 +122,7 @@
 
   <app-preview-section (click)="deactivateContactCard()" id="arc-preview" class="preview" [section]="arcPreviewSection"></app-preview-section>
 
-  <app-work-exp></app-work-exp>
+  <app-work-exp [screenSize]="screenSize"></app-work-exp>
   <app-contact-card [class]="cardActive ? 'activated' : ''"></app-contact-card>
 
   <div [class]="cardActive ? 'logo activated' : isLogoActivated ? 'logo activated' : 'logo'" (click)="activateContactCard($event)">
@@ -143,3 +131,5 @@
        <span>B</span>
      </div>
    </div>
+
+   <div id="footer"></div>

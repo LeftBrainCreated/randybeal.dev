@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-work-exp',
-  standalone: true,
-  imports: [],
-  templateUrl: './work-exp.component.html',
-  styleUrl: './work-exp.component.scss'
+    selector: 'app-work-exp',
+    templateUrl: './work-exp.component.html',
+    standalone: true,
+    styleUrl: './work-exp.component.scss'
 })
 export class WorkExpComponent {
+
+    @Input() screenSize!: number;
 
 }

@@ -35,8 +35,8 @@ export const contentData =
                     ],
                     description: "Another situation where I can only share so much, Notification Service was an Azure MSA component used for internal communcation through multiple distribution methods for pre-defined system events. This was one of my first opportunities as an architect to design from greenfield to release this k8s hosted solution.",
                     images: [
-                        "assets/images/notif/notif_1.png",
-                        "assets/images/notif/notif_5.png",
+                        "assets/images/notif/notif_1.jpg",
+                        "assets/images/notif/notif_5.jpg",
                         "assets/images/notif/notif_2.jpg",
                     ],
                     "link": []
@@ -52,7 +52,7 @@ export const contentData =
                         "Solidity",
                         "Firebase Functions"
                     ],
-                    description: "This is one where I have the opportunity to share as much as I'd like, This was a side project where I partnered with a very talented UI/UX dev to create multiple functional Web3 Utilites from the ground up. I had a blast building the CoOp Apps, and look forward to finding unique ways to explore these applications further in the future.",
+                    description: "This is one where I have the opportunity to share as much as I'd like, This was a side project where I partnered with a very talented UI/UX dev to create multiple functional Web3 Utilites from the ground up, including a web3 marketplace, interactive map, token swap, and more. I had a blast building the CoOp Apps, and look forward to finding unique ways to explore these applications further in the future.",
                     images: [
                         "assets/images/coop/coOp_6.jpg",
                         "assets/images/coop/coOp_7.jpg",
@@ -233,10 +233,10 @@ export const contentData =
                     ],
                     description: "Mostly Azure ServiceBus and functions And IBM Websphere MQ, knowledge of how to manage no-fail messaging systems and their interactions with multiple components in-house and externally. Supporting one-time only processing and failover handling.",
                     images: [
-                        "assets/images/notif/notif_1.png",
-                        "assets/images/notif/notif_3.png",
+                        "assets/images/notif/notif_1.jpg",
+                        "assets/images/notif/notif_3.jpg",
                         "assets/images/notif/notif_4.jpg",
-                        "assets/images/notif/notif_6.png",
+                        "assets/images/notif/notif_6.jpg",
                     ],
                     "link": []
                 },

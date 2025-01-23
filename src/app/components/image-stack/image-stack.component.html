@@ -1,7 +1,7 @@
 <div class="image-stack" [style.transform]="'translateX(-' + (maxOffset / 2) + 'px)'">
   <ng-container *ngFor="let media of images; let i = index">
-    <!-- If it's an image -->
-    <img
+    <!-- for image -->
+    <img 
       *ngIf="!isVideo(media)"
       [src]="media"
       [alt]="'Image ' + (i + 1)"
@@ -13,12 +13,10 @@
       (mouseleave)="resetZIndex()"
     />
 
-    <!-- If it's a video -->
+    <!-- for video -->
     <video
       *ngIf="isVideo(media)"
       [src]="media"
-      autoplay
-      muted
       controls 
       playsinline
       [style.left]="getOffset(i)"

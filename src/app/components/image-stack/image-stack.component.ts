@@ -1,13 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, Input, AfterViewInit, Renderer2, SimpleChanges, PLATFORM_ID, Inject, OnChanges } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { 
+  Component, 
+  ElementRef, 
+  Input, 
+  Renderer2, 
+  PLATFORM_ID, 
+  Inject, 
+  OnChanges 
+} from '@angular/core';
 
 @Component({
-  selector: 'app-image-stack',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './image-stack.component.html',
-  styleUrl: './image-stack.component.scss'
+    selector: 'app-image-stack',
+    imports: [CommonModule],
+    standalone: true,
+    templateUrl: './image-stack.component.html',
+    styleUrl: './image-stack.component.scss'
 })
 export class ImageStackComponent implements OnChanges {
   @Input() 

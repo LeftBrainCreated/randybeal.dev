@@ -8,16 +8,16 @@ import { MixedImageStackComponent } from "../mixed-image-stack/mixed-image-stack
 
 
 @Component({
-  selector: 'app-mobile-view',
-  standalone: true,
-  imports: [
-    MobilePreviewComponent,
-    WorkExpComponent,
-    ContactCardComponent,
-    MixedImageStackComponent
-],
-  templateUrl: './mobile-view.component.html',
-  styleUrl: './mobile-view.component.scss'
+    selector: 'app-mobile-view',
+    imports: [
+        MobilePreviewComponent,
+        WorkExpComponent,
+        ContactCardComponent,
+        MixedImageStackComponent
+    ],
+    standalone: true,
+    templateUrl: './mobile-view.component.html',
+    styleUrl: './mobile-view.component.scss'
 })
 export class MobileViewComponent implements OnInit {
 
@@ -32,8 +32,6 @@ export class MobileViewComponent implements OnInit {
   protected cardActive: boolean = false;
   isLogoActivated = false;
   isPulsing = false;
-
-  private pulseInterval: any;
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
@@ -55,7 +53,6 @@ export class MobileViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      // this.startPulsing();
   }
 
   protected activateContactCard(event: MouseEvent): void {
@@ -66,15 +63,4 @@ export class MobileViewComponent implements OnInit {
   protected deactivateContactCard(): void {
     this.cardActive = false;
   }
-
-  startPulsing(): void {
-    this.pulseInterval = setInterval(() => {
-      this.isPulsing = true; // Add pulse class
-
-      // Remove the pulse class after 1 second (animation duration)
-      setTimeout(() => {
-        this.isPulsing = false;
-      }, 1000);
-    }, 10000); // Every 15 seconds
-  }  
 }

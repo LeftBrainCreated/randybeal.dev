@@ -1,5 +1,5 @@
 <mat-form-field class="drop-down">
-    <mat-label>Project Samples</mat-label>
+    <mat-label>Click for more project samples</mat-label>
     <select matNativeControl [(ngModel)]="selectedButton" (change)="updateContent()">
       <option *ngFor="let button of section?.buttons" [value]="button.name">{{button.name}}</option>
     </select>

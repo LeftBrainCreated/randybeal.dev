@@ -207,17 +207,19 @@ div.triangle {
   }
 
   .contact a {
-    color: #2b2c3c; /* Link color matches icon */
-    text-decoration: none; /* Remove underline */
-    font-weight: bold; /* Highlight links */
-}
-
-.contact a:hover {
-    text-decoration: underline; /* Add underline on hover */
+    color: #2b2c3c;
+    text-decoration: none;
+    transition: color 0.3s ease, transform 0.3s ease, text-decoration 0.3s ease;
+  }
+  
+  .contact a:hover {
+  color: #9899b5;
+  transform: scale(1.05);
+  text-decoration: underline;
 }
 
 .contact span {
-    font-style: italic; /* Italicize non-link text */
+    font-style: italic;
   }
 
   div.tooltip {

@@ -32,7 +32,6 @@ div.perma-bar > h2 {
 }
 
 div#img-1 {
-    /* Scroll range: 0% to 10% */
     --start-scroll: 1;
     --end-scroll: 8;
     --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
@@ -40,9 +39,9 @@ div#img-1 {
     width: 30%;
     align-content: center;
     position: absolute;
-    right: calc(10vw + var(--progress) * 50vw); /* Moves smoothly to the right */
-    opacity: clamp(1 - var(--progress), 0, 1); /* Fades out at the end of the animation */
-    transition: right 0.2s ease-out, opacity 0.3s ease-out; /* Smooth movement and fade */
+    right: calc(10vw + var(--progress) * 50vw);
+    opacity: clamp(1 - var(--progress), 0, 1);
+    transition: right 0.2s ease-out, opacity 0.3s ease-out;
 
     height: 90vh;
     overflow: hidden;
@@ -53,7 +52,7 @@ section.top-section {
     --end-scroll: 8;
     --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
 
-    opacity: clamp(1 - var(--progress), 0, 1); /* Fades out at the end of the animation */
+    opacity: clamp(1 - var(--progress), 0, 1);
 }
 
 section > div.right > img {
@@ -79,37 +78,45 @@ section.top-section.full-screen-section > div.left-intro > p#intro {
     position: relative;
   }
 
-//   .full-screen-section.first-main-section {
-//     padding: 0;
-//   }
+h1#about-header {
+  position: fixed;
+  top: 9%;
+  left: 5vw;
+  margin: 0;
+
+  --fade-start: 94;
+  --fade-end: 96;
+
+  --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
+
+  opacity: calc(1 - clamp(0, var(--fade-progress), 1));
+
+}
   
   .full-screen-section h1 {
     position: sticky;
-    top: 15%; /* Center vertically */
-    transform: translateY(-50%); /* Adjust for centering */
+    top: 9%;
     margin: 0;
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-    opacity: 1; /* Ensure visibility by default */
+    opacity: 1;
+    z-index: 1;
   }
   
   .full-screen-section h1.inactive {
     opacity: 0;
-    transform: translateY(-150%); /* Move out of view */
+    transform: translateY(-150%);
   }
 
 section.full-screen-section {
     display: flex;
     flex-direction: row;
-    // z-index: -1;
 }
 
 section.section-back {
   z-index: -1;
 }
 
-// .top-section 
 .left,
-// .top-section 
 .right {
   flex-basis: 0;
   flex-grow: 1;
@@ -117,13 +124,6 @@ section.section-back {
   padding-left: 3rem;
   z-index: -1;
 }
-
-// div.left > span {
-//   position: sticky;
-//   top:365px;
-//   font-size: 4rem;
-//   line-height: 1.6;
-// }
 
 div.left > p > span {
   font-weight: bold;
@@ -134,15 +134,24 @@ div.left > p > span {
 
 div.left > p#intro {
   position: sticky;
-  top:230px;
-  font-size: 2.0rem;
+  top:23vh;
+  font-size: x-large;
   line-height: 1.5;
   margin: 0 4vw 0 4vw;
 }
 
+div.left > p#intro > small {
+  font-size: medium;
+}
+
+div.left > p#intro.mid {
+    font-size: 1.3rem;
+    line-height: 1.3;
+}
+
 div.left > p:not(#intro) {
   position: sticky;
-  top:250px;
+  top:22vh;
   font-size: 1.6rem;
   line-height: 1.5;
   margin: 0 4vw 0 4vw;
@@ -164,11 +173,10 @@ div.left p.fade-out {
 //   padding: 20px;
   position: fixed;
   top:0;
-  left: 10vw;
+  // left: 10vw;
 }
 
 .top-section .left {
-//   background-color: rgb(248, 250, 249, var(--background-opacity));
 background: linear-gradient(
     210.65deg,
     rgb(152, 157, 157, .35) 0%,
@@ -176,83 +184,55 @@ background: linear-gradient(
   );
 }
 
-// p#intro {
-//   /* Scroll range: 20% to 25% */
-//   --start-scroll: 1;
-//   --end-scroll: 8;
-//   --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
-
-//   opacity: clamp(1 - var(--progress), 0, 1); /* Gradually fades out from 1 to 0 */
-//   transition: opacity 0.2s ease-out; /* Smooth fade effect */
-// }
-
 #dev-preview {
-  /* Scroll ranges */
   --start-scroll: 16; /* Start sliding */
   --end-scroll: 18;   /* End sliding */
   --fade-start: 28;   /* Start fading */
   --fade-end: 30;     /* End fading */
 
-  /* Progress calculations */
   --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
   --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
 
-  /* Sliding effect using transform */
-  transform: translateY(calc(85vh - (clamp(0, var(--progress), 1) * 80vh))); /* Moves from 80vh to 5vh */
-
-  /* Opacity fades out between 38 and 40 scroll */
+  transform: translateY(calc(95vh - (clamp(0, var(--progress), 1) * 85vh))); /* Moves from 80vh to 5vh */
   opacity: calc(1 - clamp(0, var(--fade-progress), 1));
 
-  /* Smooth transitions */
   transition: transform 0.2s ease-out, opacity 0.2s ease-out;
 }
 
 #eng-preview {
-  /* Scroll ranges */
   --start-scroll: 35; /* Start sliding */
   --end-scroll: 37;   /* End sliding */
   --fade-start: 45;   /* Start fading */
   --fade-end: 47;     /* End fading */
 
-  /* Progress calculations */
   --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
   --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
 
-  /* Sliding effect using transform */
-  transform: translateY(calc(85vh - (clamp(0, var(--progress), 1) * 80vh))); /* Moves from 80vh to 5vh */
-
-  /* Opacity fades out between 38 and 40 scroll */
+  transform: translateY(calc(95vh - (clamp(0, var(--progress), 1) * 85vh))); /* Moves from 80vh to 5vh */
   opacity: calc(1 - clamp(0, var(--fade-progress), 1));
 
-  /* Smooth transitions */
   transition: transform 0.2s ease-out, opacity 0.2s ease-out;
 }
 
 #arc-preview {
-  /* Scroll ranges */
   --start-scroll: 51; /* Start sliding */
   --end-scroll: 53;   /* End sliding */
   --fade-start: 61;   /* Start fading */
   --fade-end: 63;     /* End fading */
 
-  /* Progress calculations */
   --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
   --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
 
-  /* Sliding effect using transform */
-  transform: translateY(calc(85vh - (clamp(0, var(--progress), 1) * 80vh))); /* Moves from 80vh to 5vh */
-
-  /* Opacity fades out between 38 and 40 scroll */
+  transform: translateY(calc(95vh - (clamp(0, var(--progress), 1) * 85vh))); /* Moves from 80vh to 5vh */
   opacity: calc(1 - clamp(0, var(--fade-progress), 1));
 
-  /* Smooth transitions */
   transition: transform 0.2s ease-out, opacity 0.2s ease-out;
 }
 
 div.preview,
 app-preview-section.preview {
   position: fixed;
-  position-area: center;
+  left: 5vw;
   top: 5%;
   width: 90%;
   height: 80%;
@@ -272,10 +252,6 @@ div.preview.hidden,
 app-preview-section.preview.hidden {
     z-index: -1;
 }
-
-// div.preview > div {
-//   flex: 1;
-// }
 
 div.inner {
   display: flex;
@@ -326,7 +302,7 @@ div.inner.right > p {
 }
 
 app-work-exp {
-    left: 10vw;
+    // left: 10vw;
     position: relative;
     margin-bottom: 40px;
 }
@@ -350,7 +326,7 @@ div.logo.activated {
     padding: 5px;
     width: 50px;
     height: 50px;
-    display: flex; /* Use Flexbox inside the logo if needed */
+    display: flex;
     justify-content: center;
     align-items: center;
     transition: transform 0.2s ease-out, opacity 0.2s ease-out;
@@ -359,7 +335,7 @@ div.logo.activated {
 
   .logo-content {
     opacity: 1;
-    background-color: #77c043; /* Green background */
+    background-color: #77c043;
     width: 50px;
     height: 50px;
     display: flex;
@@ -392,7 +368,9 @@ div.logo:hover {
     margin-top: 40px;
     z-index: 101;
     position: relative;
-    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   app-contact-card.activated {
@@ -400,4 +378,8 @@ div.logo:hover {
     position: fixed;
     top: 40%;
     right: 5vw;    
+  }
+
+  div#footer {
+    height: 25px;
   }

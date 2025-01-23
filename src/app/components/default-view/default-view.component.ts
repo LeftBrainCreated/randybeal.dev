@@ -15,16 +15,16 @@ enum ScreenSizeEnum {
 
 
 @Component({
-  selector: 'app-default-view',
-  standalone: true,
-  imports: [
-    PreviewSectionComponent, 
-    MixedImageStackComponent,
-    WorkExpComponent,
-    ContactCardComponent
-  ],
-  templateUrl: './default-view.component.html',
-  styleUrl: './default-view.component.scss'
+    selector: 'app-default-view',
+    imports: [
+        PreviewSectionComponent,
+        MixedImageStackComponent,
+        WorkExpComponent,
+        ContactCardComponent
+    ],
+    standalone: true,
+    templateUrl: './default-view.component.html',
+    styleUrl: './default-view.component.scss'
 })
 export class DefaultViewComponent {
   private isBrowser: boolean;
@@ -83,32 +83,12 @@ export class DefaultViewComponent {
 
       this.renderer.setStyle(paragraph, 'opacity', opacity.toString());
     });
-
-    // this.updateZIndexOnScroll();
   }
 
-  // updateZIndexOnScroll() {
-  //   let elements = [
-  //     {name: "#dev-preview", start: 15, end: 30},
-  //     {name: "#eng-preview", start: 34, end: 45},
-  //     {name: "#arc-preview", start: 52, end: 63}
-  //   ]
-
-  //   elements.forEach((e) => {
-  //     const element = document.querySelector(e.name) as HTMLElement;
-  //     const scroll = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--scroll'));
-  //     const startScroll = e.start;
-  //     const fadeEnd = e.end;
-    
-  //     if (scroll < startScroll || scroll > fadeEnd) {
-  //       element.classList.add('hidden');
-  //     } else {
-  //       element.classList.remove('hidden');
-  //     }
-  //   })
-  // }  
-
   ngOnInit(): void {
+    this.contentService.closeContactCard.subscribe(() => {
+      this.deactivateContactCard();
+    })
   
     if (this.isBrowser) {
       window.addEventListener('scroll', this.setScrollVar.bind(this));
@@ -121,7 +101,7 @@ export class DefaultViewComponent {
       const htmlElement = document.documentElement;
       const scrollHeight = htmlElement.scrollHeight - htmlElement.clientHeight; // Total scrollable height
       const percentScrolled = (window.scrollY / scrollHeight) * 100;
-      console.log(percentScrolled);
+      // console.log(percentScrolled); // for debug
       htmlElement.style.setProperty('--scroll', `${percentScrolled}`);
   }
 

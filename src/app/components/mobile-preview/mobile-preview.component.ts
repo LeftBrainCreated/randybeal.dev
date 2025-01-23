@@ -8,18 +8,18 @@ import { CommonModule } from '@angular/common';
 import { MobileImageStackComponent } from "../mobile-image-stack/mobile-image-stack.component";
 
 @Component({
-  selector: 'app-mobile-preview',
-  standalone: true,
-  imports: [
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    CommonModule,
-    FormsModule,
-    MobileImageStackComponent
-],
-  templateUrl: './mobile-preview.component.html',
-  styleUrl: './mobile-preview.component.scss'
+    selector: 'app-mobile-preview',
+    imports: [
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        CommonModule,
+        FormsModule,
+        MobileImageStackComponent
+    ],
+    standalone: true,
+    templateUrl: './mobile-preview.component.html',
+    styleUrl: './mobile-preview.component.scss'
 })
 export class MobilePreviewComponent {
 

@@ -1,5 +1,3 @@
-
-
 body {
     background-color: gray;
     font-family: monospace;
@@ -19,6 +17,9 @@ div.header {
 .perma-bar {
     background-color: #8d8988;
     top: 0;
+    position: fixed;
+    width: 100%;
+    height: 50px;
 }
 
 div.perma-bar > h2 {
@@ -43,6 +44,7 @@ div#img-1.image-container {
 
 div#img-1 > img {
     width: 100%;
+    max-width: 500px;
     height: auto;
     object-fit: cover;
     margin-top: auto;
@@ -53,6 +55,11 @@ div.full-screen > h2 {
     text-align: center;
     border-bottom-style: groove;
     width: 90%;
+    font-size: xxx-large;
+}
+
+div.full-screen > p#intro {
+  font-size: 2.1vh;
 }
 
 div.full-screen {
@@ -72,22 +79,28 @@ div.full-screen.first-section {
     transition: opacity 0.2s ease-out;
 }
 
+div.full-screen.dad-text,
+div.full-screen.quirk-text > h2 {
+  margin-bottom: 0;
+}
+
 div.page-content {
     display: flex;
     flex-direction: column;
 }
 
 div.page-content > div > span {
-    left: 10px;
+    left: 20px;
     position: absolute;
     font-weight: bold;
-    font-size: 2rem;
+    font-size: x-large;
+    margin-bottom: 5px;
 }
 
 div.page-content > div > p {
     font-size: 1rem;
     line-height: 1.25;
-    margin-top: 50px;
+    margin-top: 35px;
     margin-bottom: 20px;
 }
 
@@ -104,14 +117,14 @@ div.full-screen > img {
     --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
     --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
   
-    transform: translateY(calc(85vh - (clamp(0, var(--progress), 1) * 85vh))); /* Moves from 80vh to 5vh */
+    transform: translateY(calc(85vh - (clamp(0, var(--progress), 1) * 85vh))); 
     opacity: calc(1 - clamp(0, var(--fade-progress), 1));
     transition: transform 0.2s ease-out, opacity 0.2s ease-out;
   }
 
 div.full-screen.dev-text {
-    --fade-start: 26;
-    --fade-end: 28;
+    --fade-start: 25;
+    --fade-end: 27;
 
     --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
 
@@ -127,14 +140,14 @@ div.full-screen.dev-text {
     --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
     --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
   
-    transform: translateY(calc(85vh - (clamp(0, var(--progress), 1) * 85vh))); /* Moves from 80vh to 5vh */
+    transform: translateY(calc(85vh - (clamp(0, var(--progress), 1) * 85vh)));
     opacity: calc(1 - clamp(0, var(--fade-progress), 1));
     transition: transform 0.2s ease-out, opacity 0.2s ease-out;
   }
 
 div.full-screen.eng-text {
-    --fade-start: 41;
-    --fade-end: 43;
+    --fade-start: 40;
+    --fade-end: 42;
 
     --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
 
@@ -144,66 +157,38 @@ div.full-screen.eng-text {
 #arc-preview {
     --start-scroll: 47; 
     --end-scroll: 51;
-    --fade-start: 57;
-    --fade-end: 60;
+    --fade-start: 55;
+    --fade-end: 57;
   
     --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
     --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
   
-    transform: translateY(calc(85vh - (clamp(0, var(--progress), 1) * 85vh))); /* Moves from 80vh to 5vh */
+    transform: translateY(calc(85vh - (clamp(0, var(--progress), 1) * 85vh)));
     opacity: calc(1 - clamp(0, var(--fade-progress), 1));
     transition: transform 0.2s ease-out, opacity 0.2s ease-out;
   }
 
 div.full-screen.arc-text {
-    --fade-start: 58;
-    --fade-end: 60;
+    --fade-start: 55;
+    --fade-end: 57;
 
     --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
 
     opacity: calc(1 - clamp(0, var(--fade-progress), 1));
 }
   
-#dad-preview {
-    --start-scroll: 63; 
-    --end-scroll: 67;
-    --fade-start: 68;
-    --fade-end: 77;
-  
-    --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
-    --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
-  
-    transform: translateY(calc(85vh - (clamp(0, var(--progress), 1) * 85vh))); /* Moves from 80vh to 5vh */
-    opacity: calc(1 - clamp(0, var(--fade-progress), 1));
-    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
-  }
-
 div.full-screen.dad-text {
-    --fade-start: 68;
-    --fade-end: 71;
+    --fade-start: 66;
+    --fade-end: 68;
 
     --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
 
     opacity: calc(1 - clamp(0, var(--fade-progress), 1));
 }
   
-#quirk-preview {
-    --start-scroll: 79; 
-    --end-scroll: 83;
-    --fade-start: 85;
-    --fade-end: 88;
-  
-    --progress: calc((var(--scroll) - var(--start-scroll)) / (var(--end-scroll) - var(--start-scroll)));
-    --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
-  
-    transform: translateY(calc(85vh - (clamp(0, var(--progress), 1) * 85vh))); /* Moves from 80vh to 5vh */
-    opacity: calc(1 - clamp(0, var(--fade-progress), 1));
-    transition: transform 0.2s ease-out, opacity 0.2s ease-out;
-  }
-
 div.full-screen.quirk-text {
-    --fade-start: 85;
-    --fade-end: 88;
+    --fade-start: 82;
+    --fade-end: 84;
 
     --fade-progress: calc((var(--scroll) - var(--fade-start)) / (var(--fade-end) - var(--fade-start)));
 
@@ -223,7 +208,7 @@ div.logo.activated {
     padding: 5px;
     width: 50px;
     height: 50px;
-    display: flex; /* Use Flexbox inside the logo if needed */
+    display: flex;
     justify-content: center;
     align-items: center;
     transition: transform 0.2s ease-out, opacity 0.2s ease-out;
@@ -233,12 +218,11 @@ div.logo.activated {
 
 .logo:not(.activated){
     animation: pulse 20s ease-in-out infinite;
-    // animation-delay: 10s; /* Delay before the pulse repeats */    
   }
 
   .logo-content {
     opacity: 1;
-    background-color: #77c043; /* Green background */
+    background-color: #77c043;
     width: 50px;
     height: 50px;
     display: flex;
@@ -264,7 +248,7 @@ div.logo.activated {
 
 app-mobile-preview.preview-section {
     position: fixed;
-    position-area: center;
+    left: 5vw;
     align-items: center;
     top: 15%;
 
@@ -288,6 +272,9 @@ app-mobile-preview.preview-section {
 
   app-contact-card {
     margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   app-contact-card.activated {
@@ -312,6 +299,6 @@ app-mobile-preview.preview-section {
     }
   }
   
-//   .logo.pulse {
-//     animation: pulse 1s ease-in-out;
-//   }
+  div#footer {
+    height: 25px;
+  }

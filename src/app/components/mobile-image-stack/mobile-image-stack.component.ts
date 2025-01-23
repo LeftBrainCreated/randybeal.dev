@@ -7,11 +7,11 @@ interface MediaItem {
 }
 
 @Component({
-  selector: 'app-mobile-image-stack',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './mobile-image-stack.component.html',
-  styleUrl: './mobile-image-stack.component.scss'
+    selector: 'app-mobile-image-stack',
+    imports: [CommonModule],
+    standalone: true,
+    templateUrl: './mobile-image-stack.component.html',
+    styleUrl: './mobile-image-stack.component.scss'
 })
 
 export class MobileImageStackComponent implements OnInit, OnDestroy, OnChanges {
@@ -51,6 +51,7 @@ export class MobileImageStackComponent implements OnInit, OnDestroy, OnChanges {
     
     let t = this.getMiddleValueAndParity(this.parsedMediaList.length);
     this.listStartPos = this.translateX = (t.middle - 1 + (t.isEven ? .5 : 0))
+    this.currentIndex = 0;
   }
 
   ngOnDestroy(): void {

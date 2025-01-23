@@ -5,6 +5,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, Subscription } from 'rxjs';
 import { DefaultViewComponent } from "./components/default-view/default-view.component";
 import { MobileViewComponent } from "./components/mobile-view/mobile-view.component";
+import { ContentService } from './services/content.service';
 
 enum ScreenSizeEnum {
   Large,
@@ -12,16 +13,19 @@ enum ScreenSizeEnum {
   Small
 }
 
-// const window:any = {};
-
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, DefaultViewComponent, MobileViewComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+    selector: 'app-root',
+    imports: [
+      CommonModule, 
+      DefaultViewComponent, 
+      MobileViewComponent
+    ],
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
+
   private screenSizeSubscription: Subscription | undefined;
   private isBrowser: boolean;
 
@@ -32,22 +36,43 @@ export class AppComponent implements OnInit {
   
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private contentService: ContentService
   ) {
+
+    if (typeof document !== 'undefined') {
+      window.addEventListener('DOMContentLoaded', () => {
+        const overlay = document.getElementById('page-overlay');
+
+        // white screen on load
+        if (overlay) {
+          setTimeout(() => {
+            overlay.style.opacity = '0';
+      
+            overlay.addEventListener('transitionend', () => {
+              if (overlay.parentElement) {
+                overlay.parentElement.removeChild(overlay);
+              }
+            });
+          }, 500);
+        }
+      });
+    }
+    
     this.isBrowser = isPlatformBrowser(this.platformId);
     
     this.checkScreen();
   }
   
   ngOnInit(): void {
+    // screen jiggle to order components by scroll position
     if (this.isBrowser) {
-      // Simulate a scroll to trigger rendering adjustments
       setTimeout(() => {
-        window.scrollBy(0, 1);
+        window.scrollBy(0, 2);
         setTimeout(() => {
-          window.scrollBy(0, -1);
-        }, 50);
-      }, 100);
+          window.scrollBy(0, -2);
+        }, 100);
+      }, 500);
 
       window.addEventListener('scroll', this.setScrollVar.bind(this));
       window.addEventListener('resize', this.setScrollVar.bind(this));
@@ -55,6 +80,10 @@ export class AppComponent implements OnInit {
   }
   
     this.checkScreen();
+  }
+
+  closeContact(): void {
+    this.contentService.closeContactCard.next();
   }
 
   checkScreen(): void {
@@ -68,14 +97,14 @@ export class AppComponent implements OnInit {
       ])
       .pipe(
         map(state => {
-          if (state.breakpoints[Breakpoints.XSmall] || state.breakpoints[Breakpoints.Small]) {
+          if (state.breakpoints[Breakpoints.XSmall]) {
             return ScreenSizeEnum.Small;
-          } else if (state.breakpoints[Breakpoints.Medium]) {
+          } else if (state.breakpoints[Breakpoints.Small] || state.breakpoints[Breakpoints.Medium]) {
             return ScreenSizeEnum.Medium;
           } else if (state.breakpoints[Breakpoints.Large] || state.breakpoints[Breakpoints.XLarge]) {
             return ScreenSizeEnum.Large;
           }
-          return ScreenSizeEnum.Large; // Default case
+          return ScreenSizeEnum.Large;
         })
       )
       .subscribe(screenSize => {
@@ -87,7 +116,7 @@ export class AppComponent implements OnInit {
       const htmlElement = document.documentElement;
       const scrollHeight = htmlElement.scrollHeight - htmlElement.clientHeight; // Total scrollable height
       const percentScrolled = (window.scrollY / scrollHeight) * 100;
-      console.log(percentScrolled);
+      // console.log(percentScrolled); // for debug
       htmlElement.style.setProperty('--scroll', `${percentScrolled}`);
   }
 
