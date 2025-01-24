@@ -6,30 +6,30 @@
   </div>
 
 <div [class]="screenSize == 1 ? 'main mid' : 'main'" (click)="deactivateContactCard()">
+  
+</div>
+<h1 id="about-header">About Me ...</h1>
+<section class="top-section full-screen-section" (click)="deactivateContactCard()">
+  <div class="left">
+    <p id="intro" [class]="screenSize == 1 ? 'mid' : ''">
+      Hi, I'm Randy Beal, a self-taught developer with nearly 20 years of 
+      experience. For as long as I can remember, I've had a drive to learn
+      and bend technology to my will, initially as a dream of creating video 
+      games. Over the years, I've honed my craft in various professional 
+      roles, building a fulfilling career doing what I love most. I'm 
+      currently exploring new opportunities to meet and work with others
+      who share my passion.<br /> <br />
+      <small>One thing I won't claim to be, is a UI Designer, so please bear with me as I work out what this page looks like.</small>
+    </p>
+    <div id="photo-stack">
+      
+    </div>
+  </div>
+  <div class="right">
     <div id="img-1">
       <img src="assets/images/img-3.jpg" class="img-1">
     </div>
-  
-  </div>
-  <h1 id="about-header">About Me ...</h1>
-  <section class="top-section full-screen-section" (click)="deactivateContactCard()">
-    <div class="left">
-      <p id="intro" [class]="screenSize == 1 ? 'mid' : ''">
-        Hi, I'm Randy Beal, a self-taught developer with nearly 20 years of 
-        experience. For as long as I can remember, I've had a drive to learn
-        and bend technology to my will, initially as a dream of creating video 
-        games. Over the years, I've honed my craft in various professional 
-        roles, building a fulfilling career doing what I love most. I'm 
-        currently exploring new opportunities to meet and work with others
-        who share my passion.<br /> <br />
-        <small>One thing I won't claim to be, is a UI Designer, so please bear with me as I work out what this page looks like.</small>
-      </p>
-      <div id="photo-stack">
-  
-      </div>
-    </div>
-    <div class="right">
-  
+    
     </div>
   </section>
   <section class="full-screen-section section-back" (click)="deactivateContactCard()">

@@ -14,3 +14,7 @@
   <div class="content" [innerHTML]="selectedButtonContent?.description"></div>
 
 <app-mobile-image-stack [mediaList]="selectedButtonContent!.images"></app-mobile-image-stack>
+
+<div class="links">
+  <a *ngFor="let link of selectedButtonContent?.link" href="{{link}}" target="_blank"><span>{{link}}</span></a>
+</div>

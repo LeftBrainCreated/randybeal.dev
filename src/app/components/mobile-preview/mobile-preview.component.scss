@@ -35,6 +35,16 @@ app-mobile-image-stack {
     flex: 4;
 }
 
+div.links > a {
+  display: flex;
+  flex-direction: column;
+  gap:5px;
+  text-decoration: none;
+  cursor: pointer;
+  color: black;
+  margin-bottom: 10px;
+}
+
 @keyframes fadeInUp {
     from {
       opacity: 0;

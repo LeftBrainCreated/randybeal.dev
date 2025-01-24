@@ -39,7 +39,7 @@ div#img-1 {
     width: 30%;
     align-content: center;
     position: absolute;
-    right: calc(10vw + var(--progress) * 50vw);
+    // right: calc(10vw + var(--progress) * 50vw);
     opacity: clamp(1 - var(--progress), 0, 1);
     transition: right 0.2s ease-out, opacity 0.3s ease-out;
 
@@ -310,7 +310,7 @@ app-work-exp {
 app-mixed-image-stack {
     margin-top: 40px;
     position: sticky;
-    top: 30%;
+    top: 25%;
 }
 
 div.logo.activated {

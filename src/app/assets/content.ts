@@ -7,7 +7,7 @@ export const contentData =
                 {
                     name: "Billing Console",
                     techStack: [
-                        ".NET 4.6",
+                        "C# .NET 4.6",
                         "AngularJS",
                         "MS SQL Server",
                         "REST",
@@ -26,7 +26,7 @@ export const contentData =
                 {
                     name: "Notification Service",
                     techStack: [
-                        ".NET Core",
+                        "C# .NET Core",
                         "Angular",
                         "Mongo DB",
                         "Kubernetes",
