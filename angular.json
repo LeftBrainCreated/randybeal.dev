@@ -41,11 +41,8 @@
               "src/styles.scss"
             ],
             "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            },
+            "prerender": false,
+
             "stylePreprocessorOptions": {
               "includePaths": [
                 "node_modules"

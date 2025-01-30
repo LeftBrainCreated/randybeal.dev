@@ -1,5 +1,9 @@
 
-<div id="page-overlay"></div>
+<!-- <div id="page-overlay"></div> -->
 
-<app-default-view *ngIf="screenSize != 2" [screenSize]="screenSize" (click)="closeContact()"></app-default-view>
-<app-mobile-view *ngIf="screenSize == 2" (click)="closeContact()"></app-mobile-view>
+<!-- <app-default-view *ngIf="screenSize != 2" [screenSize]="screenSize" (click)="closeContact()"></app-default-view>
+<app-mobile-view *ngIf="screenSize == 2" (click)="closeContact()"></app-mobile-view> -->
+
+<router-outlet></router-outlet>
+
+<!-- <app-contact-card></app-contact-card> -->

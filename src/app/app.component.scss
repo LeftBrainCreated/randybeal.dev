@@ -28,3 +28,20 @@ h1 {
   opacity: 1;
   transition: opacity 0.5s ease;
 }
+
+app-contact-card {
+  margin-top: 40px;
+  z-index: 101;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+app-contact-card.activated {
+  margin-top: 0;
+  position: fixed;
+  top: 40%;
+  right: 5vw;    
+}
+

@@ -1,0 +1,83 @@
+div.hero {
+    width: 100%;
+    height: 100%;
+    min-height: 88vh;
+    // background: fixed rgb(10, 0, 27);
+    // border-top: 10px solid rgb(43, 105, 251);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1rem;
+    margin-bottom: -2px;
+}
+
+div.hero > span > a {
+    color: white;
+    // text-decoration: unset;
+    cursor: pointer;
+}
+
+.hero-inner {
+    width: 100%;
+    max-width: calc(1280px + 2rem);
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    color: rgb(255, 255, 255);
+    gap: 2rem;
+}
+
+.hero-text {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    gap: 1rem;
+}
+
+.hero-text p {
+    font-family: "Roboto Slab", serif;
+}
+
+.welcome {
+    align-self: flex-end;
+    font-size: 8rem;
+    font-family: Genos;
+}
+
+.hero-image {
+    animation: fadeIn .3s ease-in-out;
+}
+
+app-monitor {
+    display: block;
+    // mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 66%);
+    // -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 66%);
+    width: 500px;
+    height: 500px;
+    transform: rotate3d(-2, -3, 0, 42deg);
+    transition: transform 0.5s ease;
+    align-content: center; 
+    // box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 
+    // 0 0 30px rgba(0, 255, 255, 0.2); /* Create a layered shadow */
+    // transform: rotateX(5deg) rotateY(5deg);
+}
+
+app-ai-role-check {
+    position: absolute;
+    top: 30%;
+    width: 40vw;
+    min-width: 650;
+    left: calc(50vw - width);
+    left: calc(50vw - 20vw);
+    background-color: #4b5a62;
+    border-radius: 5px;    
+
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    border-style: thin;
+    border-color: black;
+}

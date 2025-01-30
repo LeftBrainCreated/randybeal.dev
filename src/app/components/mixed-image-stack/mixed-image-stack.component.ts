@@ -44,8 +44,8 @@ export class MixedImageStackComponent implements OnInit, AfterViewInit {
   private positionImages(): void {
     this.positionedImages = this.images.map((src) => ({
       src,
-      x: this.getPercentageValue(0, 75), // random position for X
-      y: this.getPercentageValue(0, 60), // random position for Y
+      x: this.getPercentageValue(0, 70), // random position for X
+      y: this.getPercentageValue(0, 25), // random position for Y
       z: this.getRandomZIndex() // random z
     }));
   }
@@ -55,7 +55,7 @@ export class MixedImageStackComponent implements OnInit, AfterViewInit {
   }
   
   private getRandomZIndex(): number {
-    return Math.floor(Math.random() * 201 - 100); // Range: -100 to 100
+    return Math.floor(Math.random() * 10); // Range: -100 to 100
   }
 
   private getRandomValue(range: number): number {

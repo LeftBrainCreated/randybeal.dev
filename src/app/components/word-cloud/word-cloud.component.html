@@ -1,0 +1,19 @@
+<div class="main">
+    <div
+      *ngFor="let tech of techWeights; let i = index"
+      class="techstack-item"
+      [attr.id]="'skill-' + tech.name"
+      [ngStyle]="{
+        'width': (60 + tech.weight * 8) + 'px',
+        'height': (50 + tech.weight * 6) + 'px',
+        'top': techPositions[i].top,
+        'left': techPositions[i].left,
+        'transform': techPositions[i].rotation,
+        'background-color': 'rgba(30, 30, 46, 0.8)',
+        'font-size': (12 + tech.weight * 1.5) + 'px'
+      }"
+    >
+      {{ tech.name }}
+    </div>
+  </div>
+  

@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { SectionContent } from '../models/content.model';
 import { contentData } from '../assets/content';
+import { gitHistContent } from '../assets/git-hist';
 import { Subject } from 'rxjs';
+import { GitHistProject } from '@ng/models/git-hist-project';
 
 const dadImages = [
   "img_1.jpg",
@@ -27,6 +29,8 @@ const quirkyImages = [
 })
 export class ContentService {
 
+  public SelectedProjectObs = new Subject<string>();
+
   getSections(): SectionContent[] {
     return contentData; 
   }
@@ -37,6 +41,10 @@ export class ContentService {
 
   returnQuirkImages(): string[] {
     return quirkyImages.map((file) => `assets/images/quriky/${file}`);
+  }
+
+  getGitHistProjects(): GitHistProject[] {
+    return gitHistContent;
   }
 
   public closeContactCard = new Subject<void>();

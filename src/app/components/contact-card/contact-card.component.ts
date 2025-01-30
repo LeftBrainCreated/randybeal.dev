@@ -9,8 +9,20 @@ import { Component } from '@angular/core';
 })
 export class ContactCardComponent {
 
+  protected cardActive: boolean = false;
+  isLogoActivated = false;
+
   protected stopClick(event: MouseEvent): void {
     event.stopPropagation();
+  }
+
+  protected activateContactCard(event: MouseEvent): void {
+    this.cardActive = true
+    event.stopPropagation();
+  }
+
+  protected deactivateContactCard(): void {
+    this.cardActive = false;
   }
 
 }

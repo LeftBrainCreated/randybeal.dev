@@ -1,0 +1,27 @@
+div.main {
+    left: 40px;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: center;
+    font-family: 'Roboto Slab', serif;
+}
+
+div.main > h1 {
+    font-family: Genos;
+    width: 310px;
+    padding-left: 40px;
+}
+
+div.main > span > a {
+    cursor: pointer;
+    text-decoration: unset;
+    color: #ccc;
+    transition: transform 0.3s ease, text-shadow 0.3s ease; /* Smooth animation for scaling and sliding */
+}
+
+div.main > span > a:hover {
+    transform: scale(1.1) translateX(-3px);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}

@@ -1,0 +1,71 @@
+<app-header-bar></app-header-bar>
+
+<div class="main">
+  <div id="container">
+
+    <div id="menu_vscode">
+      <div>
+        <div class="logo">
+          <img src="https://cdn.iconscout.com/icon/free/png-256/vscode-4069952-3365471.png">
+        </div>
+        <div class="logo">
+          <i class="fas fa-copy"></i>
+        </div>
+        <div class="logo">
+          <i class="fas fa-magnifying-glass"></i>
+        </div>
+        <div class="logo">
+          <i class="fas fa-regular fa-code-fork"></i>
+        </div>
+        <div class="logo">
+          <i class="fas fa-regular fa-bug"></i>
+        </div>
+        <div class="logo">
+          <i class="fas fa-brands fa-github"></i>
+        </div>
+      </div>
+      <div>
+        <div class="logo">
+          <i class="fas fa-regular fa-user-large"></i>
+        </div>
+        <div class="logo">
+          <i class="fas fa-regular fa-gear"></i>
+        </div>
+      </div>
+    </div>
+
+    <div id="editor_full">
+      <div id="editor" #editor>
+        <div id="num-lines">
+            <span *ngFor="let i of numbers">{{i.toString()}}</span>
+        </div>
+        <div class="content" #content>
+
+            <div class="intro">
+                <app-work-exp></app-work-exp>
+                <img src="assets/images/img-3.jpg" class="img-1">
+            </div>
+
+            <div class="more">
+                <h1>A Father</h1>
+                <p>
+                  My kids are the most amazing people I have ever met in my life. A couple have grown to follow my interest in tech, but most just aren't inspired by it in that way. To them, it's just 
+                  même vieux, it's all they've known. My family has been an adopter of smart-home tech and AI since before these things were mainstream and while I would love for them to better understand
+                  the inner workings, I'm cool with them just not being tech illiterate.
+                </p>
+                <app-mixed-image-stack [images]="dadImages"></app-mixed-image-stack>
+                <h1>A Little Bit Quirky</h1>
+                <p>
+                  I've always embraced my inner dork, nerd, whatever you want to call it. I was a geek before it was cool. I bring a unique perspective to every challenge, tackling life's daily pressures with a blend of humor and good-natured goofiness that's hard to emulate.
+                  At my core, I'm a proud computer nerd, which means I might occasionally land on the socially awkward side. My jokes (which I think are brilliant) sometimes require a bit of a leap to follow, are delivered with enthusiasm. More importantly, I'm deeply passionate about my work.
+                  I take genuine pride in what I build and my ability to help others navigate and adapt to our ever-evolving world. It’s incredibly rewarding to contribute to meaningful solutions while bringing a little lightheartedness to the mix.
+                </p>
+                <app-mixed-image-stack [images]="quirkyImages"></app-mixed-image-stack>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src="https://kit.fontawesome.com/32a7e6bf5d.js" crossorigin="anonymous"></script>

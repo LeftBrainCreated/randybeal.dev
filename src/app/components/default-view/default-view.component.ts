@@ -1,5 +1,5 @@
 import { Component, Inject, PLATFORM_ID, OnInit, HostListener, ElementRef, Renderer2, Input } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ContentService } from '../../services/content.service'
 import { PreviewSectionComponent } from "../preview-section/preview-section.component";
 import { SectionContent } from '../../models/content.model';
@@ -52,7 +52,7 @@ export class DefaultViewComponent {
     private el: ElementRef, 
     private renderer: Renderer2
   ) {
-    this.isBrowser = isPlatformBrowser(this.platformId);
+    // this.isBrowser = isPlatformBrowser(this.platformId);
     this.sections = this.contentService.getSections();
     
     this.devPreviewSection = this.sections.find(sec => sec.section === 'dev-preview');
