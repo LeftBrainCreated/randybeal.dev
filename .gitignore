@@ -43,3 +43,5 @@ testem.log
 Thumbs.db
 **.env*
 functions/.eslintrc.js
+functions/firebase-debug.log
+.vscode/launch.json

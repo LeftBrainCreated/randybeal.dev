@@ -2,16 +2,18 @@ import OpenAI from 'openai';
 // import * as functions from "firebase-functions";
 import dotenv from 'dotenv';
 import {onRequest} from "firebase-functions/v2/https";
-const { defineString } = require('firebase-functions/params');
+// const { defineString } = require('firebase-functions/params');
 
 // import * as logger from "firebase-functions/logger";
 
 require('dotenv').config();
 dotenv.config({ path: `./.env.${process.env['APP_ENV']}` });
 const cors = require('cors')({ origin: true });
-const apiKey = defineString('OPENAI_API_KEY');
+// const apiKey = defineString('OPENAI_API_KEY');
+const apiKey =  process.env['OPENAI_API_KEY'] // This is the default and can be omitted
 
-console.log('API Key:', apiKey.value);
+
+console.log('API Key:' + apiKey);
 
 var origin = process.env['CORS_ORIGIN'] !== undefined ? process.env['CORS_ORIGIN'] : '';
 
@@ -24,8 +26,12 @@ origin = 'http://localhost:4200';
 // });
 
 const client = new OpenAI({
-    apiKey: apiKey.value, 
+    organization: 'org-1dyYGmSIg0Nv390v9hIqIOgd',
+    project: 'proj_MX5Levq8xV2KwnFIrI33OvrU',
+    apiKey: apiKey, 
   });
+
+
 // // const config = new Configuration({
 // //     apiKey: process.env.OPENAI_API_KEY,
 // // })
@@ -46,33 +52,52 @@ var messages =
 
 
 export const queryAi = onRequest((req, resp) => {
+    
       cors(req, resp, async () => {
-        resp.set('Access-Control-Allow-Origin', origin);
+        try {
+            resp.set('Access-Control-Allow-Origin', origin);
+    
+            const prompt = req.body.prompt
+    
+            const completion = await client.chat.completions.create({
+                model: "gpt-4o",
+                messages: [
+                    {
+                        "role": "system",
+                        "content": messages.content
+                    },
+                    {
+                        "role": "user",
+                        "content": prompt
+                    },
+                ],
+                temperature: 1,
+                max_tokens: 256,
+                top_p: 1,
+                frequency_penalty: 0,
+                presence_penalty: 0,
+            });
+    
+            resp.send({
+                "status": "success",
+                "data": completion.choices[0].message
+              });        
 
-        const prompt = req.body.prompt
+            // const stream = await client.chat.completions.create({
+            //     model: "gpt-4o-mini",
+            //     messages: [{ role: "user", content: "Say this is a test" }],
+            //     store: true,
+            //     stream: true,
+            // });
+            // let response = '';
+            // for await (const chunk of stream) {
+            //     response += chunk.choices[0]?.delta?.content || "";
+            // }
 
-        const completion = await client.chat.completions.create({
-            model: "gpt-4o",
-            messages: [
-                {
-                    "role": "system",
-                    "content": messages.content
-                },
-                {
-                    "role": "user",
-                    "content": prompt
-                },
-            ],
-            temperature: 1,
-            max_tokens: 256,
-            top_p: 1,
-            frequency_penalty: 0,
-            presence_penalty: 0,
-        });
+            // resp.send(response);
 
-        resp.send({
-            "status": "success",
-            "data": completion.choices[0].message
-          });        
+        } catch (ex: any) {
+            resp.send(ex);
+        }
       })
     });
