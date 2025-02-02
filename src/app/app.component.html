@@ -6,4 +6,13 @@
 
 <router-outlet></router-outlet>
 
-<!-- <app-contact-card></app-contact-card> -->
+<div [class]="cardActive ? 'logo activated' : isLogoActivated ? 'logo activated' : 'logo'" (click)="activateContactCard($event)">
+    <div class="logo-content">
+      <span>R</span>
+      <span>B</span>
+    </div>
+  </div>
+
+
+
+<app-contact-card></app-contact-card>

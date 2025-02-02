@@ -53,6 +53,15 @@ div.hero > span > a {
     animation: fadeIn .3s ease-in-out;
 }
 
+.instructions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.instructions > span:nth-last-child(1) {
+    cursor: pointer;
+}
+
 app-monitor {
     display: block;
     // mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 66%);

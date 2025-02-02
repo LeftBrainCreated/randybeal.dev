@@ -11,6 +11,7 @@ import { map, Subscription } from 'rxjs';
 // import { WelcomeComponent } from "./components/welcome/welcome.component";
 import { RouterOutlet } from '@angular/router';
 import { ContactCardComponent } from "./components/contact-card/contact-card.component";
+import { HttpClientModule } from '@angular/common/http';
 
 enum ScreenSizeEnum {
   Large,
@@ -23,7 +24,8 @@ enum ScreenSizeEnum {
     imports: [
     CommonModule,
     RouterOutlet,
-    ContactCardComponent
+    ContactCardComponent,
+    HttpClientModule
 ],
     standalone: true,
     templateUrl: './app.component.html',
@@ -45,7 +47,6 @@ export class AppComponent implements OnInit {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private breakpointObserver: BreakpointObserver,
-    // private contentService: ContentService
   ) {
 
     // page fade in
@@ -92,10 +93,6 @@ export class AppComponent implements OnInit {
     this.checkScreen();
   }
 
-  // closeContact(): void {
-  //   this.contentService.closeContactCard.next();
-  // }
-
   checkScreen(): void {
     this.screenSizeSubscription = this.breakpointObserver
       .observe([
@@ -122,13 +119,14 @@ export class AppComponent implements OnInit {
       });
   }
 
-  // setScrollVar(): void {
-  //     const htmlElement = document.documentElement;
-  //     const scrollHeight = htmlElement.scrollHeight - htmlElement.clientHeight; // Total scrollable height
-  //     const percentScrolled = (window.scrollY / scrollHeight) * 100;
-  //     // console.log(percentScrolled); // for debug
-  //     htmlElement.style.setProperty('--scroll', `${percentScrolled}`);
-  // }
+  protected activateContactCard(event: MouseEvent): void {
+    this.cardActive = true
+    event.stopPropagation();
+  }
+
+  protected deactivateContactCard(): void {
+    this.cardActive = false;
+  }
 
   ngOnDestroy(): void {
     if (this.screenSizeSubscription) {

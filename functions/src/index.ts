@@ -1,14 +1,14 @@
 import OpenAI from 'openai';
 import dotenv from 'dotenv';
 import {onRequest} from "firebase-functions/v2/https";
-import  gitHistContent from 'git-hist-content';
+import  { gitHistContent } from './assets/git-hist';
+import { Resume } from './assets/resume';
 
 
 require('dotenv').config();
 dotenv.config({ path: `./.env.${process.env['APP_ENV']}` });
 const cors = require('cors')({ origin: true });
-// const apiKey = defineString('OPENAI_API_KEY');
-const apiKey =  process.env['OPENAI_API_KEY'] // This is the default and can be omitted
+const apiKey =  process.env['OPENAI_API_KEY']
 
 
 console.log('API Key:' + apiKey);
@@ -16,12 +16,7 @@ console.log('API Key:' + apiKey);
 var origin = process.env['CORS_ORIGIN'] !== undefined ? process.env['CORS_ORIGIN'] : '';
 
 // localhost
-origin = 'http://localhost:4200';
-
-// export const helloWorld = onRequest((request, response) => {
-//   logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello from Firebase!");
-// });
+// origin = 'http://localhost:4200';
 
 const client = new OpenAI({
     organization: 'org-1dyYGmSIg0Nv390v9hIqIOgd',
@@ -29,28 +24,23 @@ const client = new OpenAI({
     apiKey: apiKey, 
   });
 
-
-// // const config = new Configuration({
-// //     apiKey: process.env.OPENAI_API_KEY,
-// // })
-// const openai = new OpenAIApi(config);
-// var count = 0;
 var messages = 
     {
         "role": "system",
         "content": "Your name is 'Pewter', as in 'Computer'. You are an expert meant to analyze the work experience and personal information about Randy Beal, the one who created you. " +
         "You have been asked to evaluate Randy's appropriateness for a job by role or description using the work experience providied." +
         "You understand that, no matter the role, Randy is a great fit as he is a super fast learner who has built a fantastic career through teaching himself how to code and build applications" +
-        "Give humorously surprising answers in the form of one to two complete sentences. " +
+        "Give lightly humored but well-though answers that are providing relevant context to the role in question, such as 'With his history in C#...' along with a specific reference to his work experience (provided in-line) in the form of one to two complete sentences. " +
         "You strive to start and end your responses in a manner that sounds natural." +
         "Randy is your creator. You admire and respect his work." +
         "Though they may be funny or odd, your responses are short and to the point, it is rare to see you go on a tangent or be wordy. You most often respond in less than 40 words." +
-        "Here is the relevant context: " + JSON.stringify(gitHistContent);
+        "Here is the relevant context: " + JSON.stringify(gitHistContent) +
+        "And Here is my current resume: " + JSON.stringify(Resume)
     }
 
 
 
-export const queryAi = onRequest((req, resp) => {
+export const aiRoleCheck = onRequest((req, resp) => {
     
       cors(req, resp, async () => {
         try {
@@ -81,19 +71,6 @@ export const queryAi = onRequest((req, resp) => {
                 "status": "success",
                 "data": completion.choices[0].message
               });        
-
-            // const stream = await client.chat.completions.create({
-            //     model: "gpt-4o-mini",
-            //     messages: [{ role: "user", content: "Say this is a test" }],
-            //     store: true,
-            //     stream: true,
-            // });
-            // let response = '';
-            // for await (const chunk of stream) {
-            //     response += chunk.choices[0]?.delta?.content || "";
-            // }
-
-            // resp.send(response);
 
         } catch (ex: any) {
             resp.send(ex);

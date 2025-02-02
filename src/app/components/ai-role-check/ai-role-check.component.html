@@ -2,7 +2,7 @@
     <div class="header">
         <span>Find out if AI thinks I'd be a good fit for your role</span>
         
-        <button mat-icon-button class="modal-header-btn">
+        <button mat-icon-button class="modal-header-btn" (click)="disableRoleCheck()">
             <mat-icon class="close-icon" color="dark">close</mat-icon>
           </button>
     </div>
@@ -10,12 +10,13 @@
         <mat-label>Enter Role, Title, or Description</mat-label>
         <input matInput placeholder="Include names of relevant tech" [(ngModel)]="prompt">
     </mat-form-field>
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
     <div class="input-line">
-        <button>Tell Me</button>
-        <span>{{executed ? prompt : 'much longer string of text, much longer string of text, much longer string of text, much longer string of text, much longer string of text, much longer string of text, much longer string of text, much longer string of text, much longer string of text, much longer string of text, much longer string of text, much longer string of text, '}}</span>
+        <button (click)="submitRequest()">Tell Me</button>
+        <span><small>{{promptResult ? prompt : ''}}</small></span>
     </div>
-    <div *ngIf="executed" class="output">
-        <span>much longer string of text, much longer string of text, much longer string of text, much longer string of text, much longer string of text, much longer string of text, much longer string of text, much longer string of text, much longer string of text, much longer string of text, much longer string of text, much longer string of text, </span>
+    <div *ngIf="promptResult" class="output">
+        <span>{{promptResult}}</span>
     </div>
 </div>
 

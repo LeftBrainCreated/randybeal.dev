@@ -45,3 +45,69 @@ app-contact-card.activated {
   right: 5vw;    
 }
 
+div.logo.activated {
+  opacity: 0;
+}
+
+.logo {
+  opacity: .4;
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  background-color: #fff;
+  padding: 5px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  z-index: 2;
+}
+
+.logo-content {
+  opacity: 1;
+  background-color: #77c043;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+.logo-content > span {
+  color: white;
+  font-size: 2rem;
+  transition: font-size 0.4s ease-in-out;
+}
+
+.logo-content span:nth-of-type(1) {
+  font-weight: 800;
+}
+
+.logo-content span:nth-of-type(2) {
+  font-weight: 100;
+}
+
+div.logo:hover {
+  opacity: 1;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+app-contact-card {
+  margin-top: 40px;
+  z-index: 101;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+app-contact-card.activated {
+  margin-top: 0;
+  position: fixed;
+  top: 40%;
+  right: 5vw;    
+}

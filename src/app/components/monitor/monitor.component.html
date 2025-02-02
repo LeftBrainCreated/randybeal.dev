@@ -1,27 +1,21 @@
 <div id="container">
-    <div id="monitor">
-      <div id="monitorscreen">
-        <div class="content">
-            <span><a href="/projects">Projects</a></span>
-            <span>Play</span>
-            <span><a href="/about">About</a></span>
-            <span>Contact</span>
-            <span><a href="assets/rbeal_2025_exp.pdf" target="_blank">Resume</a></span>
-        </div>
+  <div id="monitor">
+    <div *ngIf="!hackerTyper" id="monitorscreen">
+      <div class="content">
+          <span><a href="/projects">Projects</a></span>
+          <span><a href="#" (click)="enableHackerTyper()">Play</a></span>
+          <span><a href="/about">About</a></span>
+          <span (click)="enableRoleCheck()"><a href="#">AI Role Check</a></span>
+          <span>Contact</span>
+          <span><a href="assets/rbeal_2025_exp.pdf" target="_blank">Resume</a></span>
+      </div>
+    </div>
+
+    <!-- ✅ Only this section should auto-scroll -->
+    <div *ngIf="hackerTyper" id="hacker-typer">
+      <div class="content" #contentDiv>
+        <span [innerHTML]="codeText.substring(0, codeLength)"></span>
       </div>
     </div>
   </div>
-
-
-  <!-- <div class="monitor">
-  <div class="screen">
-    <div class="crt">
-      <div class="terminal">
-        <h1 title="> Hello, World!">> Hello, World!</h1>
-      </div>
-      <div class="vline"></div>
-    </div>
-    <div class="scan-line"></div>
-  </div>
-  <button>On/Off</button>
-</div> -->
+</div>

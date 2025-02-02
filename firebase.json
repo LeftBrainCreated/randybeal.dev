@@ -15,6 +15,7 @@
   },
   "functions": [
     {
+      "public": "\"$RESOURCE_DIR\" lib",
       "source": "functions",
       "codebase": "default",
       "ignore": [

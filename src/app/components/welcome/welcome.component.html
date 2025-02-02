@@ -19,9 +19,14 @@
             </p>
         </div>
         <div class="hero-image">
+            <div *ngIf="typeCodeVisible" class="instructions">
+                <span>Just Start Typing!!</span>
+                <span (click)="closeTyper()">close</span>
+            </div>
             <app-monitor></app-monitor>
+            <small *ngIf="typeCodeVisible">Just like hackertyper.net</small>
         </div>
     </div>
 </div>
 
-<!-- <app-ai-role-check></app-ai-role-check> -->
+<app-ai-role-check *ngIf=aiVisible></app-ai-role-check>
