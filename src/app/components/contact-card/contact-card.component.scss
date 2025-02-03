@@ -229,4 +229,82 @@ div.triangle {
     width: 350px;
     place-self: center;
     text-align: center;
+    transition: opacity 1s ease-in-out;
+    opacity: 0;
   }
+
+div.tooltip-active {
+    opacity: 1;
+}
+
+// div.flash-logo.activated {
+//   opacity: 0;
+// }
+
+// .flash-logo:not(.activated){
+//   animation: pulse 20s ease-in-out infinite;
+// }
+
+// div.flash-logo {
+//   opacity: .4;
+//   position: fixed;
+//   right: 10px;
+//   bottom: 10px;
+//   background-color: #fff;
+//   padding: 5px;
+//   width: 60px;
+//   height: 60px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+//   z-index: 2;
+//   cursor: pointer;
+// }
+
+// div.flash-logo-content {
+//   opacity: 1;
+//   background-color: #77c043;
+//   width: 50px;
+//   height: 50px;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   margin: 0 auto;
+//   transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+//   font-family: Roboto,Helvetica Neue,sans-serif;
+// }
+
+// div.flash-logo-content > span {
+//   color: white;
+//   font-size: 2rem;
+//   transition: font-size 0.4s ease-in-out;
+// }
+
+// div.flash-logo-content span:nth-of-type(1) {
+//   font-weight: 800;
+// }
+
+// div.flash-logo-content span:nth-of-type(2) {
+//   font-weight: 100;
+// }
+
+// div.flash-logo:hover {
+//   opacity: 1;
+//   transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+// }
+
+// @keyframes pulse {
+//   0% {
+//     transform: scale(1);
+//     opacity: .4;
+//   }
+//   2.5% {
+//     transform: scale(1.2);
+//     opacity: 0.8;
+//   }
+//   5% {
+//     transform: scale(1);
+//     opacity: .4;
+//   }
+// }

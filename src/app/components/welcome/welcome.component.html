@@ -1,8 +1,6 @@
-<div class="hero">
-    <span>- This page is under development, as of Jan, 24nd 2025, 
-    If you want to see the original, very busy, muted, but fully populated site, <a href="https://randybeal-dev--old-oa7ikjzh.web.app/">click here</a>.<br />
-    - One thing I won't claim to be, is a UI Designer, so please bear with me as I work out what this page looks like.<br />
-    - This page is not yet mobile friendly</span>
+<div class="hero" [class]="display.getDisplay() > 0 ? 'mobile' : ''" (click)="closeContact()">
+    <div id="spacer"></div>
+    <span>One thing I won't claim to be, is a UI Designer, so please bear with me as I work out what this page looks like.</span>
     <div class="hero-inner">
 
         <div class="hero-text">
@@ -23,7 +21,7 @@
                 <span>Just Start Typing!!</span>
                 <span (click)="closeTyper()">close</span>
             </div>
-            <app-monitor></app-monitor>
+            <app-monitor [class]="display.getDisplay() > 0 ? 'mobile' : ''"></app-monitor>
             <small *ngIf="typeCodeVisible">Just like hackertyper.net</small>
         </div>
     </div>

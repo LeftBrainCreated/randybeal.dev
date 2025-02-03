@@ -86,8 +86,8 @@ export class DefaultViewComponent {
   }
 
   ngOnInit(): void {
-    this.contentService.closeContactCard.subscribe(() => {
-      this.deactivateContactCard();
+    this.contentService.contactCardObs.subscribe((c) => {
+      this.cardActive = c;
     })
   
     if (this.isBrowser) {

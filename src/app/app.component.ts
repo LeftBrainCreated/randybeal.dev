@@ -12,6 +12,8 @@ import { map, Subscription } from 'rxjs';
 import { RouterOutlet } from '@angular/router';
 import { ContactCardComponent } from "./components/contact-card/contact-card.component";
 import { HttpClientModule } from '@angular/common/http';
+import { ContentService } from './services/content.service';
+import { DisplayService } from './services/display.service';
 
 enum ScreenSizeEnum {
   Large,
@@ -40,39 +42,40 @@ export class AppComponent implements OnInit {
   opacityValue = 1;
 
   protected cardActive: boolean = false;
-  isLogoActivated = false;
 
   screenSize: ScreenSizeEnum = ScreenSizeEnum.Large;
   
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private breakpointObserver: BreakpointObserver,
+    private content: ContentService,
+    private display: DisplayService
   ) {
 
     // page fade in
 
-    // if (typeof document !== 'undefined') {
-    //   window.addEventListener('DOMContentLoaded', () => {
-    //     const overlay = document.getElementById('page-overlay');
+    if (typeof document !== 'undefined') {
+      window.addEventListener('DOMContentLoaded', () => {
+        const overlay = document.getElementById('page-overlay');
 
-    //     // white screen on load
-    //     if (overlay) {
-    //       setTimeout(() => {
-    //         overlay.style.opacity = '0';
+        // white screen on load
+        if (overlay) {
+          setTimeout(() => {
+            overlay.style.opacity = '0';
       
-    //         overlay.addEventListener('transitionend', () => {
-    //           if (overlay.parentElement) {
-    //             overlay.parentElement.removeChild(overlay);
-    //           }
-    //         });
-    //       }, 500);
-    //     }
-    //   });
-    // }
+            overlay.addEventListener('transitionend', () => {
+              if (overlay.parentElement) {
+                overlay.parentElement.removeChild(overlay);
+              }
+            });
+          }, 200);
+        }
+      });
+    }
     
     // this.isBrowser = isPlatformBrowser(this.platformId);
     
-    // this.checkScreen();
+    this.checkScreen();
   }
   
   ngOnInit(): void {
@@ -89,6 +92,10 @@ export class AppComponent implements OnInit {
   //     window.addEventListener('resize', this.setScrollVar.bind(this));
   //     this.setScrollVar(); 
   // }
+
+    this.content.contactCardObs.subscribe((c) => {
+      this.cardActive = c;
+    });
   
     this.checkScreen();
   }
@@ -117,10 +124,13 @@ export class AppComponent implements OnInit {
       .subscribe(screenSize => {
         this.screenSize = screenSize;
       });
+
+      this.display.setDisplay(this.screenSize)
+      //  this.display.DisplayObs.next(this.screenSize);
   }
 
   protected activateContactCard(event: MouseEvent): void {
-    this.cardActive = true
+    this.cardActive = true;
     event.stopPropagation();
   }
 

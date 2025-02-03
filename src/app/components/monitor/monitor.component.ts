@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewChecked, Component, ElementRef, HostListener, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { ContentService } from '@ng/services/content.service';
+import { DisplayService } from '@ng/services/display.service';
 
 @Component({
   selector: 'app-monitor',
@@ -21,7 +22,7 @@ export class MonitorComponent implements OnInit, AfterViewChecked {
 
   constructor(
     private content: ContentService,
-    private renderer: Renderer2
+    protected display: DisplayService
   ) {
    }
 
@@ -74,5 +75,10 @@ export class MonitorComponent implements OnInit, AfterViewChecked {
       const element = this.contentDiv.nativeElement;
       element.scrollTop = element.scrollHeight;
     }
+  }
+
+  openContactCard(e: MouseEvent): void {
+    this.content.contactCardObs.next(true);
+    e.stopPropagation();
   }
 }

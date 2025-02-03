@@ -27,6 +27,10 @@ body {
     pointer-events: none; /* Prevent interaction */
   }
 
+  // div#container.mobile::before {
+  //   display: none;
+  // }
+
   #monitor {
       background: #000; 
       position: relative;
@@ -82,6 +86,10 @@ body {
         gap: 10;
   }
 
+  div.container.mobile div.content > span {
+    font-size: 1.25rem;
+  }
+
   .content span {
     color: #00bb4c;
     opacity: 0.8; /* Default gray-ish text */
@@ -120,10 +128,10 @@ body {
 
   @media all and (min-width: 960px) {
       #monitor {
-          -webkit-animation: tvflicker .2s infinite alternate; 
-          -moz-animation:    tvflicker .5s infinite alternate; 
-          -o-animation:      tvflicker .5s infinite alternate; 
-          animation:         tvflicker .5s infinite alternate; 
+          -webkit-animation: tvflicker 1.5s infinite alternate; 
+          -moz-animation:    tvflicker 1.5s infinite alternate; 
+          -o-animation:      tvflicker 1.5s infinite alternate; 
+          animation:         tvflicker 1.5s infinite alternate; 
       }
   
       @-webkit-keyframes tvflicker {

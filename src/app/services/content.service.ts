@@ -32,7 +32,7 @@ export class ContentService {
 
   public SelectedProjectObs = new Subject<string>();
   public aiRoleUtility = new Subject<boolean>();
-  public closeContactCard = new Subject<void>();
+  public contactCardObs = new Subject<boolean>();
   public typerSub = new Subject<boolean>();
 
   constructor(

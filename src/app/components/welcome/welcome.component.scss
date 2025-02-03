@@ -31,6 +31,14 @@ div.hero > span > a {
     gap: 2rem;
 }
 
+div.hero.mobile > .hero-inner {
+    flex-direction: column;
+}
+
+div.hero.mobile > #spacer {
+    min-height: 50px;
+}
+
 .hero-text {
     width: 100%;
     height: 100%;
@@ -41,6 +49,14 @@ div.hero > span > a {
 
 .hero-text p {
     font-family: "Roboto Slab", serif;
+}
+
+div.hero.mobile > div.hero-inner > div.hero-text > span.welcome {
+    font-size: 4rem;
+}
+
+div.hero.mobile > div.hero-inner > div.hero-text {
+    grid-template-rows: 0.11fr 1fr;
 }
 
 .welcome {
@@ -64,16 +80,16 @@ div.hero > span > a {
 
 app-monitor {
     display: block;
-    // mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 66%);
-    // -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 66%);
     width: 500px;
     height: 500px;
     transform: rotate3d(-2, -3, 0, 42deg);
     transition: transform 0.5s ease;
     align-content: center; 
-    // box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5), 
-    // 0 0 30px rgba(0, 255, 255, 0.2); /* Create a layered shadow */
-    // transform: rotateX(5deg) rotateY(5deg);
+}
+
+app-monitor.mobile {
+    height: unset;
+    transform: rotate3d(-1, -1, 0, 30deg);
 }
 
 app-ai-role-check {
