@@ -6,6 +6,7 @@ import { ContentService } from '@ng/services/content.service';
 import { GitHistProject } from '@ng/models/git-hist-project';
 import { ImageStackComponent } from '../image-stack/image-stack.component';
 import { CommonModule } from '@angular/common';
+import { DisplayService } from '@ng/services/display.service';
 
 @Component({
   selector: 'app-projects',
@@ -24,7 +25,8 @@ export class ProjectsComponent implements OnInit {
   gitHist: GitHistProject[];
 
   constructor(
-    private contentService: ContentService
+    private contentService: ContentService,
+    protected display: DisplayService
   ) {
     this.gitHist = this.contentService.getGitHistProjects();
   }

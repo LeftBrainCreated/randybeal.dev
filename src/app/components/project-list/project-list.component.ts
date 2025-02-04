@@ -1,5 +1,5 @@
-import { AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, Inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { CommitOptions, createGitgraph } from "@gitgraph/js";
+import { AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, Inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { CommitOptions, createGitgraph, BranchOptions } from "@gitgraph/js";
 import { DOCUMENT, NgOptimizedImage } from '@angular/common';
 import { ContentService } from '@ng/services/content.service';
 
@@ -14,6 +14,8 @@ import { ContentService } from '@ng/services/content.service';
 })
 export class ProjectListComponent implements OnInit, AfterViewChecked {
   selectedCommit: string | null = null;
+
+  @Input() screenSize: number = 0;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -50,7 +52,11 @@ export class ProjectListComponent implements OnInit, AfterViewChecked {
     });
 
     const graphContainer = document.getElementById("graph-container");
-    const gitgraph = createGitgraph(graphContainer!);
+    const ggOptions: any = {
+      orientation: this.screenSize == 0 ? "vertical" : "horizontal",
+      template: "blackarrow",
+    }
+    const gitgraph = createGitgraph(graphContainer!, ggOptions);
 
     const observer = new MutationObserver(() => {
       const textElements = document.querySelectorAll('div#graph-container text');
@@ -79,7 +85,12 @@ export class ProjectListComponent implements OnInit, AfterViewChecked {
         subject: c.subject,
         onMessageClick: () => this.onCommitMessageClick(c, i),
         onMouseOver:  () => this.onCommitDotClick(c, i),
-      })
+        // style: {
+        //   label: {
+        //     strokeColor: '#919191',
+        //   }
+        // }
+      });
 
       i++;
 

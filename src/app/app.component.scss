@@ -40,7 +40,8 @@ div.logo.activated {
 div.logo {
   opacity: .4;
   position: fixed;
-  right: 10px;
+  // right: 10px;
+  left: calc(100vw - 70px);
   bottom: 10px;
   background-color: #fff;
   padding: 5px;

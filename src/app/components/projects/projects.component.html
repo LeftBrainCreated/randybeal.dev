@@ -1,15 +1,17 @@
-<app-header-bar></app-header-bar>
-
-<app-project-list></app-project-list>
-
-<div class="content">
-    <app-word-cloud></app-word-cloud>
-    <div class="header">
-        <h2>{{selectedProject?.subject}}</h2>
-        <div>
-            <a *ngFor="let link of selectedProject?.link" href="{{link}}"><span>{{link}}</span></a>
+<div class="main">
+    <app-header-bar></app-header-bar>
+    
+    <app-project-list [screenSize]="display.getDisplay()"></app-project-list>
+    
+    <div class="content">
+        <app-word-cloud></app-word-cloud>
+        <div class="header">
+            <h2>{{selectedProject?.subject}}</h2>
+            <div>
+                <a *ngFor="let link of selectedProject?.link" href="{{link}}"><span>{{link}}</span></a>
+            </div>
         </div>
+        <p [innerHTML]="selectedProject?.description"></p>
+        <app-image-stack *ngIf="selectedProject" [images]="selectedProject.images!"></app-image-stack>
     </div>
-    <p [innerHTML]="selectedProject?.description"></p>
-    <app-image-stack *ngIf="selectedProject" [images]="selectedProject.images!"></app-image-stack>
 </div>

@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
 
   protected cardActive: boolean = false;
 
-  screenSize: ScreenSizeEnum = ScreenSizeEnum.Large;
+  // screenSize: ScreenSizeEnum = ScreenSizeEnum.Large;
   
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
@@ -122,10 +122,10 @@ export class AppComponent implements OnInit {
         })
       )
       .subscribe(screenSize => {
-        this.screenSize = screenSize;
+        // this.screenSize = screenSize;
+        this.display.setDisplay(screenSize)
       });
 
-      this.display.setDisplay(this.screenSize)
       //  this.display.DisplayObs.next(this.screenSize);
   }
 
