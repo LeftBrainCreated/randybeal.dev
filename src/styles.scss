@@ -65,3 +65,8 @@ app-root {
   height: 100%;
   display: block;
 }
+
+g > text:not(:has(+ rect)) {
+  fill: #929c9f;
+  // font-size: 16px !important;
+}

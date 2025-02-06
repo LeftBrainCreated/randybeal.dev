@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, Inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, AfterViewInit, ChangeDetectorRef, Component, ElementRef, Inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CommitOptions, createGitgraph, BranchOptions } from "@gitgraph/js";
 import { DOCUMENT, NgOptimizedImage } from '@angular/common';
 import { ContentService } from '@ng/services/content.service';
@@ -14,19 +14,33 @@ import { ContentService } from '@ng/services/content.service';
 })
 export class ProjectListComponent implements OnInit, AfterViewChecked {
   selectedCommit: string | null = null;
+  scrollMultiplier: number = 60;
 
   @Input() screenSize: number = 0;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private content: ContentService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private elementRef: ElementRef
   ) {
 
   }
   ngAfterViewChecked(): void {
     this.cleanRenderedText();
+    // this.autoScrollToSelectedItem();
   }
+
+  // autoScrollToSelectedItem(): void {
+  //   const container = this.elementRef.nativeElement.querySelector('#gitgraph-container');
+  //   if (container) {
+  //     const scrollOffset = this.scrollMultiplier * this.selectedIndex;
+  //     container.scrollTo({
+  //       top: scrollOffset,
+  //       behavior: 'smooth', // Enables smooth scrolling
+  //     });
+  //   }
+  // }
 
   onCommitDotClick = (commit: any, index: number) => {
     console.log('Commit dot clicked:', commit);
@@ -48,12 +62,19 @@ export class ProjectListComponent implements OnInit, AfterViewChecked {
 
       if (e) {
         this.highlightElement(e);
+        if (this.screenSize > 0) {
+          e.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+            inline: 'nearest',
+          })
+        }
       }
     });
 
     const graphContainer = document.getElementById("graph-container");
     const ggOptions: any = {
-      orientation: this.screenSize == 0 ? "vertical" : "horizontal",
+      // orientation: this.screenSize == 0 ? "vertical" : "horizontal",
       template: "blackarrow",
     }
     const gitgraph = createGitgraph(graphContainer!, ggOptions);
@@ -78,18 +99,25 @@ export class ProjectListComponent implements OnInit, AfterViewChecked {
     let i = 0;
 
     content.forEach((c) => {
-      let branch = gitgraph.branch(c.branch);
+      // let branch = gitgraph.branch(c.branch);
+      let branch = gitgraph.branch(c.branch)
+        // style: {
+        //   label: {
+        //     bgColor: '#ffce52',
+        //     color: 'black',
+        //     strokeColor: '#ce9b00',
+        //     borderRadius: 0,
+        //     font: 'italic 12pt serif',
+        //   },
+        // },        
+      // })
       branch.commit({
         author: '',
         hash: i.toString().padStart(2, '0'),
         subject: c.subject,
         onMessageClick: () => this.onCommitMessageClick(c, i),
         onMouseOver:  () => this.onCommitDotClick(c, i),
-        // style: {
-        //   label: {
-        //     strokeColor: '#919191',
-        //   }
-        // }
+        style: { dot: { font: 'italic 18pt Calibri' } }
       });
 
       i++;

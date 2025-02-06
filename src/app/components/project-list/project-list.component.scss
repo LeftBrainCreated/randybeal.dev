@@ -16,17 +16,35 @@
     position: fixed;
     top: 50;
     left: 0;
+  }
+  
+#gitgraph-container.mobile {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  border: 1px solid #ccc;
+  width: unset;
+  height: 25vh;
+  position: relative;
 }
 
 #gitgraph-container::-webkit-scrollbar {
     display: none;
   }
 
-  #graph-container {
+#graph-container {
     transform: scale(0.75);
     transform-origin: top left;
     width: calc(100% / 0.75);
     height: calc(100% / 0.75);
+}
+
+#graph-container.mobile {
+    transform: scale(0.65);
+    transform-origin: top left;
+    // width: calc(100% / 0.65);
+    // height: calc(100% / 0.65);
 }
 
 text {

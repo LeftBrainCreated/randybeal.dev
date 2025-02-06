@@ -30,6 +30,7 @@ const AI_URI = 'https://us-central1-randybeal-dev.cloudfunctions.net/aiRoleCheck
 export class AiRoleCheckComponent {
 
   protected prompt: string = "";
+  protected preview: string = "";
   // protected executed: boolean = false;
   protected promptResult: string | undefined;
   protected loading: boolean = false;
@@ -43,12 +44,13 @@ export class AiRoleCheckComponent {
     this.loading = true;
 
     try {
-      let p = this.sanitizeInput(this.prompt);
+      this.preview = this.sanitizeInput(this.prompt);
   
       let result:any = await this.web.send(AI_URI, RequestType.POST, {
-        prompt: p
+        prompt: this.preview
       })
-  
+
+      this.prompt = "";
       this.promptResult = result.data.content;
     } catch (ex: any) {
       console.log(ex)

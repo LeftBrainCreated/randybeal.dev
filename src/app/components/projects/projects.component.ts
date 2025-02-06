@@ -7,16 +7,18 @@ import { GitHistProject } from '@ng/models/git-hist-project';
 import { ImageStackComponent } from '../image-stack/image-stack.component';
 import { CommonModule } from '@angular/common';
 import { DisplayService } from '@ng/services/display.service';
+import { MobileImageStackComponent } from "../mobile-image-stack/mobile-image-stack.component";
 
 @Component({
   selector: 'app-projects',
   imports: [
-    HeaderBarComponent, 
-    ProjectListComponent, 
+    HeaderBarComponent,
+    ProjectListComponent,
     WordCloudComponent,
     ImageStackComponent,
-    CommonModule
-  ],
+    CommonModule,
+    MobileImageStackComponent
+],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss'
 })

@@ -1,7 +1,7 @@
 <div class="gallery-container">
     <div
       class="gallery-track"
-      [style.transform]="'translateX(' + translateX * 100 + 'vw)'"
+      [style.transform]="'translateX(' + translateX * -100 + 'vw)'"
       (mousedown)="onSwipeStart($event)"
       (touchstart)="onSwipeStart($event)"
       (mousemove)="onSwipeMove($event)"

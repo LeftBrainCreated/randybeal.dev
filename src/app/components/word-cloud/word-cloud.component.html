@@ -1,16 +1,17 @@
-<div class="main">
+<div class="main" [class]="screenSize > 0 ? 'mobile' : ''">
+  <!-- Screen: {{ screenSize }} -->
     <div
       *ngFor="let tech of techWeights; let i = index"
       class="techstack-item"
       [attr.id]="'skill-' + tech.name"
       [ngStyle]="{
-        'width': (60 + tech.weight * 8) + 'px',
-        'height': (50 + tech.weight * 6) + 'px',
+        'width': techPositions[i].width,
+        'height': techPositions[i].height,
         'top': techPositions[i].top,
         'left': techPositions[i].left,
         'transform': techPositions[i].rotation,
         'background-color': 'rgba(30, 30, 46, 0.8)',
-        'font-size': (12 + tech.weight * 1.5) + 'px'
+        'font-size': techPositions[i].fontSize,
       }"
     >
       {{ tech.name }}

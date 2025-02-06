@@ -29,6 +29,23 @@ h1 {
   transition: opacity 0.5s ease;
 }
 
+div#underlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #2b2c3cd9;
+  height: 0;
+  width: 0;
+  z-index: -10;
+}
+
+div#underlay.activated {
+  height: 100vh;
+  width: 100vw;
+  z-index: 100;
+}
+
 div.logo.activated {
   opacity: 0;
 }

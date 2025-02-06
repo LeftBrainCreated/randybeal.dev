@@ -13,7 +13,7 @@
     <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
     <div class="input-line">
         <button (click)="submitRequest()">Tell Me</button>
-        <span><small>{{promptResult ? prompt : ''}}</small></span>
+        <span><small>{{promptResult ? preview : ''}}</small></span>
     </div>
     <div *ngIf="promptResult" class="output">
         <span>{{promptResult}}</span>

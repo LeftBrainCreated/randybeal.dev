@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, HostListener } from '@angular/core';
 import { GitHistProject, TechWeight } from '@ng/models/git-hist-project';
 import { ContentService } from '@ng/services/content.service';
 
@@ -12,8 +12,18 @@ import { ContentService } from '@ng/services/content.service';
 export class WordCloudComponent implements OnInit {
   content: GitHistProject[];
   techWeights?: TechWeight[];
-  techPositions: { name: string; top: string; left: string; rotation: string }[] = [];
+  techPositions: { 
+    name: string; 
+    top: string; 
+    left: string; 
+    rotation: string 
+    width: string;
+    height: string;
+    fontSize: string;
+  }[] = [];
   selectedSkills: string[] = [];
+
+  @Input() screenSize: number = 0;
 
   constructor(private contentService: ContentService) {
     this.content = contentService.getGitHistProjects();
@@ -53,6 +63,22 @@ export class WordCloudComponent implements OnInit {
 
     // Add highlighting behavior dynamically for elements
     this.addHoverEffect();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(): void {
+    this.updateDimensions();
+  }
+
+  updateDimensions(): void {
+    if (this.techWeights) {
+      this.techPositions.forEach((position, index) => {
+        const weight = this.techWeights![index].weight;
+        position.width = `${this.screenSize === 0 ? 60 + weight * 8 : 30 + weight * 8}px`;
+        position.height = `${this.screenSize === 0 ? 50 + weight * 6 : 25 + weight * 4}px`;
+        position.fontSize = `${this.screenSize === 0 ? 12 + weight * 2 : 6 + weight}px`;
+      });
+    }
   }
 
   consolidateTechWeights = (gitHistContent: GitHistProject[]): TechWeight[] => {
@@ -111,7 +137,15 @@ export class WordCloudComponent implements OnInit {
           e.style.transform = e.getAttribute('data-rotation') || '0';
   }
 
-  generateNonOverlappingPositions(items: TechWeight[]): { name: string; top: string; left: string; rotation: string }[] {
+  generateNonOverlappingPositions(items: TechWeight[]): { 
+    name: string; 
+    top: string; 
+    left: string; 
+    rotation: string, 
+    width: string, 
+    height: string 
+    fontSize: string
+  }[] {
     const positions: { top: number; left: number; rotation: string }[] = [];
 
     items.forEach((item) => {
@@ -138,15 +172,18 @@ export class WordCloudComponent implements OnInit {
       top: `${positions[index].top}%`,
       left: `${positions[index].left}%`,
       rotation: positions[index].rotation,
+      width: `${this.screenSize == 0 ? (60 + item.weight * 8) : ((30 + item.weight * 8))}px`,
+      height: `${this.screenSize == 0 ? (50 + item.weight * 6) : ((25 + item.weight * 4))}px`,
+      fontSize: `${this.screenSize == 0 ? (12 + item.weight * 2) : (6 + item.weight)}px`
     }));
   }  
 
   getRandomPosition(): number {
-    return Math.random() * 70 + 0; // Random percentage between 10% and 90%
+    return Math.random() * (this.screenSize == 0 ? 70 : 85) + 0; // Random percentage between 10% and 90%
   }
 
   getRandomWidth(): number {
-    return Math.random() * 90 + 0; // Random percentage between 10% and 90%
+    return Math.random() * (this.screenSize == 0 ? 90 : 80) + 0; // Random percentage between 10% and 90%
   }
 
   getRandomRotation(): number {

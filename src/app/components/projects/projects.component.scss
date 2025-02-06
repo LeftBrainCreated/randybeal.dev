@@ -1,3 +1,17 @@
+div.main.mobile {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: auto;
+}
+
+app-project-list.mobile {
+    position: sticky;
+    top: 0;
+    z-index: 11;
+    background-color: #2f3e43;
+}
+
 div.content {
     width: calc(100vw - 350px);
     left: 350px;
@@ -7,6 +21,13 @@ div.content {
     border: 1px solid #ccc;
     text-align: center;
     text-align: -webkit-center;
+}
+
+div.content-mobile {
+    border: 1px solid #ccc;
+    text-align: center;
+    text-align: -webkit-center;
+    overflow-x: hidden;
 }
 
 div.content > div.header {
@@ -28,7 +49,7 @@ div.content > div.header > div {
     margin-right: 20px;
 }
 
-div.content > div.header > div > a {
+div.header > div > a {
     display: flex;
     flex-direction: column;
     gap:5px;
@@ -43,15 +64,12 @@ div.content > div.header > div > a:hover {
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
 }
   
-div.content > p {
+p {
     margin: 20px 10vw 30px 10vw;
     text-align: unset;
-    // margin: 20px;
-    // margin-left: 10vw;
-    // margin-right: 10vw;
 }
 
-// div.content > app-image-stack {
-//     text-align: center;
-//     text-align: -webkit-center;
-// }
+div.content-mobile > p {
+    font-size: .9rem;
+    margin: 15px;
+}

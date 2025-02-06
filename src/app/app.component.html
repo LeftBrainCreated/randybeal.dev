@@ -1,5 +1,5 @@
 
-<div id="page-overlay"></div>
+<!-- <div id="page-overlay"></div> -->
 
 <!-- <app-default-view *ngIf="screenSize != 2" [screenSize]="screenSize" (click)="closeContact()"></app-default-view>
 <app-mobile-view *ngIf="screenSize == 2" (click)="closeContact()"></app-mobile-view> -->
@@ -14,5 +14,5 @@
   </div>
 
 
-
+<div id="underlay" (click)="deactivateContactCard()" [class]="cardActive ? 'activated' : ''"></div>
   <app-contact-card [class]="cardActive ? 'activated' : ''"></app-contact-card>

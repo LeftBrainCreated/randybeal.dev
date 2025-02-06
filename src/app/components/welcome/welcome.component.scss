@@ -74,7 +74,7 @@ div.hero.mobile > .hero-inner > .hero-text {
 }
 
 div.hero.mobile > div.hero-inner > div.hero-text > span.welcome {
-    font-size: 3.5rem;
+    font-size: 3rem;
     text-align: center;
     text-align: -webkit-center;
 }
@@ -121,8 +121,8 @@ app-ai-role-check {
     position: absolute;
     top: 30%;
     width: 40vw;
-    min-width: 650;
-    left: calc(50vw - width);
+    min-width: 650px;
+    // left: calc(50vw - width);
     left: calc(50vw - 20vw);
     background-color: #4b5a62;
     border-radius: 5px;    
@@ -130,4 +130,10 @@ app-ai-role-check {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
     border-style: thin;
     border-color: black;
+}
+
+app-ai-role-check.mobile {
+    width: 94vw;
+    min-width: unset;
+    left: 3vw;
 }

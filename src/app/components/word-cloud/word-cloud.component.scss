@@ -9,6 +9,10 @@ div.main {
     align-items: center;
     flex-wrap: wrap;
   }
+
+div.main.mobile {
+  height: 45vh;
+}
   
   div.techstack-item {
     position: absolute;
