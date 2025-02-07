@@ -1,30 +1,33 @@
-<h2>Work Experience</h2>
-<p>My latest endeavors have been identifying use-case integration 
-    points for AI in big-data including consolidation, analysis, 
-    and reporting.<br />Focused on solutioning through IaaS and SaaS
-    with opportunities to grow through enterprise app design and team leadership. <br />
-    I'm continually testing the boundaries of my 
-    knowledge through side-projects by broaching tech that I wouldn't 
-    get involved with otherwise.</p>
-<div [class]="(screenSize == 2 ? 'mobile' : '') + ' page-content'">
-    <div>
-        <span>Application Architect</span>
-        <span>Feb 2022 - Jan 2025 &#64; TDSynnex</span>
-        <p>Responsibilities included application design & planning. Database and model design. AI implementation opportunities. Component integration, documentation, and implementation. Training and knowledge transfer. Code Review.</p>
-    </div>
-    <div>
-        <span>Lead Developer</span>
-        <span>Jan 2016 - Feb 2022 &#64; Tech Data</span>
-        <p>Responsibilities included Development team leadership. Writing Code. SCRUM Ceremony Lead. SQL query and SPC development. Code Review. Planning, grooming, review, and retrospective</p>
-    </div>
-    <div>
-        <span>Software Developer</span>
-        <span>Aug 2011 - Apr 2015 &#64; Healthplan Holdings (HPS)</span>
-        <p>Responsibilities included writing code for business process automation. Custom workflow management delivery system. Message queue delivery & redundancy.</p>
-    </div>
-    <div>
-        <span>Database Developer</span>
-        <span>June 2007 - Aug 2011 &#64; Adaptive Learning Systems (ALS)</span>
-        <p>Responsibilities included Access DB Mgmt. Data Entry. Sql Server Query development. QA Analyist for web portal and content.</p>
+<div class="main" [class]="screenSize > 0 ? 'mobile' : ''">
+    <h2>Work Experience</h2>
+    <p>My latest endeavors have been identifying use-case integration 
+        points for AI in big-data including consolidation, analysis, 
+        and reporting.<br />Focused on solutioning through IaaS and SaaS
+        with opportunities to grow through enterprise app design and team leadership. <br />
+        I'm continually testing the boundaries of my 
+        knowledge through side-projects by broaching tech that I wouldn't 
+        get involved with otherwise.</p>
+    <div class="page-content" [class]="(screenSize == 2 ? 'mobile' : '')">
+        <div>
+            <span>Application Architect</span>
+            <span>Feb 2022 - Jan 2025 &#64; TDSynnex</span>
+            <p>Responsibilities included application design & planning. Database and model design. AI implementation opportunities. Component integration, documentation, and implementation. Training and knowledge transfer. Code Review.</p>
+        </div>
+        <div>
+            <span>Lead Developer</span>
+            <span>Jan 2016 - Feb 2022 &#64; Tech Data</span>
+            <p>Responsibilities included Development team leadership. Writing Code. SCRUM Ceremony Lead. SQL query and SPC development. Code Review. Planning, grooming, review, and retrospective</p>
+        </div>
+        <div>
+            <span>Software Developer</span>
+            <span>Aug 2011 - Apr 2015 &#64; Healthplan Holdings (HPS)</span>
+            <p>Responsibilities included writing code for business process automation. Custom workflow management delivery system. Message queue delivery & redundancy.</p>
+        </div>
+        <div>
+            <span>Database Developer</span>
+            <span>June 2007 - Aug 2011 &#64; Adaptive Learning Systems (ALS)</span>
+            <p>Responsibilities included Access DB Mgmt. Data Entry. Sql Server Query development. QA Analyist for web portal and content.</p>
+        </div>
     </div>
 </div>
+

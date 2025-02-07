@@ -1,4 +1,4 @@
-<div #container class="random-image-container">
+<div #container class="random-image-container" [class]="screenSize > 0 ? 'mobile' : ''">
     <img
       *ngFor="let image of positionedImages"
       class="random-image"

@@ -229,7 +229,7 @@ export const gitHistContent = [
             "Azure",
             "Docker",
         ],
-        description: "The CoOp was a side project where I partnered with a very talented UI/UX dev to create multiple Coderctional Web3 Utilites from the ground up, including a web3 marketplace, interactive map, token swap, and more. I had a blast building the CoOp Apps, and look forward to finding unique ways to explore these applications further in the future.",
+        description: "The CoOp was a side project where I partnered with a very talented UI/UX dev to create multiple Coderctional Web3 Utilites from the ground up, including a web3 marketplace, interactive map, token swap, and more. I had a blast building the CoOp Apps, and look forward to finding unique ways to explore these applications further in the future. The DB is low-cost tier, so if you check it our, please be patient with query times. :)",
         images: [
             "assets/images/coop/coOp_6.jpg",
             "assets/images/coop/coOp_7.jpg",

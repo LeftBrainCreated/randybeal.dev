@@ -10,6 +10,10 @@ div > img:hover {
     overflow: hidden;
     z-index: 1;
   }
+
+  .random-image-container.mobile {
+    height: 40vh;
+  }
   
   img {
     position: absolute;

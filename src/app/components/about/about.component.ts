@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { WorkExpComponent } from "../work-exp/work-exp.component";
 import { MixedImageStackComponent } from '../mixed-image-stack/mixed-image-stack.component';
 import { ContentService } from '@ng/services/content.service';
+import { DisplayService } from '@ng/services/display.service';
 
 @Component({
   selector: 'app-about',
@@ -27,6 +28,7 @@ export class AboutComponent {
   
   constructor(
     private contentService: ContentService,
+    protected display: DisplayService,
     private cdr: ChangeDetectorRef
   ) {
     this.dadImages = contentService.returnDadImages();

@@ -10,9 +10,6 @@ dotenv.config({ path: `./.env.${process.env['APP_ENV']}` });
 const cors = require('cors')({ origin: true });
 const apiKey =  process.env['OPENAI_API_KEY']
 
-
-console.log('API Key:' + apiKey);
-
 var origin = process.env['CORS_ORIGIN'] !== undefined ? process.env['CORS_ORIGIN'] : '';
 
 // localhost
@@ -47,6 +44,7 @@ export const aiRoleCheck = onRequest((req, resp) => {
             resp.set('Access-Control-Allow-Origin', origin);
     
             const prompt = req.body.prompt
+            console.log("Prompt: " + prompt);
     
             const completion = await client.chat.completions.create({
                 model: "gpt-4o",
