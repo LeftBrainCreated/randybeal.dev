@@ -3,8 +3,8 @@
   width: 500px;
   height: 250px;
 
-  top: 10vh;
-  left: 5vw;
+  top: 9vh;
+  left: 7.5vw;
 }
 
 .image-stack img,
@@ -12,6 +12,8 @@
   position: absolute;
   width: 350px;
   max-width: 25vw;
+  max-height: 25vh;
+  object-fit: contain;
   height: auto;
   border-radius: 8px;
   transition: transform 0.3s ease, left 0.3s ease, z-index 0.3s ease;
@@ -19,6 +21,7 @@
   cursor: pointer;
   border-style: solid;
   border-width: thin;
+  background-color: #000000cc;
 }
 
 .image-stack img.active,

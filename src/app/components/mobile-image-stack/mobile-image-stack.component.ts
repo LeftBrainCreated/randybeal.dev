@@ -49,8 +49,9 @@ export class MobileImageStackComponent implements OnInit, OnDestroy, OnChanges {
       type: this.getMediaType(src),
     }));
     
-    let t = this.getMiddleValueAndParity(this.parsedMediaList.length);
-    this.listStartPos = this.translateX = (t.middle - 1 + (t.isEven ? .5 : 0))
+    // let t = this.getMiddleValueAndParity(this.parsedMediaList.length);
+    // this.listStartPos = this.translateX = (t.middle + (t.isEven ? .5 : 0))
+    this.translateX = 0;
     this.currentIndex = 0;
   }
 
@@ -75,7 +76,7 @@ export class MobileImageStackComponent implements OnInit, OnDestroy, OnChanges {
   onSwipeEnd(): void {
     this.isDragging = false;
 
-    const threshold = 30;
+    const threshold = 20;
 
     if (this.swipeX > threshold) {
       this.currentIndex--; // Swipe right
@@ -84,7 +85,7 @@ export class MobileImageStackComponent implements OnInit, OnDestroy, OnChanges {
     }
 
     this.handleInfiniteScroll();
-    this.translateX = this.listStartPos - this.currentIndex;
+    this.translateX = this.currentIndex;
     this.stopAutoplay();
   }
 
@@ -108,8 +109,7 @@ export class MobileImageStackComponent implements OnInit, OnDestroy, OnChanges {
   goToSlide(index: number): void {
     this.stopAutoplay();
     this.currentIndex = index;
-    this.translateX = this.listStartPos - index;
-    this.stopAutoplay();
+    this.translateX = index;
   }
 
   private startAutoplay(): void {

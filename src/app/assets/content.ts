@@ -33,7 +33,7 @@ export const contentData =
                         "REST",
                         "Azure Service Bus"
                     ],
-                    description: "Another situation where I can only share so much, Notification Service was an Azure MSA component used for internal communcation through multiple distribution methods for pre-defined system events. This was one of my first opportunities as an architect to design from greenfield to release this k8s hosted solution.",
+                    description: "Notification Service was an Azure MSA component used for internal communcation through multiple distribution methods for pre-defined system events. Architecture, design, documentation, and POC development before working with my team to take this from greenfield to release of pods hosted in Kubernetes.",
                     images: [
                         "assets/images/notif/notif_1.jpg",
                         "assets/images/notif/notif_5.jpg",

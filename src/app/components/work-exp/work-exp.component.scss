@@ -34,7 +34,7 @@ div.page-content > div > span:nth-of-type(2) {
     font-size: .8rem;
 }
 
-div.page-content > div > p {
+div > p {
     font-size: 1rem;
     line-height: 1.25;
     text-align: left;
@@ -44,4 +44,29 @@ div.page-content > div > p {
 h2 {
     margin-left: 4vw;
     font-size: 2rem;
+}
+
+div.main.mobile > h2 {
+    font-size: 1.5rem;
+    text-wrap: wrap;
+}
+
+div.mobile p {
+    font-size: smaller;
+}
+
+// div.page-content.mobile > div > span:first-of-type(span) {
+//     font-size: 1.5rem;
+//     text-wrap: wrap;
+// }
+
+div.page-content.mobile > div > span {
+    font-size: 1.5rem;
+    text-wrap: wrap;
+}
+
+
+
+div.page-content.mobile > div > span:nth-of-type(2) {
+    font-size: smaller;
 }

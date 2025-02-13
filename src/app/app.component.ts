@@ -1,11 +1,19 @@
 import { Component, Inject, PLATFORM_ID, OnInit } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { CommonModule } from '@angular/common';
+// import { BrowserModule } from '@angular/platform-browser';
+
 
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, Subscription } from 'rxjs';
-import { DefaultViewComponent } from "./components/default-view/default-view.component";
-import { MobileViewComponent } from "./components/mobile-view/mobile-view.component";
+// import { DefaultViewComponent } from "./components/default-view/default-view.component";
+// import { MobileViewComponent } from "./components/mobile-view/mobile-view.component";
+// import { ContentService } from './services/content.service';
+// import { WelcomeComponent } from "./components/welcome/welcome.component";
+import { RouterOutlet } from '@angular/router';
+import { ContactCardComponent } from "./components/contact-card/contact-card.component";
+import { HttpClientModule } from '@angular/common/http';
 import { ContentService } from './services/content.service';
+import { DisplayService } from './services/display.service';
 
 enum ScreenSizeEnum {
   Large,
@@ -16,10 +24,11 @@ enum ScreenSizeEnum {
 @Component({
     selector: 'app-root',
     imports: [
-      CommonModule, 
-      DefaultViewComponent, 
-      MobileViewComponent
-    ],
+    CommonModule,
+    RouterOutlet,
+    ContactCardComponent,
+    HttpClientModule
+],
     standalone: true,
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
@@ -27,18 +36,23 @@ enum ScreenSizeEnum {
 export class AppComponent implements OnInit {
 
   private screenSizeSubscription: Subscription | undefined;
-  private isBrowser: boolean;
+  // private isBrowser: boolean;
 
   title = 'portfolio';
   opacityValue = 1;
 
-  screenSize: ScreenSizeEnum = ScreenSizeEnum.Large;
+  protected cardActive: boolean = false;
+
+  // screenSize: ScreenSizeEnum = ScreenSizeEnum.Large;
   
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private breakpointObserver: BreakpointObserver,
-    private contentService: ContentService
+    private content: ContentService,
+    private display: DisplayService
   ) {
+
+    // page fade in
 
     if (typeof document !== 'undefined') {
       window.addEventListener('DOMContentLoaded', () => {
@@ -54,36 +68,36 @@ export class AppComponent implements OnInit {
                 overlay.parentElement.removeChild(overlay);
               }
             });
-          }, 500);
+          }, 200);
         }
       });
     }
     
-    this.isBrowser = isPlatformBrowser(this.platformId);
+    // this.isBrowser = isPlatformBrowser(this.platformId);
     
     this.checkScreen();
   }
   
   ngOnInit(): void {
-    // screen jiggle to order components by scroll position
-    if (this.isBrowser) {
-      setTimeout(() => {
-        window.scrollBy(0, 2);
-        setTimeout(() => {
-          window.scrollBy(0, -2);
-        }, 100);
-      }, 500);
+  //   // screen jiggle to order components by scroll position
+  //   if (this.isBrowser) {
+  //     setTimeout(() => {
+  //       window.scrollBy(0, 2);
+  //       setTimeout(() => {
+  //         window.scrollBy(0, -2);
+  //       }, 100);
+  //     }, 500);
 
-      window.addEventListener('scroll', this.setScrollVar.bind(this));
-      window.addEventListener('resize', this.setScrollVar.bind(this));
-      this.setScrollVar(); 
-  }
+  //     window.addEventListener('scroll', this.setScrollVar.bind(this));
+  //     window.addEventListener('resize', this.setScrollVar.bind(this));
+  //     this.setScrollVar(); 
+  // }
+
+    this.content.contactCardObs.subscribe((c) => {
+      this.cardActive = c;
+    });
   
     this.checkScreen();
-  }
-
-  closeContact(): void {
-    this.contentService.closeContactCard.next();
   }
 
   checkScreen(): void {
@@ -108,16 +122,20 @@ export class AppComponent implements OnInit {
         })
       )
       .subscribe(screenSize => {
-        this.screenSize = screenSize;
+        // this.screenSize = screenSize;
+        this.display.setDisplay(screenSize)
       });
+
+      //  this.display.DisplayObs.next(this.screenSize);
   }
 
-  setScrollVar(): void {
-      const htmlElement = document.documentElement;
-      const scrollHeight = htmlElement.scrollHeight - htmlElement.clientHeight; // Total scrollable height
-      const percentScrolled = (window.scrollY / scrollHeight) * 100;
-      // console.log(percentScrolled); // for debug
-      htmlElement.style.setProperty('--scroll', `${percentScrolled}`);
+  protected activateContactCard(event: MouseEvent): void {
+    this.cardActive = true;
+    event.stopPropagation();
+  }
+
+  protected deactivateContactCard(): void {
+    this.cardActive = false;
   }
 
   ngOnDestroy(): void {

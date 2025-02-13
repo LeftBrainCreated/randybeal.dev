@@ -1,0 +1,21 @@
+<div id="container" [class]="display.getDisplay() > 0 ? 'mobile' : ''">
+  <div id="monitor">
+    <div *ngIf="!hackerTyper" id="monitorscreen">
+      <div class="content">
+          <span><a href="/projects">Projects</a></span>
+          <span *ngIf="display.getDisplay() == 0"><a href="#" (click)="enableHackerTyper()">Play</a></span>
+          <span><a href="/about">About</a></span>
+          <span (click)="enableRoleCheck()"><a href="#">AI Role Check</a></span>
+          <span (click)="openContactCard($event)"><a href="#">Contact</a></span>
+          <span><a href="assets/rbeal_2025_exp.pdf" target="_blank">Resume</a></span>
+      </div>
+    </div>
+
+    <!-- ✅ Only this section should auto-scroll -->
+    <div *ngIf="hackerTyper" id="hacker-typer">
+      <div class="content" #contentDiv>
+        <span [innerHTML]="codeText.substring(0, codeLength)"></span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<div class="main" [class]="screenSize > 0 ? 'mobile' : ''">
+    <h1><a href="/">RandyBeal.dev</a></h1>
+    <span *ngIf="screenSize == 0"><a href="/">Home</a></span>
+    <span *ngIf="screenSize == 0"><a href="/projects">Projects</a></span>
+    <span *ngIf="screenSize == 0"><a href="/about">About</a></span>
+    <span *ngIf="screenSize == 0"><a href="/contact">Contact</a></span>
+    <div  *ngIf="screenSize > 0" id="vertical-header">
+
+    </div>
+</div>

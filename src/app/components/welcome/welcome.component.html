@@ -1,0 +1,31 @@
+<div class="hero" [class]="display.getDisplay() > 0 ? 'mobile' : ''" (click)="closeContact()">
+    <!-- <div *ngIf="display.getDisplay() == 0" id="spacer"></div> -->
+    <div class="hero-inner">
+
+        <div class="hero-text">
+            <span class="welcome">RandyBeal.dev</span>
+            <p>
+                Hi, I'm a self-taught full-stack developer with nearly 20 years of 
+      experience. I've designed, developed, and implemented enterprise architecture 
+      and applications for small business and Fortune 100 companies. Through business process
+      automation, CSM, billing mgmt, and e-commerce platforms I'm well experienced 
+      with the full development lifecycle. Whether API integration, transactional messaging,
+      modular component building or system integrations, I've learned how to approach and manage
+      applications and their platforms following the latest of standards in design and security.
+      Take a look around to learn more.
+            </p>
+        </div>
+
+        <div class="hero-image">
+            <div *ngIf="typeCodeVisible" class="instructions">
+                <span>Just Start Typing!!</span>
+                <span (click)="closeTyper()">close</span>
+            </div>
+            <app-monitor [class]="display.getDisplay() > 0 ? 'mobile' : ''"></app-monitor>
+            <small *ngIf="typeCodeVisible">Just like hackertyper.net</small>
+        </div>
+
+    </div>
+</div>
+
+<app-ai-role-check [class]="display.getDisplay() > 0 ? 'mobile' : ''" *ngIf=aiVisible></app-ai-role-check>

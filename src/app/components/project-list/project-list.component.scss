@@ -1,0 +1,70 @@
+/*# https://github.com/nicoespeon/gitgraph.js/blob/master/packages/gitgraph-js/MIGRATE_FROM_GITGRAPH.JS.md
+
+# https://www.nicoespeon.com/gitgraph.js/stories/?path=/story/gitgraph-js-1-basic-usage--default
+
+# https://www.nicoespeon.com/gitgraph.js/
+*/
+
+#gitgraph-container {
+    width: 350px;
+    height: calc(100vh - 50px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    border: 1px solid #ccc;
+    position: fixed;
+    top: 50;
+    left: 0;
+  }
+  
+#gitgraph-container.mobile {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  border: 1px solid #ccc;
+  width: unset;
+  height: 25vh;
+  position: relative;
+}
+
+#gitgraph-container::-webkit-scrollbar {
+    display: none;
+  }
+
+#graph-container {
+    transform: scale(0.75);
+    transform-origin: top left;
+    width: calc(100% / 0.75);
+    height: calc(100% / 0.75);
+}
+
+#graph-container.mobile {
+    transform: scale(0.65);
+    transform-origin: top left;
+    // width: calc(100% / 0.65);
+    // height: calc(100% / 0.65);
+}
+
+text {
+    color: #919191;
+    cursor: pointer;
+}
+
+text {
+    cursor: pointer;
+    // fill: #979797; /* Default color */
+    transition: all 0.3s ease;
+  }
+  
+  text:hover {
+    fill: #ffffff !important;
+    background-color: #cccccc62;
+  }
+  
+  text.selected {
+    fill: #007bff !important;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px #000;
+  }

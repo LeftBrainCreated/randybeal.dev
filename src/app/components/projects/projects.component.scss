@@ -1,0 +1,75 @@
+div.main.mobile {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: auto;
+}
+
+app-project-list.mobile {
+    position: sticky;
+    top: 0;
+    z-index: 11;
+    background-color: #2f3e43;
+}
+
+div.content {
+    width: calc(100vw - 350px);
+    left: 350px;
+    top: 50;
+    height: calc(100vh - 50px);
+    position: fixed;
+    border: 1px solid #ccc;
+    text-align: center;
+    text-align: -webkit-center;
+}
+
+div.content-mobile {
+    border: 1px solid #ccc;
+    text-align: center;
+    text-align: -webkit-center;
+    overflow-x: hidden;
+}
+
+div.content > div.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.content > div.header > h2 {
+    font-family: "Smooch Sans";
+    font-size: xx-large;
+    margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+div.content > div.header > div {
+    margin-right: 20px;
+}
+
+div.header > div > a {
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+    text-decoration: none;
+    cursor: pointer;
+    color: #ccc;
+    transition: transform 0.3s ease, text-shadow 0.3s ease; /* Smooth animation for scaling and sliding */
+  }
+
+div.content > div.header > div > a:hover {
+    transform: scale(1.1) translateX(-10px);
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+  
+p {
+    margin: 20px 10vw 30px 10vw;
+    text-align: unset;
+}
+
+div.content-mobile > p {
+    font-size: .9rem;
+    margin: 15px;
+}

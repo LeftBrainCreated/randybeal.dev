@@ -30,6 +30,7 @@ body, html {
     transition: height 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
 }
 
+
 div.triangle {
     position: absolute;
     height: 100px;
@@ -229,4 +230,11 @@ div.triangle {
     width: 350px;
     place-self: center;
     text-align: center;
+    transition: opacity 1s ease-in-out;
+    opacity: 0;
   }
+
+div.tooltip-active {
+    opacity: 1;
+}
+

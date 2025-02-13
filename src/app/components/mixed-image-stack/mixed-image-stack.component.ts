@@ -18,6 +18,7 @@ import {
 })
 export class MixedImageStackComponent implements OnInit, AfterViewInit {
   @Input() images: string[] = []; 
+  @Input() screenSize: number = 0;
   @ViewChild('container') containerRef!: ElementRef;
 
   containerWidth: number = 0;
@@ -42,11 +43,14 @@ export class MixedImageStackComponent implements OnInit, AfterViewInit {
   }
 
   private positionImages(): void {
+    let maxX = this.screenSize == 0 ? 70 : 50;
+    let maxY = this.screenSize == 0 ? 25 : 30;
+
     this.positionedImages = this.images.map((src) => ({
       src,
-      x: this.getPercentageValue(0, 75), // random position for X
-      y: this.getPercentageValue(0, 60), // random position for Y
-      z: this.getRandomZIndex() // random z
+      x: this.getPercentageValue(0, maxX),
+      y: this.getPercentageValue(0, maxY),
+      z: this.getRandomZIndex()
     }));
   }
   
@@ -55,7 +59,7 @@ export class MixedImageStackComponent implements OnInit, AfterViewInit {
   }
   
   private getRandomZIndex(): number {
-    return Math.floor(Math.random() * 201 - 100); // Range: -100 to 100
+    return Math.floor(Math.random() * 10); // Range: -100 to 100
   }
 
   private getRandomValue(range: number): number {

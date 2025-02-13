@@ -1,0 +1,18 @@
+<div class="main" [class]="display.getDisplay() > 0 ? 'mobile' : ''">
+    <app-header-bar [screenSize]="display.getDisplay()"></app-header-bar>
+    
+    <app-project-list [class]="display.getDisplay() > 0 ? 'mobile' : ''" [screenSize]="display.getDisplay()"></app-project-list>
+    
+    <div [class]="display.getDisplay() > 0 ? 'content-mobile' : 'content'">
+        <app-word-cloud [screenSize]="display.getDisplay()"></app-word-cloud>
+        <div class="header">
+            <h2>{{selectedProject?.subject}}</h2>
+            <div>
+                <a *ngFor="let link of selectedProject?.link" href="{{link}}" target="_blank"><span>{{link}}</span></a>
+            </div>
+        </div>
+        <p [innerHTML]="selectedProject?.description"></p>
+        <app-image-stack *ngIf="selectedProject && display.getDisplay() == 0" [images]="selectedProject.images!"></app-image-stack>
+        <app-mobile-image-stack *ngIf="selectedProject && display.getDisplay() > 0" [mediaList]="selectedProject.images!"></app-mobile-image-stack>
+    </div>
+</div>

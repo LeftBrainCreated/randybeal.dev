@@ -1,0 +1,22 @@
+<div class="main">
+    <div class="header">
+        <span>Find out if AI thinks I'd be a good fit for your role</span>
+        
+        <button mat-icon-button class="modal-header-btn" (click)="disableRoleCheck()">
+            <mat-icon class="close-icon" color="dark">close</mat-icon>
+          </button>
+    </div>
+    <mat-form-field appearance="fill">
+        <mat-label>Enter Role, Title, or Description</mat-label>
+        <input matInput placeholder="Include names of relevant tech" [(ngModel)]="prompt">
+    </mat-form-field>
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+    <div class="input-line">
+        <button (click)="submitRequest()">Tell Me</button>
+        <span><small>{{promptResult ? preview : ''}}</small></span>
+    </div>
+    <div *ngIf="promptResult" class="output">
+        <span>{{promptResult}}</span>
+    </div>
+</div>
+

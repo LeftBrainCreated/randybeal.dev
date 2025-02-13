@@ -1,26 +1,36 @@
-     
-    <div class="card" (click)="stopClick($event)">
-        <div class="card-top">
-            <div class="logo">
-              <div class="logo-content">
-                <span>R</span>
-                <span>B</span>
-              </div>
-            </div>
-            <div class="triangle"></div>
-        </div>
-        <div class="info">
-          <h1>Randy Beal</h1>
-          <p>App Developer / Architect</p>
-          <div class="contact">
-            <p><i class="fas fa-file-alt"></i> <a href="assets/rbeal_2025_exp.pdf" target="_blank">Resume Summary</a></p>
-            <p><i class="fas fa-globe"> </i> <a href="https://github.com/LeftBrainCreated" target="_blank">git:LeftBrainCreated</a></p>
-            <p><i class="fas fa-twitter"></i> <a href="https://x.com/LeftBrainCre8ed" target="_blank">&#64;LeftBrainCre8ed</a></p>
-            <p><i class="fas fa-phone"></i><a href="tel:7275579039">727-557-9039</a></p>
-            <p><i class="fas fa-envelope"></i> <a href="mailto:dev.randybeal@gmail.com"> dev.randybeal&#64;gmail.com</a></p>
-          </div>
-        </div>
-    </div>
-    <!-- <span id="close">close</span> -->
 
-    <div class="tooltip">Mouse-over or tap to reveal</div>
+<!-- <div [class]="cardActive ? 'flash-logo activated' : 'flash-logo'" (click)="activateContactCard($event)">
+  <div class="flash-logo-content">
+    <span>R</span>
+    <span>B</span>
+  </div>
+</div> -->
+
+<div id="underlay" [class]="activated ? 'activated' : ''">
+  <div class="card" (click)="stopClick($event)" (mouseover)="onMouseOver()" (mouseleave)="onMouseLeave()">
+      <div class="card-top">
+          <div class="logo">
+            <div class="logo-content">
+              <span>R</span>
+              <span>B</span>
+            </div>
+          </div>
+          <div class="triangle"></div>
+      </div>
+      <div class="info">
+        <h1>Randy Beal</h1>
+        <p>App Developer / Architect</p>
+        <div class="contact">
+          <p><i class="fas fa-file-alt"></i> <a href="assets/rbeal_2025_exp.pdf" target="_blank">Resume Summary</a></p>
+          <p><i class="fas fa-globe"> </i> <a href="https://github.com/LeftBrainCreated" target="_blank">git:LeftBrainCreated</a></p>
+          <p><i class="fab fa-linkedin-in"></i> <a href="https://www.linkedin.com/in/randybeal-dev/" target="_blank">randybeal-dev</a></p>
+          <p><i class="fas fa-phone"></i><a href="tel:7275579039">727-557-9039</a></p>
+          <p><i class="fas fa-envelope"></i> <a href="mailto:dev.randybeal@gmail.com"> dev.randybeal&#64;gmail.com</a></p>
+        </div>
+      </div>
+  </div>
+  <!-- <span id="close">close</span> -->
+  
+  <div *ngIf="!activated" class="tooltip" [ngClass]="{'tooltip-active': tooltipVisible}">Mouse-over or tap to reveal</div>
+</div>
+

@@ -28,3 +28,114 @@ h1 {
   opacity: 1;
   transition: opacity 0.5s ease;
 }
+
+div#underlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #2b2c3cd9;
+  height: 0;
+  width: 0;
+  z-index: -10;
+}
+
+div#underlay.activated {
+  height: 100vh;
+  width: 100vw;
+  z-index: 100;
+}
+
+div.logo.activated {
+  opacity: 0;
+}
+
+.logo:not(.activated){
+  animation: pulse 20s ease-in-out infinite;
+}
+
+div.logo {
+  opacity: .4;
+  position: fixed;
+  // right: 10px;
+  left: calc(100vw - 70px);
+  bottom: 10px;
+  background-color: #fff;
+  padding: 5px;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  z-index: 2;
+  cursor: pointer;
+}
+
+div.logo-content {
+  opacity: 1;
+  background-color: #77c043;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  font-family: Roboto,Helvetica Neue,sans-serif;
+}
+
+div.logo-content > span {
+  color: white;
+  font-size: 2rem;
+  transition: font-size 0.4s ease-in-out;
+}
+
+div.logo-content span:nth-of-type(1) {
+  font-weight: 800;
+}
+
+div.logo-content span:nth-of-type(2) {
+  font-weight: 100;
+}
+
+div.logo:hover {
+  opacity: 1;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+app-contact-card {
+  margin-top: 40px;
+  z-index: -1;
+  opacity: 0;
+  // position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: fixed;
+  top: 40vh;
+  right: calc(50vw - 175px);
+
+  transition: opacity 0.2s ease-out;
+}
+
+app-contact-card.activated {
+  opacity: 1;
+  z-index: 9999;
+  margin-top: 0;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: .4;
+  }
+  2.5% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+  5% {
+    transform: scale(1);
+    opacity: .4;
+  }
+}

@@ -41,3 +41,9 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+**.env*
+functions/.eslintrc.js
+functions/firebase-debug.log
+.vscode/launch.json
+pnpm-lock.yaml
+.vs/*

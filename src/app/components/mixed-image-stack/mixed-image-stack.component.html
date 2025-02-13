@@ -1,12 +1,10 @@
-<div #container class="random-image-container">
-    <div
+<div #container class="random-image-container" [class]="screenSize > 0 ? 'mobile' : ''">
+    <img
       *ngFor="let image of positionedImages"
       class="random-image"
-      [style.left]="image.x + '%'"
-      [style.top]="image.y + '%'"
+      [style.left]="image.x + 'vw'"
+      [style.top]="image.y + 'vh'"
       [style.zIndex]="image.z"
-    >
-      <img [src]="image.src" alt="Random Image" />
-    </div>
+      [src]="image.src" alt="Random Image">
   </div>
   
