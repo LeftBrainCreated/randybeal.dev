@@ -20,11 +20,12 @@ export const gitHistContent = [
         tag: "2011",
         techStack: [
             "PHP",
+            "C#",
             "Android",
-            "Java",
+            "Javascript",
             "MySQL",
         ],
-        description: "This was one of my first publically distributed apps, Android and IOS integration with a PHP host and windows app. I'm not even sure I have the source-code today but it was never too complex. The mobile apps detected activity from gyros and sent a simple request to a server which would then push to the correct user an event to be recieved by the windows application. If nothing else enjoy the reference to Nexus 1 and Farmville as nostalgia for early 2010s.",
+        description: "This was one of my first publically distributed apps, Android and IOS integration with a PHP host connected to a windows app. I'm not even sure I have the source-code today but it was never too complex. The mobile apps detected activity from gyros and sent a simple request to a server which would then push to the correct user an event to be recieved by the windows application. If nothing else enjoy the reference to Nexus 1 and Farmville as nostalgia for early 2010s.",
         images: [
             "assets/images/boss/boss_app_short.mp4",
         ],
@@ -56,7 +57,7 @@ export const gitHistContent = [
             "Service Bus",
             "API"
         ],
-        description: 'A Custom, in-house, workflow management tool. This application was windows based and created a communcation hub of work effort between multiple depertments within our company allowing for easy tracking, queueing, and reporting of progress of work items.',
+        description: 'A custom, in-house, workflow management tool. This windows based application created a communcation hub of work effort between multiple depertments within our company allowing for easy tracking, automation, queueing, and reporting of progress of work items.',
         images: [],
         link: []
     },
@@ -85,7 +86,7 @@ export const gitHistContent = [
             "Express JS",
             "API",
         ],
-        description: "Result of a 'Hackathon' hosted by a previous employer. I had 24 hrs to build <i>something</i>. Ended up integrating an xbox kinect as controller to track hand-movements and navigate this robotic smart-toy around a space. Have since given a few Boys&Girls Club of America demonstrations on engineering and development with this project as the premise.",
+        description: "Result of a 'Hackathon' hosted by a previous employer. I had 24 hrs to build <i>something</i>. Ended up integrating an xbox kinect as controller to track hand-movements and navigate a robotic smart-toy around a physical space. This project has since been the topic of a few talks/demonstrations of engineering and development and the types of solutioning available through code.",
         images: [
             "assets/images/sphero/sphero.mp4",
             "assets/images/sphero/sphero_1.jpeg",
@@ -112,7 +113,7 @@ export const gitHistContent = [
         link: []
     },
     {
-        subject: "eCommerce Cloud Marketplace",
+        subject: "StreamOne Cloud Marketplace",
         branch: "Developer",
         tag: "",
         techStack: [
@@ -123,7 +124,7 @@ export const gitHistContent = [
             "API",
             "AWS"
         ],
-        description: 'This PHP app was my primary focus for my first few years with a recent role. A cloud service marketplace which created a hub for interaction between cloud vendors, resellers, and endusers. In addition to facilitating sales and subscriptions of the available services, SCM was an improvised billing data hub for integration to SAP as well as a reporting platform for usage.',
+        description: 'StreamOne Cloud Marketplace was my primary focus for my first few years with a recent role. A cloud service e-commerce platform which created a hub for interaction between cloud vendors, resellers, and endusers. In addition to facilitating sales and subscriptions of the available services, SCM was an improvised billing data hub for integration to SAP as well as a reporting platform for usage.',
         images: [],
         link: []
     },
@@ -140,7 +141,7 @@ export const gitHistContent = [
             "Azure",
             "AWS"
         ],
-        description: 'When first brought in to this application, The team I was working with had just had a massive failure in billing (2015 Holidays). In addition to the billing application created, we had <i>thousands</i> of records needing fixed data, and sadly, it wasn\'t just going to be one query. Without direction, I found opportunities to simplify all of the common mongo and postgresql queries needed and generated a set of internal utilities which allowed for us to clear our queue (avg 800 tickets) within just a couple weeks.',
+        description: 'When first brought in to the major e-commerce app hosted by my employer, the team I was working with had just had a massive failure in billing. In addition to the billing application created, we had <i>thousands</i> of records needing fixed data, and sadly, it wasn\'t just going to be one query. Without direction, Using my history in automation, I found opportunities to simplify the common tasks and generated a set of internal utilities which allowed for support outside of development to clear address the bad data within just a couple weeks.',
         images: [],
         link: [],
         merge: "Developer"
@@ -161,7 +162,7 @@ export const gitHistContent = [
             "Azure",
             "ADF",
         ],
-        description: 'With the success of the eCommerce Cloud Marketplace, our team was given an opportunity to rebuild the ecommerce platform. As Development Team Lead tasked with leading some of the efforts, in total, one of six concurrent teams. Sadly, through failures in planning and poorly managed scope, this one fell into development hell and never released past beta when the decision was made to scrap the effort and license an existing platform.',
+        description: 'With the success of an e-commerce Cloud Service marketplace, our team was given an opportunity to rebuild the e-commerce platform. As Team Lead, we were tasked with design structure and development of marketplace unit listings, integration pipelines, and service acquisitions. In total, one of six concurrent teams working on the effort.',
         images: [
             "assets/images/ebc/bc_old.png",
             "assets/images/ebc/bc_old_2.png",
@@ -184,7 +185,7 @@ export const gitHistContent = [
             "Azure",
             "ADF",
         ],
-        description: "The was the rebuild of the billing application. An attempt to create a more modular application which was designed from the ground up to integrate with various ERP systems and supporting vendor subscription billing practices. Again, a measured success creating the space for our team to develop the collective 'Enterprise Apps' suite.",
+        description: "The was the rebuild of a previous utility. An attempt to create a more modular application which was designed from the ground up to allow for decoupled integration with various ERP systems and supporting n-tier vendor billing structures. Overall, a measured success creating the space for our team to develop the collective 'Enterprise Apps' suite.",
         images: [
             "assets/images/ebc/bc_old.png",
             "assets/images/ebc/bc_old_2.png",
@@ -202,7 +203,7 @@ export const gitHistContent = [
             "AWS",
             "Node JS"
         ],
-        description: "Started at home as a challenge to myself, prior to this most of my work had been exclusively software. The Mirror hosts a ras-pi, integration with Google and AWS for AI Assistants, and a demonstration of current events, news, weather, photos, daily quotes, and to-do lists",
+        description: "Started at home as a challenge to myself, prior to this most of my work had been exclusively software. The Smart Mirror hosts a ras-pi, integration with Google and AWS for AI Assistants, and a demonstration of current events, news, weather, photos, daily quotes, and to-do lists",
         images: [
             "assets/images/mirror/mirror.mp4",
             "assets/images/mirror/mirror_1.jpg",
@@ -229,7 +230,7 @@ export const gitHistContent = [
             "Azure",
             "Docker",
         ],
-        description: "The CoOp was a side project where I partnered with a very talented UI/UX dev to create multiple Coderctional Web3 Utilites from the ground up, including a web3 marketplace, interactive map, token swap, and more. I had a blast building the CoOp Apps, and look forward to finding unique ways to explore these applications further in the future. The DB is low-cost tier, so if you check it our, please be patient with query times. :)",
+        description: "The CoOp was a side project where I partnered with a very talented UI/UX dev to create multiple functional Web3 Utilites from the ground up, including a web3 marketplace, interactive map, token swap, and more. I had a blast building the CoOp Apps, and look forward to finding unique ways to explore these applications further in the future. The DB is low-cost tier, so if you check it out, please be patient with query times. :)",
         images: [
             "assets/images/coop/coOp_6.jpg",
             "assets/images/coop/coOp_7.jpg",
@@ -257,7 +258,7 @@ export const gitHistContent = [
             "API",
             "ADF",
         ],
-        description: 'A collection of Microservices used to facilitate an expansion of the billing application. Credit monitoring and management, Identity and Authorization Mgmt, Application Gateway, etc. Closely following Microsoft\'s design guidelines for structure and interaction, this has been a successful endeavor of my recent years.',
+        description: 'A collection of microservices used to facilitate an expansion of a billing application. Credit monitoring and management, Identity and Authorization Mgmt, Application Gateway, etc. Closely following Microsoft\'s design guidelines for structure and interaction. This has been a successful endeavor of my recent years and where a lot of my recent experience comes from.',
         images: [
             "assets/images/arch/arch_1.png",
             "assets/images/arch/arch_2.png",
@@ -284,13 +285,15 @@ export const gitHistContent = [
             "GCP",
             "Docker"
         ],
-        description: "FlowFrenz is still under development today. Another web3 marketplace using babylon.js for creating a 3d-space for integration and UI elements. Between this and CoOP, I had opportunities to iterate and perfect the Coderctionality required.",
+        description: "FlowFrenz is still under development today. Another web3 marketplace using babylon.js for creating a 3d-space for integration and UI elements. Between this and CoOP, I had opportunities to iterate and perfect the functionality required.",
         images: [
             "assets/images/flow/flow_3.jpg",
             "assets/images/flow/flow_2.jpg",
             "assets/images/flow/flow_1.jpg",
         ],
-        "link": [],
+        "link": [
+            "https://github.com/LeftBrainCreated/frenz"
+        ],
         merge: "Coder"
     },
     {
@@ -320,7 +323,7 @@ export const gitHistContent = [
             "Raspbian",
             "Python"
         ],
-        description: "This was a side-project volunteered for a Christmas celebration in my area. The ask was to create a giant Etch-a-Sketch with working controls. The stack is a ras-pi, with a simple rotary controller running on python connected to an express server. Was very Coder to build, working with a close friend well experienced in DevOps and Hardware.",
+        description: "This was a side-project volunteered for a Christmas celebration in my area. The ask was to create a giant Etch-a-Sketch with working controls. The stack is a ras-pi, with a simple rotary controller running on python connected to an express server. Was very fun to build, working with a close friend well experienced in DevOps and Hardware.",
         images: [
             "assets/images/etch/etch_3.mp4",
             "assets/images/etch/etch_4.gif",
@@ -346,7 +349,7 @@ export const gitHistContent = [
             "Azure",
             "Docker",
         ],
-        description: "Mission City has been an opportunity for me to volunteer some of my skills over the years. While much of their website is hosted and managed through a page-builder named \"Subsplash\", I've recently had a chance to build some custom web-apps to expand on the Coderctionality of the website over time. I also manage all IT here in my free time.",
+        description: "Mission City has been an opportunity for me to volunteer some of my skills over the years. While much of their website is hosted and managed through a page-builder named \"Subsplash\", I've recently had a chance to build some custom web-apps to expand on the functionality of the website over time. I also manage all IT here in my free time.",
         images: [
             "assets/images/mcc/mcc_2.jpg",
             "assets/images/mcc/mcc_1.jpg",

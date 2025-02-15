@@ -3,7 +3,7 @@
     <span *ngIf="screenSize == 0"><a href="/">Home</a></span>
     <span *ngIf="screenSize == 0"><a href="/projects">Projects</a></span>
     <span *ngIf="screenSize == 0"><a href="/about">About</a></span>
-    <span *ngIf="screenSize == 0"><a href="/contact">Contact</a></span>
+    <span *ngIf="screenSize == 0"><a (click)="activateContactCard($event)">Contact</a></span>
     <div  *ngIf="screenSize > 0" id="vertical-header">
 
     </div>

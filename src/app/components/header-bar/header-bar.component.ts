@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { ContentService } from '@ng/services/content.service';
 
 @Component({
   selector: 'app-header-bar',
@@ -11,5 +12,14 @@ import { Component, Input } from '@angular/core';
 })
 export class HeaderBarComponent {
   @Input() screenSize: number = 0;
+
+  constructor(
+    private content: ContentService
+  ) { }
+
+  activateContactCard(event: MouseEvent): void {
+    this.content.contactCardObs.next(true);
+    event.stopPropagation();
+  }
 
 }
