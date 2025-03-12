@@ -1,0 +1,31 @@
+<div class="main">
+    <div class="header">
+    </div>
+    <div *ngIf="complete">
+        <h3>Thank you for signing up!</h3>
+    </div>
+    <div *ngIf="!complete && qrCodeUrl !== ''">
+        <h3>Scan this QR Code:</h3>
+        <img [src]="qrCodeUrl" alt="QR Code">
+        <h4>Please Take a Screenshot of this Code</h4>
+    </div>
+    <div *ngIf="!complete && qrCodeUrl === ''">
+        <mat-form-field appearance="fill">
+            <mat-label>First Name</mat-label>
+            <input matInput placeholder="John" [(ngModel)]="fName">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Last Name</mat-label>
+            <input matInput placeholder="Smith" [(ngModel)]="lName">
+        </mat-form-field>
+        <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+        <div class="input-line">
+            <button (click)="submitRequest()" *ngIf="code !== ''">Register</button>
+            <button (click)="submitRequest()" *ngIf="code === ''">Get Code</button>
+        </div>
+        <div *ngIf="error" class="output">
+            <span><small>{{error}}</small></span>
+        </div>
+    </div>
+</div>
+

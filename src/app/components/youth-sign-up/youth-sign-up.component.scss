@@ -1,0 +1,92 @@
+.main {
+    text-align: -webkit-center;
+    text-align: center;
+    align-items: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 15px;
+    transition: height 0.2s ease-in-out;
+    margin-top: 200px;
+}
+
+.main > div {
+    text-align: -webkit-center;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 15px;
+    transition: height 0.2s ease-in-out;
+}
+
+mat-form-field {
+    width: 40%;
+    min-width: 300px;
+}
+
+.main > .header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main > .header > button {
+    width: 48px;
+    height: 48px;
+    padding: 11px;    
+    border-radius: 50%;  
+    align-self: end;
+    background-color: red;
+}
+
+main > .header > button > span {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    pointer-events: none;  
+    flex-grow: 1;
+}
+
+mat-icon {
+    -webkit-user-select: none;
+    user-select: none;
+    background-repeat: no-repeat;
+    display: inline-block;
+    fill: currentColor;
+    height: 24px;
+    width: 24px;
+    overflow: hidden;    
+}
+
+.input-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.input-line > button {
+    width: fit-content;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100px;
+    min-width: 100px;
+    max-height: 40px;
+    height: 40px;
+}
+
+.input-line > span {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    max-width: 100%;
+    margin: 15px;
+    margin-top: 0;
+}

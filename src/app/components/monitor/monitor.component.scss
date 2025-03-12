@@ -107,28 +107,28 @@ body {
     width: 100%;
 }
 
-.content span > a {
+.content a {
     color: #00bb4c;
     text-decoration: unset;
   }
   
-  .content span:hover a {
+  .content a:hover {
     opacity: 1; /* Full opacity on hover */
     color: #00ffff; /* Highlighted color */
   }
   
-  .content span.active {
+  .content a.active {
     opacity: 1;
     color: #00ffff; /* Highlight the active option */
   }
   
-  .content span::before {
+  .content a::before {
     content: ''; /* Initially empty */
     margin-right: 5px;
   }
 
-  .content span:hover::before, 
-  .content span.active::before {
+  .content a:hover::before, 
+  .content a.active::before {
     content: '>'; /* Add the > symbol for the active option */
   }
 
