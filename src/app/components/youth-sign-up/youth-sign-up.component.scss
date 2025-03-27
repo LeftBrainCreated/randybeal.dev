@@ -8,7 +8,9 @@
     justify-content: space-around;
     gap: 15px;
     transition: height 0.2s ease-in-out;
-    margin-top: 200px;
+    // margin-top: 200px;
+    background-image: url("../../assets/images/MarchMadness.png");
+    height: 100%;
 }
 
 .main > div {
@@ -20,6 +22,11 @@
     justify-content: space-around;
     gap: 15px;
     transition: height 0.2s ease-in-out;
+    position: absolute;
+    top: 200px;
+    background-color: slategray;
+    padding: 30px;
+    border-radius: 20px;
 }
 
 mat-form-field {
