@@ -46,6 +46,12 @@ export class AiRoleCheckComponent {
     try {
       this.preview = this.sanitizeInput(this.prompt);
   
+      if (this.preview.length === 0) {
+        this.prompt = "";
+        this.promptResult = "You've got to at least give me something to work with!"
+        return;
+      }
+
       let result:any = await this.web.send(AI_URI, RequestType.POST, {
         prompt: this.preview
       })
