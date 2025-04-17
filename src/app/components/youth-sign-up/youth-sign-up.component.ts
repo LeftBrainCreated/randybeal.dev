@@ -82,7 +82,8 @@ export class YouthSignUpComponent {
 
   protected async generateQRCode(baseUrl: string) {
     const code = nanoid(6); // Generates a short unique 6-character code
-    const fullUrl = `${baseUrl}/${code}`;
+    // const fullUrl = `${baseUrl}/${code}`;
+    const fullUrl = "https://events.missioncitychurch.com";
 
     await this.firestore.createStudentRecord(`${this.fName}-${this.lName}`, code)
     .then(async () => {

@@ -1,16 +1,24 @@
 import OpenAI from 'openai';
 import dotenv from 'dotenv';
 import {onRequest} from "firebase-functions/v2/https";
-import  { gitHistContent } from './assets/git-hist';
-import { Resume } from './assets/resume';
+import  { gitHistContent } from './assets/git-hist.js';
+import { Resume } from './assets/resume.js';
+import jwt from 'jsonwebtoken';
+
+import { FirestoreService } from './app/services/firestore.service.js';
+
+// import { doc, updateDoc, arrayUnion, getFirestore } from "firebase/firestore";
+// import { initializeApp } from 'firebase/app';
+// import { getAuth } from 'firebase/auth';
+import cors from 'cors';
 
 
-require('dotenv').config();
 dotenv.config({ path: `./.env.${process.env['APP_ENV']}` });
-const cors = require('cors')({ origin: true });
+// const corsCheck = new cors({ origin: true });
 const apiKey =  process.env['OPENAI_API_KEY']
 
 var origin = process.env['CORS_ORIGIN'] !== undefined ? process.env['CORS_ORIGIN'] : '';
+const corsHandler = cors({ origin: origin });
 
 // localhost
 // origin = 'http://localhost:4200';
@@ -20,6 +28,8 @@ const client = new OpenAI({
     project: 'proj_MX5Levq8xV2KwnFIrI33OvrU',
     apiKey: apiKey, 
   });
+
+const firestore = new FirestoreService();
 
 var messages = 
     {
@@ -39,7 +49,7 @@ var messages =
 
 export const aiRoleCheck = onRequest((req, resp) => {
     
-      cors(req, resp, async () => {
+      corsHandler(req, resp, async () => {
         try {
             resp.set('Access-Control-Allow-Origin', origin);
     
@@ -75,3 +85,107 @@ export const aiRoleCheck = onRequest((req, resp) => {
         }
       })
     });
+
+
+    //-------------------------------------------------------
+    // Faithful Guide API
+    //-------------------------------------------------------
+
+    // Private functions
+    //-------------------------------------------------------
+
+    const authenticateToken = (req: any, res: any): Promise<void> => {
+        return new Promise((resolve, reject) => {
+          const authHeader = req.headers['authorization'];
+          const token = authHeader && authHeader.split(' ')[1];
+          if (!token) {
+            res.status(401).send('Unauthorized: No token provided');
+            return reject();
+          }
+      
+          jwt.verify(token, process.env.JWT_SECRET as string, (err: any, payload: any) => {
+            if (err) {
+              res.status(403).send('Forbidden: Invalid token');
+              return reject();
+            }
+      
+            (req as any).gptContext = payload;
+            resolve();
+          });
+        });
+      };
+      
+
+    // Public Endpoints
+    //-------------------------------------------------------
+
+    export const authGpt = onRequest((req: any, res: any) => {
+        const { secret, gptId, userId } = req.body;
+      
+        if (secret !== process.env.GPT_SECRET) {
+          return res.status(401).send("Unauthorized: Invalid GPT secret");
+        }
+      
+        const token = jwt.sign(
+          {
+            gptId,
+            userId,
+            scope: 'faithful-guide',
+          },
+          process.env.JWT_SECRET as string,
+          { expiresIn: '15m' }
+        );
+      
+        res.json({ token });
+      });
+
+      export const getUser = onRequest(async (req: any, res: any) => {
+        try {
+            await authenticateToken(req, res);
+            const { userId } = (req as any).userId;
+
+            return firestore.getUserById(userId).then((user: any) => {
+                if (user) {
+                    res.status(200).json(user);
+                } else {
+                    res.status(404).send("User not found");
+                }
+            });
+        }
+        catch {
+            res.status(500).send("Error creating user");
+            return;
+        }
+    });
+
+
+      export const appendUserInteraction = onRequest(async (req: any, res: any) => {
+        try {
+          await authenticateToken(req, res);
+      
+          const { gptId, userId } = (req as any).gptContext;
+      
+          console.log(`Interaction from GPT: ${gptId} for user: ${userId}`);
+      
+          // Save to DB here if needed
+          res.status(200).json({ message: "Interaction logged" });
+      
+        } catch {
+          // Already handled inside authenticateToken
+        }
+      });
+
+
+// export const appendUserInteraction = onRequest((req, resp) => {
+//     try {
+//         let incomingApiKey = req.body.apiKey;
+//         let incomingUserId = req.body.userId;
+//         let userData = req.body.userData;
+//         let userInteraction = req.body.userInteraction;
+
+//         if (incomingApiKey !== process.env['FAITHFUL_GUIDE_API_KEY']) {
+//             resp.status(401).send("Unauthorized");
+//             return;
+//         }
+//     }
+// }

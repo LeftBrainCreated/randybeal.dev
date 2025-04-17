@@ -33,28 +33,29 @@ export class FirestoreService {
 
   // Create a student invitation record
   async createStudentRecord(studentName: string, code: string): Promise<string> {
-    const studentRef = collection(this.db, 'students');
+    // const studentRef = collection(this.db, 'students');
 
-    // Convert studentName to lowercase for case-insensitive search
-    const lowerCaseName = studentName.toLowerCase();
+    // // Convert studentName to lowercase for case-insensitive search
+    // const lowerCaseName = studentName.toLowerCase();
 
-    // Query Firestore for an existing student with the same name (case-insensitive)
-    const q = query(studentRef, where("studentNameLower", "==", lowerCaseName));
-    const querySnapshot = await getDocs(q);
+    // // Query Firestore for an existing student with the same name (case-insensitive)
+    // const q = query(studentRef, where("studentNameLower", "==", lowerCaseName));
+    // const querySnapshot = await getDocs(q);
 
-    if (!querySnapshot.empty) {
-      throw new Error("A student with this name already exists.");
-    }
+    // if (!querySnapshot.empty) {
+    //   throw new Error("A student with this name already exists.");
+    // }
 
     // If no duplicate, add the new student
-    const docRef = await addDoc(studentRef, { 
-      studentName, 
-      studentNameLower: lowerCaseName, // Store lowercase name for future queries
-      code, 
-      invited: '' 
-    });
+    // const docRef = await addDoc(studentRef, { 
+    //   studentName, 
+    //   studentNameLower: lowerCaseName, // Store lowercase name for future queries
+    //   code, 
+    //   invited: '' 
+    // });
 
-    return docRef.id; // Return the Firestore document ID
+    // return docRef.id; // Return the Firestore document ID
+    return "done"; // Return the Firestore document ID
   }
 
   // Get student record by code

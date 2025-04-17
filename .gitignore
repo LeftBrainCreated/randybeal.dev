@@ -47,3 +47,4 @@ functions/firebase-debug.log
 .vscode/launch.json
 pnpm-lock.yaml
 .vs/*
+functions/secure
