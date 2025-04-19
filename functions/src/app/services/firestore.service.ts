@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { UserRef } from '../interfaces/userRef.js';
 // import { initializeApp } from 'firebase/app';
 // import { Firestore, getFirestore, collection, addDoc, query, where, getDoc, doc, updateDoc, getDocs } from 'firebase/firestore';
-import { Firestore, QuerySnapshot, FieldValue } from "@google-cloud/firestore";
+import { Firestore, QuerySnapshot } from "@google-cloud/firestore";
 // import { merge } from 'rxjs';
 import { UserStudy } from '../interfaces/userStudy.js';
 
@@ -135,41 +135,67 @@ export class FirestoreService {
       summary: string;
       scriptureFocus: string[];
       notes: string;
+      tags?: string[];
     }
   ): Promise<void> {
-    const docRef = faithfulDbConfig.collection("users").doc(userId);
+    const userRef = faithfulDbConfig.collection("users").doc(userId);
+    const userSnap = await userRef.get();
   
-    const snap = await docRef.get();
-    if (!snap.exists) {
+    if (!userSnap.exists) {
+      throw new Error(`User ${userId} not found`);
+    }
+
+    const interactionId = uuidv4();
+  
+    await userRef.collection("interactions").doc(interactionId).set({
+      interactionId: interactionId,
+      ...interaction,
+      tags: interaction.tags || []
+    });
+  }
+
+  async getUserInteractions(
+    userId: string,
+    fromDate?: Date,
+    toDate?: Date,
+    tag?: string
+  ): Promise<any[]> {
+    const userRef = faithfulDbConfig.collection("users").doc(userId);
+    const userSnap = await userRef.get();
+  
+    if (!userSnap.exists) {
       throw new Error(`User ${userId} not found`);
     }
   
-    await docRef.update({
-      interactionLog: FieldValue.arrayUnion(interaction)
-    });
-  }
-
-  async getUserInteractions(userId: string, fromDate: Date = new Date('Jan 1, 1900'), toDate: Date = new Date()): Promise<any[]> {
-    const user = await this.fetchUserById(userId);
-
-    if (!user) {
-      throw new Error("User not found");
+    let query = userRef
+      .collection("interactions")
+      // .orderBy("date", "desc")
+      // .where("date", ">=", fromDate ?? new Date("1900-01-01"))
+      // .where("date", "<=", toDate ?? new Date());
+      ;
+  
+    // if (tag) {
+    //   query = query.where("tags", "array-contains", tag);
+    // }
+  
+    const interactionSnap = await query.get();
+  
+    if (interactionSnap.empty) {
+      return [];
     }
-
-    const interactionLog = user.interactionLog || [];
-    const filteredInteractions = interactionLog.filter(interaction => {
-      const interactionDate = new Date(interaction.date);
-      return interactionDate >= fromDate && interactionDate <= toDate;
+  
+    return interactionSnap.docs.map(doc => {
+      const data = doc.data();
+      return {
+        date: data.date,
+        summary: data.summary,
+        scriptureFocus: data.scriptureFocus,
+        notes: data.notes,
+        tags: data.tags || []
+      };
     });
-
-    return filteredInteractions.map(interaction => ({
-      date: interaction.date,
-      summary: interaction.summary,
-      scriptureFocus: interaction.scriptureFocus,
-      notes: interaction.notes
-    }));
   }
-
+  
   async saveUserStudy(userId: string, studyName: string, studyContent: UserStudy): Promise<void> {
     const savedStudiesRef = faithfulDbConfig.collection("user_studies").doc(userId);
   

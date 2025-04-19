@@ -134,7 +134,7 @@ export const aiRoleCheck = onRequest((req, resp) => {
             scope: 'faithful-guide',
           },
           process.env.JWT_SECRET as string,
-          { expiresIn: '15m' }
+          { expiresIn: '60m' }
         );
       
         res.json({ token });
@@ -257,7 +257,8 @@ export const aiRoleCheck = onRequest((req, resp) => {
 
         try {
           const userId = req.body.userId;
-          const interactions = await firestore.getUserInteractions(userId, req.body.fromDate || null, req.body.toDate || null);
+          const searchTag = req.body.searchTag || null;
+          const interactions = await firestore.getUserInteractions(userId, req.body.fromDate || null, req.body.toDate || null, searchTag);
     
           if (interactions) {
             res.status(200).json(interactions);
