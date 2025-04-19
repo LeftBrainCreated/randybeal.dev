@@ -11,9 +11,10 @@ import { FirestoreService } from './app/services/firestore.service.js';
 // import { initializeApp } from 'firebase/app';
 // import { getAuth } from 'firebase/auth';
 import cors from 'cors';
+import { UserRef } from './app/interfaces/userRef.js';
 
 
-dotenv.config({ path: `./.env.${process.env['APP_ENV']}` });
+dotenv.config();
 // const corsCheck = new cors({ origin: true });
 const apiKey =  process.env['OPENAI_API_KEY']
 
@@ -139,26 +140,6 @@ export const aiRoleCheck = onRequest((req, resp) => {
         res.json({ token });
       });
 
-      export const getUser = onRequest(async (req: any, res: any) => {
-        try {
-            await authenticateToken(req, res);
-            const { userId } = (req as any).userId;
-
-            return firestore.getUserById(userId).then((user: any) => {
-                if (user) {
-                    res.status(200).json(user);
-                } else {
-                    res.status(404).send("User not found");
-                }
-            });
-        }
-        catch {
-            res.status(500).send("Error creating user");
-            return;
-        }
-    });
-
-
       export const appendUserInteraction = onRequest(async (req: any, res: any) => {
         try {
           await authenticateToken(req, res);
@@ -175,6 +156,136 @@ export const aiRoleCheck = onRequest((req, resp) => {
         }
       });
 
+      export const getUserObjectStructure = onRequest(async (req: any, res: any) => {
+        await authenticateToken(req, res);
+
+        try {
+          res.send(await firestore.getUserObjectStructure());
+        } catch (error) {
+          console.error("Error fetching user object structure:", error);
+          res.status(500).send("Error fetching user object structure");
+        }
+      });
+
+      export const createUser = onRequest(async (req: any, res: any) => {
+        await authenticateToken(req, res);
+
+        try {
+          const userProfile: UserRef = req.body.userProfile;
+    
+          const createdUserId = await firestore.createUser(userProfile);
+          res.status(200).json({ userId: createdUserId });
+        }
+        catch (error) {
+          console.error("Error creating user:", error);
+          res.status(500).send("Error creating user");
+        }
+      });
+
+      export const updateUser = onRequest(async (req: any, res: any) => {
+        await authenticateToken(req, res);
+
+        try {
+          const userId = req.body.userId;
+          const userProfile: Partial<UserRef> = req.body.userProfile;
+    
+          await firestore.updateUser(userId, userProfile);
+          res.status(200).send("User updated successfully");
+        } catch (error) {
+          console.error("Error updating user:", error);
+          res.status(500).send("Error updating user");
+        }
+      });
+
+    //   export const getUser = onRequest(async (req: any, res: any) => {
+    //     try {
+    //         await authenticateToken(req, res);
+    //         const { userId } = (req as any).userId;
+
+    //         return firestore.getUserById(userId).then((user: any) => {
+    //             if (user) {
+    //                 res.status(200).json(user);
+    //             } else {
+    //                 res.status(404).send("User not found");
+    //             }
+    //         });
+    //     }
+    //     catch {
+    //         res.status(500).send("Error creating user");
+    //         return;
+    //     }
+    // });
+
+
+
+      export const getUserById = onRequest(async (req: any, res: any) => {
+        await authenticateToken(req, res);  
+
+        try {
+          const userId = req.body.userId;
+          const user = await firestore.getUserById(userId);
+    
+          if (user) {
+            res.status(200).json(user);
+          } else {
+            res.status(404).send("User not found");
+          }
+        } catch (error) {
+          console.error("Error fetching user:", error);
+          res.status(500).send("Error fetching user");
+        }
+      });
+
+
+      export const addUserInteraction = onRequest(async (req: any, res: any) => {
+        await authenticateToken(req, res);
+
+        try {
+          const userId = req.body.userId;
+          const userInteraction = req.body.userInteraction;
+    
+          await firestore.addUserInteraction(userId, userInteraction);
+          res.status(200).send("User interaction added successfully");
+        } catch (error) {
+          console.error("Error adding user interaction:", error);
+          res.status(500).send("Error adding user interaction");
+        }
+      });
+
+      export const getUserInteractions = onRequest(async (req: any, res: any) => {
+        await authenticateToken(req, res);
+
+        try {
+          const userId = req.body.userId;
+          const interactions = await firestore.getUserInteractions(userId, req.body.fromDate || null, req.body.toDate || null);
+    
+          if (interactions) {
+            res.status(200).json(interactions);
+          } else {
+            res.status(404).send("No interactions found for user");
+          }
+        } catch (error) {
+          console.error("Error fetching user interactions:", error);
+          res.status(500).send("Error fetching user interactions");
+        }
+      });
+
+      export const saveUserStudy = onRequest(async (req: any, res: any) => {
+        await authenticateToken(req, res);
+
+        try {
+          const userId = req.body.userId;
+          const studyName = req.body.studyName;
+          const studyContent = req.body.studyContent;
+    
+          await firestore.saveUserStudy(userId, studyName, studyContent);
+          res.status(200).send("User study saved successfully");
+        } catch (error) {
+          console.error("Error saving user study:", error);
+          res.status(500).send("Error saving user study");
+        }
+
+      });
 
 // export const appendUserInteraction = onRequest((req, resp) => {
 //     try {
