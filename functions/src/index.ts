@@ -289,3 +289,37 @@ export const aiRoleCheck = onRequest((req, resp) => {
 
       });
 
+
+      export const lockUserStudy = onRequest(async (req: any, res: any) => {
+        await authenticateToken(req, res);
+      
+        try {
+          const { userId, studyId, lock } = req.body;
+      
+          await firestore.lockUserStudy(userId, studyId, lock);
+          res.status(200).send(`Study ${lock ? 'locked' : 'unlocked'} successfully`);
+        } catch (error) {
+          console.error("Error locking user study:", error);
+          res.status(500).send("Error locking user study");
+        }
+      });
+
+      export const getUserStudies = onRequest(async (req: any, res: any) => {
+        await authenticateToken(req, res);
+      
+        try {
+          const userId = req.body.userId;
+          const studies = await firestore.getUserStudies(userId);
+      
+          if (!studies.length) {
+            res.status(404).send("No studies found");
+          } else {
+            res.status(200).json(studies);
+          }
+        } catch (error) {
+          console.error("Error retrieving user studies:", error);
+          res.status(500).send("Error retrieving user studies");
+        }
+      });
+      
+

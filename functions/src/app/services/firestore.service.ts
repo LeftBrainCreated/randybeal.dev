@@ -251,7 +251,39 @@ export class FirestoreService {
     console.log(`User study "${studyName}" saved (locked: ${lock})`);
   }
   
+
+  async lockUserStudy(userId: string, studyId: string, lock: boolean): Promise<void> {
+    const studyRef = faithfulDbConfig
+      .collection("user_studies")
+      .doc(userId)
+      .collection("studies")
+      .doc(studyId);
   
+    const studySnap = await studyRef.get();
+    if (!studySnap.exists) {
+      throw new Error("Study not found");
+    }
+  
+    await studyRef.update({ lock });
+  }
+  
+
+  async getUserStudies(userId: string): Promise<UserStudy[]> {
+    const studiesRef = faithfulDbConfig
+      .collection("user_studies")
+      .doc(userId)
+      .collection("studies")
+      .orderBy("createdDate", "desc");
+  
+    const snapshot = await studiesRef.get();
+  
+    return snapshot.docs.map(doc => doc.data() as UserStudy);
+  }
+  
+  
+  //------------------------------------------------------------------------------------
+  // Private methods
+  //------------------------------------------------------------------------------------
   private async fetchUserById(
     userId: string
   ): Promise<UserRef | undefined> {
