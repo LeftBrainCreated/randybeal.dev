@@ -1,5 +1,7 @@
+import { UUID } from "crypto"
+
 export interface UserRef {
-    "userId": string,
+    "userId": UUID,
     "userCreatedDate": Date,
     "profile": {
         "personalDetails": {

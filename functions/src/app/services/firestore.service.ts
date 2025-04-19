@@ -87,7 +87,7 @@ export class FirestoreService {
     console.log("User created/updated successfully:", userProfile.id);
     console.log("User data:", userProfile);
 
-    return userProfile.id; // Return the Firestore document ID
+    return userId
   }
 
   async updateUser(
@@ -125,11 +125,7 @@ export class FirestoreService {
 
   async getUserById(userId: string): Promise<any> {
     let user = await this.fetchUserById(userId);
-    if (user) {
-      return user;
-    }
-    throw new Error("User not found");
-
+    return user;
   }
 
   async addUserInteraction(
