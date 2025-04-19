@@ -3,5 +3,5 @@ export interface UserStudy {
     studyName: string;
     createdDate: Date;
     studyContent: string;
-    save: boolean
+    lock: boolean
 }

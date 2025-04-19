@@ -144,15 +144,31 @@ export class FirestoreService {
     if (!userSnap.exists) {
       throw new Error(`User ${userId} not found`);
     }
-
-    const interactionId = uuidv4();
   
-    await userRef.collection("interactions").doc(interactionId).set({
-      interactionId: interactionId,
+    const interactionsRef = userRef.collection("interactions");
+    const interactionsSnap = await interactionsRef
+      .orderBy("date", "asc")
+      .get();
+  
+    let interactionDocRef;
+  
+    // max 30
+    if (interactionsSnap.size >= 30) {
+      const oldestDoc = interactionsSnap.docs[0];
+      interactionDocRef = interactionsRef.doc(oldestDoc.id);
+      console.log(`Overwriting oldest interaction: ${oldestDoc.id}`);
+    } else {
+      const interactionId = uuidv4();
+      interactionDocRef = interactionsRef.doc(interactionId);
+      console.log(`Creating new interaction: ${interactionId}`);
+    }
+  
+    await interactionDocRef.set({
       ...interaction,
-      tags: interaction.tags || []
+      tags: interaction.tags || [],
     });
   }
+  
 
   async getUserInteractions(
     userId: string,
@@ -169,45 +185,72 @@ export class FirestoreService {
   
     let query = userRef
       .collection("interactions")
-      // .orderBy("date", "desc")
-      // .where("date", ">=", fromDate ?? new Date("1900-01-01"))
-      // .where("date", "<=", toDate ?? new Date());
+      .orderBy("date", "desc")
       ;
   
-    // if (tag) {
-    //   query = query.where("tags", "array-contains", tag);
-    // }
-  
-    const interactionSnap = await query.get();
-  
-    if (interactionSnap.empty) {
-      return [];
+    if (tag) {
+      query = query.where("tags", "array-contains", tag);
     }
   
-    return interactionSnap.docs.map(doc => {
+    const interactionSnap = await query.get();
+
+    const filteredInteractions: any = interactionSnap.docs
+    .map(doc => {
       const data = doc.data();
       return {
-        date: data.date,
-        summary: data.summary,
-        scriptureFocus: data.scriptureFocus,
-        notes: data.notes,
-        tags: data.tags || []
+        ...data,
       };
-    });
-  }
-  
-  async saveUserStudy(userId: string, studyName: string, studyContent: UserStudy): Promise<void> {
-    const savedStudiesRef = faithfulDbConfig.collection("user_studies").doc(userId);
-  
-    await savedStudiesRef.collection(studyContent.studyId).add({
-      studyName: studyName,
-      createdDate: new Date().toISOString(),
-      studyContent: studyContent
+    })
+    .filter(item => {
+      return new Date(item.date) >= (fromDate ?? new Date("1900-01-01")) 
+          && new Date(item.date) <= (toDate ?? new Date())
+          && (tag ? item.tags && item.tags.includes(tag) : true);
     });
   
-    console.log("User study saved successfully:", studyName);
-    return;
+    if (!filteredInteractions) {
+      return [];
+    }
+
+    return filteredInteractions;
   }
+  
+  async saveUserStudy(
+    userId: string,
+    studyName: string,
+    studyContent: string,
+    lock: boolean
+  ): Promise<void> {
+    const userStudyRef = faithfulDbConfig
+      .collection("user_studies")
+      .doc(userId)
+      .collection("studies");
+  
+    const newStudy: UserStudy = {
+      studyId: uuidv4(),
+      studyName,
+      createdDate: new Date(),
+      studyContent,
+      lock
+    };
+  
+    await userStudyRef.doc(newStudy.studyId).set(newStudy);
+  
+    // Clean up logic: Keep only last 10 unlocked studies
+    const allStudiesSnap = await userStudyRef
+      .where("lock", "==", false)
+      .orderBy("createdDate", "desc")
+      .get();
+  
+    if (allStudiesSnap.size > 10) {
+      const toDelete = allStudiesSnap.docs.slice(10); // older than top 10
+      for (const doc of toDelete) {
+        await doc.ref.delete();
+      }
+    }
+  
+    console.log(`User study "${studyName}" saved (locked: ${lock})`);
+  }
+  
   
   private async fetchUserById(
     userId: string

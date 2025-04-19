@@ -243,7 +243,7 @@ export const aiRoleCheck = onRequest((req, resp) => {
         try {
           const userId = req.body.userId;
           const userInteraction = req.body.userInteraction;
-    
+
           await firestore.addUserInteraction(userId, userInteraction);
           res.status(200).send("User interaction added successfully");
         } catch (error) {
@@ -278,8 +278,9 @@ export const aiRoleCheck = onRequest((req, resp) => {
           const userId = req.body.userId;
           const studyName = req.body.studyName;
           const studyContent = req.body.studyContent;
+          const lockStudy = req.body.lockStudy || false;
     
-          await firestore.saveUserStudy(userId, studyName, studyContent);
+          await firestore.saveUserStudy(userId, studyName, studyContent, lockStudy);
           res.status(200).send("User study saved successfully");
         } catch (error) {
           console.error("Error saving user study:", error);
@@ -288,16 +289,3 @@ export const aiRoleCheck = onRequest((req, resp) => {
 
       });
 
-// export const appendUserInteraction = onRequest((req, resp) => {
-//     try {
-//         let incomingApiKey = req.body.apiKey;
-//         let incomingUserId = req.body.userId;
-//         let userData = req.body.userData;
-//         let userInteraction = req.body.userInteraction;
-
-//         if (incomingApiKey !== process.env['FAITHFUL_GUIDE_API_KEY']) {
-//             resp.status(401).send("Unauthorized");
-//             return;
-//         }
-//     }
-// }
