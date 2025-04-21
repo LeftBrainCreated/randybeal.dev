@@ -121,23 +121,31 @@ export const aiRoleCheck = onRequest((req, resp) => {
     //-------------------------------------------------------
 
     export const authGpt = onRequest((req: any, res: any) => {
-        const { secret, gptId, userId } = req.body;
-      
-        if (secret !== process.env.GPT_SECRET) {
-          return res.status(401).send("Unauthorized: Invalid GPT secret");
-        }
-      
-        const token = jwt.sign(
-          {
-            gptId,
-            userId,
-            scope: 'faithful-guide',
-          },
-          process.env.JWT_SECRET as string,
-          { expiresIn: '60m' }
-        );
-      
-        res.json({ token });
+      const authHeader = req.headers['authorization'];
+
+      if (!authHeader || !authHeader.startsWith('Basic ')) {
+        res.status(401).send('Unauthorized: Missing or invalid authorization header');
+        return;
+      }
+    
+      // Decode the base64-encoded string
+      const base64Credentials = authHeader.split(' ')[1];
+      const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
+    
+      // Expecting format: apikey:<secret>
+      const [username, providedSecret] = credentials.split(':');
+    
+      if (username !== 'apikey' || providedSecret !== process.env.GPT_SECRET) {
+        res.status(401).send('Unauthorized: Invalid API key');
+        return;
+      }
+    
+      const payload = { username: 'apikey' };
+      const token = jwt.sign(payload, process.env.JWT_SECRET as string, {
+        expiresIn: '1h',
+      });
+    
+      res.json({ token });
       });
 
       export const appendUserInteraction = onRequest(async (req: any, res: any) => {
