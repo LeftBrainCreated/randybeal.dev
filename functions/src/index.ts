@@ -4,14 +4,13 @@ import {onRequest} from "firebase-functions/v2/https";
 import  { gitHistContent } from './assets/git-hist.js';
 import { Resume } from './assets/resume.js';
 import jwt from 'jsonwebtoken';
-
-import { FirestoreService } from './app/services/firestore.service.js';
-
-// import { doc, updateDoc, arrayUnion, getFirestore } from "firebase/firestore";
-// import { initializeApp } from 'firebase/app';
-// import { getAuth } from 'firebase/auth';
-import cors from 'cors';
+import {v4 as uuidv4} from 'uuid';
 import { UserRef } from './app/interfaces/userRef.js';
+import { Firestore } from "@google-cloud/firestore";
+import { UserStudy } from './app/interfaces/userStudy.js';
+
+// import { FirestoreService } from './app/services/firestore.service.js';
+import cors from 'cors';
 
 
 dotenv.config();
@@ -30,7 +29,12 @@ const client = new OpenAI({
     apiKey: apiKey, 
   });
 
-const firestore = new FirestoreService();
+// const firestore = new FirestoreService();
+const faithfulDbConfig = new Firestore({
+  projectId: 'randybeal-dev',
+  keyFilename: 'secure/adminsdk.json',
+  databaseId: 'faithful-guide'
+})
 
 var messages = 
     {
@@ -121,32 +125,20 @@ export const aiRoleCheck = onRequest((req, resp) => {
     //-------------------------------------------------------
 
     export const authGpt = onRequest((req: any, res: any) => {
-      const authHeader = req.headers['authorization'];
-
-      if (!authHeader || !authHeader.startsWith('Basic ')) {
-        res.status(401).send('Unauthorized: Missing or invalid authorization header');
+      const apiKey = req.headers['x-api-key']; // <-- Get API key from custom header
+    
+      if (!apiKey || apiKey !== process.env.GPT_SECRET) {
+        res.status(401).send('Unauthorized: Missing or invalid API key');
         return;
       }
     
-      // Decode the base64-encoded string
-      const base64Credentials = authHeader.split(' ')[1];
-      const credentials = Buffer.from(base64Credentials, 'base64').toString('ascii');
-    
-      // Expecting format: apikey:<secret>
-      const [username, providedSecret] = credentials.split(':');
-    
-      if (username !== 'apikey' || providedSecret !== process.env.GPT_SECRET) {
-        res.status(401).send('Unauthorized: Invalid API key');
-        return;
-      }
-    
-      const payload = { username: 'apikey' };
+      const payload = { user: 'apikey' };
       const token = jwt.sign(payload, process.env.JWT_SECRET as string, {
         expiresIn: '1h',
       });
     
       res.json({ token });
-      });
+    });
 
       export const appendUserInteraction = onRequest(async (req: any, res: any) => {
         try {
@@ -168,7 +160,7 @@ export const aiRoleCheck = onRequest((req, resp) => {
         await authenticateToken(req, res);
 
         try {
-          res.send(await firestore.getUserObjectStructure());
+          res.send(getUserObjectStructure_bak);
         } catch (error) {
           console.error("Error fetching user object structure:", error);
           res.status(500).send("Error fetching user object structure");
@@ -181,7 +173,7 @@ export const aiRoleCheck = onRequest((req, resp) => {
         try {
           const userProfile: UserRef = req.body.userProfile;
     
-          const createdUserId = await firestore.createUser(userProfile);
+          const createdUserId = await createUser_bak(userProfile);
           res.status(200).json({ userId: createdUserId });
         }
         catch (error) {
@@ -197,7 +189,7 @@ export const aiRoleCheck = onRequest((req, resp) => {
           const userId = req.body.userId;
           const userProfile: Partial<UserRef> = req.body.userProfile;
     
-          await firestore.updateUser(userId, userProfile);
+          await updateUser_bak(userId, userProfile);
           res.status(200).send("User updated successfully");
         } catch (error) {
           console.error("Error updating user:", error);
@@ -231,7 +223,7 @@ export const aiRoleCheck = onRequest((req, resp) => {
 
         try {
           const userId = req.body.userId;
-          const user = await firestore.getUserById(userId);
+          const user = await getUserById_bak(userId);
     
           if (user) {
             res.status(200).json(user);
@@ -252,7 +244,7 @@ export const aiRoleCheck = onRequest((req, resp) => {
           const userId = req.body.userId;
           const userInteraction = req.body.userInteraction;
 
-          await firestore.addUserInteraction(userId, userInteraction);
+          await addUserInteraction_bak(userId, userInteraction);
           res.status(200).send("User interaction added successfully");
         } catch (error) {
           console.error("Error adding user interaction:", error);
@@ -266,7 +258,7 @@ export const aiRoleCheck = onRequest((req, resp) => {
         try {
           const userId = req.body.userId;
           const searchTag = req.body.searchTag || null;
-          const interactions = await firestore.getUserInteractions(userId, req.body.fromDate || null, req.body.toDate || null, searchTag);
+          const interactions = await getUserInteractions_bak(userId, req.body.fromDate || null, req.body.toDate || null, searchTag);
     
           if (interactions) {
             res.status(200).json(interactions);
@@ -288,7 +280,7 @@ export const aiRoleCheck = onRequest((req, resp) => {
           const studyContent = req.body.studyContent;
           const lockStudy = req.body.lockStudy || false;
     
-          await firestore.saveUserStudy(userId, studyName, studyContent, lockStudy);
+          await saveUserStudy_bak(userId, studyName, studyContent, lockStudy);
           res.status(200).send("User study saved successfully");
         } catch (error) {
           console.error("Error saving user study:", error);
@@ -304,7 +296,7 @@ export const aiRoleCheck = onRequest((req, resp) => {
         try {
           const { userId, studyId, lock } = req.body;
       
-          await firestore.lockUserStudy(userId, studyId, lock);
+          await lockUserStudy_bak(userId, studyId, lock);
           res.status(200).send(`Study ${lock ? 'locked' : 'unlocked'} successfully`);
         } catch (error) {
           console.error("Error locking user study:", error);
@@ -317,7 +309,7 @@ export const aiRoleCheck = onRequest((req, resp) => {
       
         try {
           const userId = req.body.userId;
-          const studies = await firestore.getUserStudies(userId);
+          const studies = await getUserStudies_bak(userId);
       
           if (!studies.length) {
             res.status(404).send("No studies found");
@@ -330,4 +322,264 @@ export const aiRoleCheck = onRequest((req, resp) => {
         }
       });
       
+
+      const getUserObjectStructure_bak = {
+      "userId": "string uuid",  
+      "userCreatedDate": "ISODate",
+      "profile": {
+        "personal_details": {
+          "preferredName": "string",
+          "age": "number",
+          "occupation": "string"
+        },
+        "immediate_contacts": [
+          {
+            "name": "string",
+            "relationship": "string (e.g. spouse, friend, coworker)",
+            "frequency": "string (e.g. daily, weekly, monthly)", 
+          }
+        ],
+        "spiritual_background": {
+          "faith_maturity": "string (e.g., new believer, mature believer)",
+          "bible_knowledge": "string (e.g., beginner, intermediate, advanced)",
+          "church_involvement": "string (e.g., active member, occasional attendee)",
+          "preferred_study_style": "string (e.g., group study, solo study)",
+        },
+        "goals_and_concerns": {
+          "short_term_goals": ["string"],
+          "long_term_goals": ["string"],
+          "immediate_worries": ["string"],
+          "long_term_worries": ["string"]
+        },
+        "study_preferences": {
+          "session_length": "string (default 15 minutes)",
+          "preferred_time": "string (e.g., morning, afternoon, evening)",
+          "frequency": "string (default daily)",
+        }
+      },
+      "interaction_log": [
+        {
+          "date": "ISODate",
+          "summary": "string",
+          "scripture_focus": ["string"], 
+          "notes": "string" 
+        }
+      ],
+  }
+
+  const createUser_bak: any = async (userProfile: any): Promise<string> => {
+    // const userDocRef = faithfulDbConfig.collection("users").doc();
+    let userId = uuidv4();
+    let userCreatedDate = new Date().toISOString();
+
+    await faithfulDbConfig.collection("users").doc(userId).set({
+      userId: userId,
+      userCreatedDate: userCreatedDate,
+      ...userProfile,
+      interactionLog: []
+    }, { merge: true });
+
+    console.log("User created/updated successfully:", userProfile.id);
+    console.log("User data:", userProfile);
+
+    return userId
+  }
+
+  const updateUser_bak: any = async (
+    userId: string,
+    userProfile: Partial<UserRef>
+  ): Promise<string> => {
+    const userSnap = await faithfulDbConfig.collection("users").doc(userId).get();
+  
+    if (!userSnap.exists) {
+      throw new Error("User not found");
+    }
+  
+    // Grab the DocumentReference
+    const docRef = userSnap.ref;
+  
+    await docRef.set(
+      { profile: userProfile.profile },
+      { merge: true }
+    );
+
+    return "done";
+  }
+  
+
+  const getUserById_bak: any = async (userId: string): Promise<any> => {
+    let user = await fetchUserById(userId);
+    return user;
+  }
+
+  const addUserInteraction_bak: any = async (
+    userId: string,
+    interaction: {
+      date: Date;
+      summary: string;
+      scriptureFocus: string[];
+      notes: string;
+      tags?: string[];
+    }
+  ): Promise<void> => {
+    const userRef = faithfulDbConfig.collection("users").doc(userId);
+    const userSnap = await userRef.get();
+  
+    if (!userSnap.exists) {
+      throw new Error(`User ${userId} not found`);
+    }
+  
+    const interactionsRef = userRef.collection("interactions");
+    const interactionsSnap = await interactionsRef
+      .orderBy("date", "asc")
+      .get();
+  
+    let interactionDocRef;
+  
+    // max 30
+    if (interactionsSnap.size >= 30) {
+      const oldestDoc = interactionsSnap.docs[0];
+      interactionDocRef = interactionsRef.doc(oldestDoc.id);
+      console.log(`Overwriting oldest interaction: ${oldestDoc.id}`);
+    } else {
+      const interactionId = uuidv4();
+      interactionDocRef = interactionsRef.doc(interactionId);
+      console.log(`Creating new interaction: ${interactionId}`);
+    }
+  
+    await interactionDocRef.set({
+      ...interaction,
+      tags: interaction.tags || [],
+    });
+  }
+  
+
+  const getUserInteractions_bak: any = async (
+    userId: string,
+    fromDate?: Date,
+    toDate?: Date,
+    tag?: string
+  ): Promise<any[]> => {
+    const userRef = faithfulDbConfig.collection("users").doc(userId);
+    const userSnap = await userRef.get();
+  
+    if (!userSnap.exists) {
+      throw new Error(`User ${userId} not found`);
+    }
+  
+    let query = userRef
+      .collection("interactions")
+      .orderBy("date", "desc")
+      ;
+  
+    if (tag) {
+      query = query.where("tags", "array-contains", tag);
+    }
+  
+    const interactionSnap = await query.get();
+
+    const filteredInteractions: any = interactionSnap.docs
+    .map(doc => {
+      const data = doc.data();
+      return {
+        ...data,
+      };
+    })
+    .filter(item => {
+      return new Date(item.date) >= (fromDate ?? new Date("1900-01-01")) 
+          && new Date(item.date) <= (toDate ?? new Date())
+          && (tag ? item.tags && item.tags.includes(tag) : true);
+    });
+  
+    if (!filteredInteractions) {
+      return [];
+    }
+
+    return filteredInteractions;
+  }
+  
+  const saveUserStudy_bak: any = async (
+    userId: string,
+    studyName: string,
+    studyContent: string,
+    lock: boolean
+  ): Promise<void> => {
+    const userStudyRef = faithfulDbConfig
+      .collection("user_studies")
+      .doc(userId)
+      .collection("studies");
+  
+    const newStudy: UserStudy = {
+      studyId: uuidv4(),
+      studyName,
+      createdDate: new Date(),
+      studyContent,
+      lock
+    };
+  
+    await userStudyRef.doc(newStudy.studyId).set(newStudy);
+  
+    // Clean up logic: Keep only last 10 unlocked studies
+    const allStudiesSnap = await userStudyRef
+      .where("lock", "==", false)
+      .orderBy("createdDate", "desc")
+      .get();
+  
+    if (allStudiesSnap.size > 10) {
+      const toDelete = allStudiesSnap.docs.slice(10); // older than top 10
+      for (const doc of toDelete) {
+        await doc.ref.delete();
+      }
+    }
+  
+    console.log(`User study "${studyName}" saved (locked: ${lock})`);
+  }
+  
+
+  const lockUserStudy_bak: any = async (userId: string, studyId: string, lock: boolean): Promise<void> => {
+    const studyRef = faithfulDbConfig
+      .collection("user_studies")
+      .doc(userId)
+      .collection("studies")
+      .doc(studyId);
+  
+    const studySnap = await studyRef.get();
+    if (!studySnap.exists) {
+      throw new Error("Study not found");
+    }
+  
+    await studyRef.update({ lock });
+  }
+  
+
+  const getUserStudies_bak: any = async (userId: string): Promise<UserStudy[]> => {
+    const studiesRef = faithfulDbConfig
+      .collection("user_studies")
+      .doc(userId)
+      .collection("studies")
+      .orderBy("createdDate", "desc");
+  
+    const snapshot = await studiesRef.get();
+  
+    return snapshot.docs.map(doc => doc.data() as UserStudy);
+  }
+  
+  
+  //------------------------------------------------------------------------------------
+  // Private methods
+  //------------------------------------------------------------------------------------
+  const fetchUserById: any = async (
+    userId: string
+  ): Promise<UserRef | undefined> => {
+    const qSnap = await faithfulDbConfig
+      .collection("users")
+      .where("userId", "==", userId)
+      .limit(1)
+      .get();
+  
+    if (qSnap.empty) return undefined;
+  
+    // Pull out only the data
+    return qSnap.docs[0].data() as UserRef;
+  }
 
