@@ -1,0 +1,387 @@
+openapi: 3.1.0
+info:
+  title: Application Authentication
+  description: Faithful Guide GPT Action API
+  version: v1.0.0
+
+servers:
+- url: https://us-central1-randybeal-dev.cloudfunctions.net
+
+security:
+  - ApiKeyAuth: []
+
+paths:
+  /authGpt:
+    post:
+      x-openai-isConsequential: false
+      description: Get Authentication Token For Faithful Guide APIs
+      operationId: GenerateToken
+      parameters: []
+      deprecated: false
+      responses:
+        '200':
+          description: Authentication successful, JWT returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: JWT token for authenticated requests
+        '401':
+          description: Unauthorized - Missing or invalid credentials
+
+  /createUser:
+    post:
+      x-openai-isConsequential: false
+      description: Function to add new user to database for reference and context.
+      operationId: Create_User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  description: Object reference of interaction with user for historical context
+                  schema:
+                    $ref: '#/components/schemas/CreateUserRefObject'
+                    deprecated: false
+                token:
+                  type: string
+                  description: Token provided from authGpt function
+      responses:
+        '200':
+          description: Successful Request Message
+
+  /getUserById:
+    post:
+      x-openai-isConsequential: false
+      description: Main function to retrieve user data per the given ID.
+      operationId: Get_User_By_ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                  description: The user's unique identifier
+                token:
+                  type: string
+                  description: Token provided from authGpt function
+      responses:
+        '200':
+          description: Successful Request Message
+
+  /updateUser:
+    post:
+      x-openai-isConsequential: false
+      description: Function to update or modify user data
+      operationId: Update_User
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: Token provided from authGpt function
+                userProfile:
+                  type: object
+                  description: Partial UserRef object for updating db record
+      responses:
+        '200':
+          description: Update Successful
+
+  /getUserInteractions:
+    post:
+      x-openai-isConsequential: false
+      description: Function to retrieve historical context about discussions with user.
+      operationId: Get_User_Interactions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                  description: The user's unique identifier
+                token:
+                  type: string
+                  description: Token provided from authGpt function
+                searchTag:
+                  type: string
+                  description: Optional filter for looking for specific context.
+      responses:
+        '200':
+          description: Successful Request Message
+
+  /addUserInteraction:
+    post:
+      x-openai-isConsequential: false
+      description: Function to add context for later retrieval.
+      operationId: Add_User_Interaction
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: Token provided from authGpt function
+                userId:
+                  type: string
+                  description: The user's unique identifier
+                userInteraction:
+                  type: object
+                  description: Object reference of interaction with user for historical context
+                  schema:
+                    $ref: '#/components/schemas/UserInteraction'
+                    deprecated: false
+      responses:
+        '200':
+          description: Update Successful
+
+  /saveUserStudy:
+    post:
+      x-openai-isConsequential: false
+      description: Function to store current/recent studies for later reference
+      operationId: Save_User_Study
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: Token provided from authGpt function
+                userId:
+                  type: string
+                  description: UserID from application memory to identify current user of application
+                studyName:
+                  type: string
+                  description: Title/Name of current study.
+                studyContent:
+                  type: string
+                  description: Markdown formatted exact study as provided to user
+                lockStudy:
+                  type: boolean
+                  description: Optional flag to determine if study should be kept from auto-delete. Default False.
+      responses:
+        '200':
+          description: Update Successful
+
+  /getUserStudies:
+    post:
+      x-openai-isConsequential: false
+      description: API Call to retrieve past studies created for user by ID.
+      operationId: Get_User_Studies
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                  description: The user's unique identifier
+                token:
+                  type: string
+                  description: Token provided from authGpt function
+      responses:
+        '200':
+          description: Successful response with user studies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    studyId:
+                      type: string
+                      format: uuid
+                      description: Unique identifier for study result
+                    studyName:
+                      type: string
+                      description: Summary Name or Title of study.
+                    createdDate:
+                      type: string
+                      format: date-time
+                      description: Date/Time study was created.
+                    studyContent:
+                      type: string
+                      description: Exact output of study from db.
+                    lock:
+                      type: boolean
+                      description: Flag to determine if study should be deleted at
+                        clean-up.
+        '401':
+          description: Unauthorized - Invalid or missing bearer token
+
+  /lockUserStudy:
+    post:
+      x-openai-isConsequential: false
+      description: API Call to flag or unflag a study as locked so it will not be deleted.
+      operationId: Lock_User_Study
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                userId:
+                  type: string
+                  description: The user's unique identifier
+                studyId:
+                  type: string
+                  description: The unique identifier identifying the study
+                lock:
+                  type: boolean
+                  description: Study locked flag
+                token:
+                  type: string
+                  description: Token provided from authGpt function
+      responses:
+        '200':
+          description: Successful Request Message
+
+
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+  schemas:
+    UserInteraction:
+      name: userInteraction
+      in: query
+      schema:
+        type: object
+        properties:
+          date:
+            type: date-time
+            description: DateTime of interaction
+          summary:
+            type: string
+            description: GPT Defined Summary of interaction.
+          scriptureFocus:
+            type: array
+            items:
+              type: string
+            description: String Array of scripture relevant to discussion
+          notes:
+            type: string
+            description: Additional notes or context about interaction, defined by GPT.
+          tags:
+            type: array
+            items:
+              type: string
+            description: String array of tags for filter retrieval.
+
+    CreateUserRefObject:
+      name: user
+      in: query
+      schema:
+        type: object
+        properties:
+          userProfile:
+            type: object
+            description: New userRef object without ID
+            properties:
+              profile:
+                type: object
+                properties:
+                  personal_details:
+                    type: object
+                    description: Personal Information about the user
+                    properties:
+                      preferredName:
+                        type: string
+                      age:
+                        type: number
+                      occupation:
+                        type: string
+                  immediate_contacts:
+                    type: array
+                    items:
+                      type: object
+                      description: The people who have the strongest impact
+                        on the user.
+                      properties:
+                        name:
+                          type: string
+                        relationship:
+                          type: string
+                          description: e.g. spouse friend coworker
+                        frequency:
+                          type: string
+                          description: e.g. daily weekly monthly
+                  spiritual_background:
+                    type: object
+                    description: Current state of the user's faith and study
+                    properties:
+                      faith_maturity:
+                        type: string
+                      bible_knowledge:
+                        type: string
+                      church_involvement:
+                        type: string
+                      preferred_study_style:
+                        type: string
+                  goals_and_concerns:
+                    type: object
+                    description: Concerns immediatate to the user
+                    properties:
+                      short_term_goals:
+                        type: array
+                        items:
+                          type: string
+                      long_term_goals:
+                        type: array
+                        items:
+                          type: string
+                      immediate_worries:
+                        type: array
+                        items:
+                          type: string
+                      long_term_worries:
+                        type: array
+                        items:
+                          type: string
+                  study_preferences:
+                    type: object
+                    properties:
+                      session_length:
+                        type: string
+                        default: 15 minutes
+                      preferred_time:
+                        type: string
+                        default: 15 minutes
+                        description: e.g. morning afternoon evening
+                      frequency:
+                        type: string
+                        default: daily

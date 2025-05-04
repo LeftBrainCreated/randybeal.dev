@@ -48,3 +48,4 @@ functions/firebase-debug.log
 pnpm-lock.yaml
 .vs/*
 functions/secure
+functions/src/api-client/

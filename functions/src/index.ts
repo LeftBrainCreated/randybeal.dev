@@ -9,6 +9,8 @@ import { UserRef } from './app/interfaces/userRef.js';
 import { Firestore } from "@google-cloud/firestore";
 import { UserStudy } from './app/interfaces/userStudy.js';
 
+import { faithfulGuideTools } from './tools.js';
+
 // import { FirestoreService } from './app/services/firestore.service.js';
 import cors from 'cors';
 
@@ -28,6 +30,14 @@ const client = new OpenAI({
     project: 'proj_MX5Levq8xV2KwnFIrI33OvrU',
     apiKey: apiKey, 
   });
+
+  const failthfulGuideClient = new OpenAI({
+    organization: 'org-1dyYGmSIg0Nv390v9hIqIOgd',
+    project: 'proj_WhMLRuB95inkkOJqKt2Pohzc',
+    apiKey: apiKey, 
+  });
+
+
 
 // const firestore = new FirestoreService();
 const faithfulDbConfig = new Firestore({
@@ -100,32 +110,95 @@ export const aiRoleCheck = onRequest((req, resp) => {
     //-------------------------------------------------------
 
     const authenticateToken = (req: any, res: any): Promise<void> => {
-        return new Promise((resolve, reject) => {
-          const authHeader = req.headers['authorization'];
-          const token = authHeader && authHeader.split(' ')[1];
-          if (!token) {
-            res.status(401).send('Unauthorized: No token provided');
+      return new Promise((resolve, reject) => {
+        // Check token in common locations: header, query, body
+        let token = null;
+    
+        // 1. Try Authorization header
+        const authHeader = req.headers['authorization'];
+        if (authHeader && authHeader.startsWith('Bearer ')) {
+          token = authHeader.split(' ')[1];
+        }
+    
+        // 2. Fallback to token in query params
+        if (!token && req.query?.token) {
+          token = req.query.token;
+        }
+    
+        // 3. Fallback to token in body
+        if (!token && req.body?.token) {
+          token = req.body.token;
+        }
+    
+        if (!token) {
+          res.status(401).send('Unauthorized: No token provided');
+          return reject();
+        }
+    
+        jwt.verify(token, process.env.JWT_SECRET as string, (err: any, payload: any) => {
+          if (err) {
+            res.status(403).send('Forbidden: Invalid token');
             return reject();
           }
-      
-          jwt.verify(token, process.env.JWT_SECRET as string, (err: any, payload: any) => {
-            if (err) {
-              res.status(403).send('Forbidden: Invalid token');
-              return reject();
-            }
-      
-            (req as any).gptContext = payload;
-            resolve();
-          });
+    
+          (req as any).gptContext = payload;
+          resolve();
         });
-      };
-      
-
+      });
+    };
+    
     // Public Endpoints
     //-------------------------------------------------------
 
+    export const faithfulGuide = onRequest((req: any, res: any) => {
+      corsHandler(req, res, async () => {
+        try {
+          res.set('Access-Control-Allow-Origin', origin);
+          res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization, x-api-key');
+          res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    
+          if (req.method === 'OPTIONS') {
+            res.status(204).send('No Content');
+            return;
+          }
+    
+          const prompt = req.body.prompt;
+          console.log("Prompt: " + prompt);
+    
+          const completion = await failthfulGuideClient.chat.completions.create({
+            model: "gpt-4o",
+            stream: true,
+            messages: [
+              {
+                "role": "system",
+                "content": messages.content
+              },
+              {
+                "role": "user",
+                "content": prompt
+              },
+            ],
+            tools: faithfulGuideTools,
+            temperature: 1,
+              max_tokens: 256,
+            top_p: 1,
+            frequency_penalty: 0,
+            presence_penalty: 0,
+          });
+    
+          res.send({
+            "status": "success",
+            "data": completion.choices[0].message
+          });
+        } catch (ex: any) {
+          console.error("Error in faithfulGuide function:", ex);
+          res.status(500).send(ex.message || 'Internal Server Error');
+        }
+      })
+    });
+
     export const authGpt = onRequest((req: any, res: any) => {
-      const apiKey = req.headers['x-api-key']; // <-- Get API key from custom header
+      const apiKey = req.headers['x-api-key']; 
     
       if (!apiKey || apiKey !== process.env.GPT_SECRET) {
         res.status(401).send('Unauthorized: Missing or invalid API key');
@@ -139,22 +212,6 @@ export const aiRoleCheck = onRequest((req, resp) => {
     
       res.json({ token });
     });
-
-      export const appendUserInteraction = onRequest(async (req: any, res: any) => {
-        try {
-          await authenticateToken(req, res);
-      
-          const { gptId, userId } = (req as any).gptContext;
-      
-          console.log(`Interaction from GPT: ${gptId} for user: ${userId}`);
-      
-          // Save to DB here if needed
-          res.status(200).json({ message: "Interaction logged" });
-      
-        } catch {
-          // Already handled inside authenticateToken
-        }
-      });
 
       export const getUserObjectStructure = onRequest(async (req: any, res: any) => {
         await authenticateToken(req, res);
@@ -197,26 +254,6 @@ export const aiRoleCheck = onRequest((req, resp) => {
         }
       });
 
-    //   export const getUser = onRequest(async (req: any, res: any) => {
-    //     try {
-    //         await authenticateToken(req, res);
-    //         const { userId } = (req as any).userId;
-
-    //         return firestore.getUserById(userId).then((user: any) => {
-    //             if (user) {
-    //                 res.status(200).json(user);
-    //             } else {
-    //                 res.status(404).send("User not found");
-    //             }
-    //         });
-    //     }
-    //     catch {
-    //         res.status(500).send("Error creating user");
-    //         return;
-    //     }
-    // });
-
-
 
       export const getUserById = onRequest(async (req: any, res: any) => {
         await authenticateToken(req, res);  
@@ -241,9 +278,19 @@ export const aiRoleCheck = onRequest((req, resp) => {
         await authenticateToken(req, res);
 
         try {
-          const userId = req.body.userId;
-          const userInteraction = req.body.userInteraction;
-
+          const userId = req.body.userId || req.query.userId;
+          const userInteraction = req.body.userInteraction || {
+            date: req.body.date,
+            summary: req.body.summary,
+            scriptureFocus: req.body.scriptureFocus,
+            notes: req.body.notes,
+            tags: req.body.tags || [],
+          };
+      
+          if (!userId || !userInteraction || !userInteraction.date) {
+            throw new Error("Missing required fields: userId or userInteraction");
+          }
+          
           await addUserInteraction_bak(userId, userInteraction);
           res.status(200).send("User interaction added successfully");
         } catch (error) {
